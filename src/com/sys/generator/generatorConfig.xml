@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<classPathEntry
+		location="E:\workspace\Bootstrap2SSM\WebContent\WEB-INF\lib\ojdbc6.jar" />
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<!-- 这里引入扩展分页插件 -->
+		<plugin type="com.sys.generator.plugin.OraclePaginationPlugin" />
+		<!-- 综合查询查询 -->
+		<plugin type="com.sys.generator.plugin.IntegratedQueryPlugin" />
+		<commentGenerator>
+			<property name="suppressDate" value="true" />
+			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
+			connectionURL="jdbc:oracle:thin:@localhost:1521/ORCL" userId="BOOTSTRAP2SSM"
+			password="BOOTSTRAP2SSM" />
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.sys.model" targetProject="src" />
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.sys.sqlmap" targetProject="src" />
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="com.sys.client" targetProject="src" type="XMLMAPPER" />
+		<table tableName="SYS_USERS" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_ROLES" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_FUNCTIONS" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_ORGAN" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_USER_ROLE" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_ROLE_FUNCTION" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_DICTIONARIES" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_DICTIONARIES_ITEM" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_ATTACHMENT" schema="BOOTSTRAP2SSM"></table>
+	</context>
+</generatorConfiguration>

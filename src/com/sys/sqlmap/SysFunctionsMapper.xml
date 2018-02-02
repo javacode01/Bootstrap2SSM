@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sys.client.SysFunctionsMapper">
+  <resultMap id="BaseResultMap" type="com.sys.model.SysFunctions">
+    <id column="FUNCTION_ID" jdbcType="VARCHAR" property="functionId" />
+    <result column="FUNCTION_NAME" jdbcType="VARCHAR" property="functionName" />
+    <result column="FUNCTION_ICON" jdbcType="VARCHAR" property="functionIcon" />
+    <result column="FUNCTION_LEVEL" jdbcType="CHAR" property="functionLevel" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="FUNCTION_CODE" jdbcType="VARCHAR" property="functionCode" />
+    <result column="FUNCTION_URL" jdbcType="VARCHAR" property="functionUrl" />
+    <result column="FUNCTION_TYPE" jdbcType="CHAR" property="functionType" />
+    <result column="SEQ" jdbcType="DECIMAL" property="seq" />
+    <result column="DEFAULT_ACTION" jdbcType="CHAR" property="defaultAction" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="UPDATER" jdbcType="VARCHAR" property="updater" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, 
+    FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, 
+    UPDATER
+  </sql>
+  <select id="selectByExample" parameterType="com.sys.model.SysFunctionsExample" resultMap="BaseResultMap">
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sys.model.SysFunctionsExample">
+    delete from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sys.model.SysFunctions">
+    insert into BOOTSTRAP2SSM.SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, 
+      FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, 
+      FUNCTION_URL, FUNCTION_TYPE, SEQ, 
+      DEFAULT_ACTION, CREATE_TIME, CREATER, 
+      UPDATE_TIME, UPDATER)
+    values (#{functionId,jdbcType=VARCHAR}, #{functionName,jdbcType=VARCHAR}, #{functionIcon,jdbcType=VARCHAR}, 
+      #{functionLevel,jdbcType=CHAR}, #{parentCode,jdbcType=VARCHAR}, #{functionCode,jdbcType=VARCHAR}, 
+      #{functionUrl,jdbcType=VARCHAR}, #{functionType,jdbcType=CHAR}, #{seq,jdbcType=DECIMAL}, 
+      #{defaultAction,jdbcType=CHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.sys.model.SysFunctions">
+    insert into BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="functionId != null">
+        FUNCTION_ID,
+      </if>
+      <if test="functionName != null">
+        FUNCTION_NAME,
+      </if>
+      <if test="functionIcon != null">
+        FUNCTION_ICON,
+      </if>
+      <if test="functionLevel != null">
+        FUNCTION_LEVEL,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="functionCode != null">
+        FUNCTION_CODE,
+      </if>
+      <if test="functionUrl != null">
+        FUNCTION_URL,
+      </if>
+      <if test="functionType != null">
+        FUNCTION_TYPE,
+      </if>
+      <if test="seq != null">
+        SEQ,
+      </if>
+      <if test="defaultAction != null">
+        DEFAULT_ACTION,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+      <if test="updater != null">
+        UPDATER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="functionId != null">
+        #{functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="functionName != null">
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionIcon != null">
+        #{functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="functionLevel != null">
+        #{functionLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionCode != null">
+        #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUrl != null">
+        #{functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null">
+        #{functionType,jdbcType=CHAR},
+      </if>
+      <if test="seq != null">
+        #{seq,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultAction != null">
+        #{defaultAction,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        #{updater,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sys.model.SysFunctionsExample" resultType="java.lang.Integer">
+    select count(*) from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <set>
+      <if test="record.functionId != null">
+        FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionName != null">
+        FUNCTION_NAME = #{record.functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionIcon != null">
+        FUNCTION_ICON = #{record.functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionLevel != null">
+        FUNCTION_LEVEL = #{record.functionLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.parentCode != null">
+        PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionCode != null">
+        FUNCTION_CODE = #{record.functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionUrl != null">
+        FUNCTION_URL = #{record.functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionType != null">
+        FUNCTION_TYPE = #{record.functionType,jdbcType=CHAR},
+      </if>
+      <if test="record.seq != null">
+        SEQ = #{record.seq,jdbcType=DECIMAL},
+      </if>
+      <if test="record.defaultAction != null">
+        DEFAULT_ACTION = #{record.defaultAction,jdbcType=CHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.creater != null">
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updater != null">
+        UPDATER = #{record.updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    set FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
+      FUNCTION_NAME = #{record.functionName,jdbcType=VARCHAR},
+      FUNCTION_ICON = #{record.functionIcon,jdbcType=VARCHAR},
+      FUNCTION_LEVEL = #{record.functionLevel,jdbcType=CHAR},
+      PARENT_CODE = #{record.parentCode,jdbcType=VARCHAR},
+      FUNCTION_CODE = #{record.functionCode,jdbcType=VARCHAR},
+      FUNCTION_URL = #{record.functionUrl,jdbcType=VARCHAR},
+      FUNCTION_TYPE = #{record.functionType,jdbcType=CHAR},
+      SEQ = #{record.seq,jdbcType=DECIMAL},
+      DEFAULT_ACTION = #{record.defaultAction,jdbcType=CHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      UPDATER = #{record.updater,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysFunctions">
+    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    <set>
+      <if test="functionName != null">
+        FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionIcon != null">
+        FUNCTION_ICON = #{functionIcon,jdbcType=VARCHAR},
+      </if>
+      <if test="functionLevel != null">
+        FUNCTION_LEVEL = #{functionLevel,jdbcType=CHAR},
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionCode != null">
+        FUNCTION_CODE = #{functionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUrl != null">
+        FUNCTION_URL = #{functionUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="functionType != null">
+        FUNCTION_TYPE = #{functionType,jdbcType=CHAR},
+      </if>
+      <if test="seq != null">
+        SEQ = #{seq,jdbcType=DECIMAL},
+      </if>
+      <if test="defaultAction != null">
+        DEFAULT_ACTION = #{defaultAction,jdbcType=CHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updater != null">
+        UPDATER = #{updater,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sys.model.SysFunctions">
+    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    set FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
+      FUNCTION_ICON = #{functionIcon,jdbcType=VARCHAR},
+      FUNCTION_LEVEL = #{functionLevel,jdbcType=CHAR},
+      PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      FUNCTION_CODE = #{functionCode,jdbcType=VARCHAR},
+      FUNCTION_URL = #{functionUrl,jdbcType=VARCHAR},
+      FUNCTION_TYPE = #{functionType,jdbcType=CHAR},
+      SEQ = #{seq,jdbcType=DECIMAL},
+      DEFAULT_ACTION = #{defaultAction,jdbcType=CHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      UPDATER = #{updater,jdbcType=VARCHAR}
+    where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix">
+    <if test="page != null">
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix">
+    <if test="page != null">
+      <![CDATA[ ) row_   where rownum <= #{page.end} ) where rownum_ > #{page.begin} ]]>
+    </if>
+  </sql>
+  <select id="getFunctionsByUserCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	SELECT DISTINCT
+	  	F.FUNCTION_ID, F.FUNCTION_NAME, F.FUNCTION_ICON, F.FUNCTION_LEVEL, F.PARENT_CODE, F.FUNCTION_CODE, 
+	    F.FUNCTION_URL, F.FUNCTION_TYPE, F.SEQ, F.DEFAULT_ACTION, F.CREATE_TIME, F.CREATER, F.UPDATE_TIME, F.UPDATER
+     FROM SYS_USERS U,SYS_USER_ROLE UR,SYS_ROLES R,SYS_ROLE_FUNCTION RF,SYS_FUNCTIONS F
+		WHERE U.USER_CODE = UR.USER_CODE AND UR.ROLE_CODE = R.ROLE_CODE AND R.ROLE_CODE = RF.ROLE_CODE AND RF.FUNCTION_CODE = F.FUNCTION_CODE
+		AND F.FUNCTION_LEVEL = '3' AND U.USER_CODE = #{userCode,jdbcType=VARCHAR} ORDER BY F.FUNCTION_CODE ASC
+  </select>
+</mapper>

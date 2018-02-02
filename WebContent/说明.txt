@@ -1,0 +1,15 @@
+系统说明
+目的：
+构建一个基于Bootstrap、SpringMVC、Spring、Mybatis的基础后台管理系统。
+实现功能：
+1、实现基本的RBAC管理功能（使用spring security）
+2、实现定时任务管理（quartz）
+3、实现自动生成基础代码功能
+搭建步骤：
+1、WebAppInitializer.java:配置初始化Spring的类
+2、RootConfig.java:配置由ContextLoaderListener创建的Spring应用上下文，用来加载应用中的驱动应用后端的中间层和数据层组件。
+3、WebConfig.java:配置由DispatcherServlet创建的应用上下问，用来加载包含Web组件的bean，如控制器、视图解析器以及处理器映射。
+4、MybatisConfig.java:配置Mybatis
+5、SpringSecurityConfig.java:配置Spring Security
+补充：
+mybatis jar包地址：https://github.com/mybatis/mybatis-3/releases
