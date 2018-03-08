@@ -3,6 +3,8 @@ package com.sys.utils.cache;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sys.client.SysFunctionsMapper;
 import com.sys.model.SysFunctions;
@@ -17,62 +19,63 @@ import com.sys.utils.SysConstant;
  * @date 2017-11-22 下午3:38:41 
  *
  */
-public class FunctionsCache {
+public class FunctionsCache implements InitializingBean{
 	
 	private static final Logger logger = Logger.getLogger(FunctionsCache.class);
-	//模块
-	private static List<SysFunctions> moduleList;
-	//功能
-	private static List<SysFunctions> functionList;
-	//操作
-	private static List<SysFunctions> handleList;
 	
-	static{
-		try{
-			System.out.println("功能加载开始==================================");
-			logger.info("功能加载开始==================================");
-			SysFunctionsMapper functionMapper = BspUtils.getBean(SysFunctionsMapper.class);
-			SysFunctionsExample example1 = new SysFunctionsExample();
-			example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
-			example1.setOrderByClause("seq asc,function_code asc");
-			setModuleList(functionMapper.selectByExample(example1));
-			SysFunctionsExample example2 = new SysFunctionsExample();
-			example2.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION);
-			example2.setOrderByClause("seq asc,function_code asc");
-			setFunctionList(functionMapper.selectByExample(example2));
-			SysFunctionsExample example3 = new SysFunctionsExample();
-			example3.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_HANDLE);
-			example3.setOrderByClause("seq asc,function_code asc");
-			setHandleList(functionMapper.selectByExample(example3));
-			logger.info("功能加载完成==================================");
-			System.out.println("功能加载完成==================================");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-
-	public static List<SysFunctions> getModuleList() {
+	@Autowired
+	private SysFunctionsMapper sysFunctionsMapper;
+	
+	//模块
+	private List<SysFunctions> moduleList;
+	//功能
+	private List<SysFunctions> functionList;
+	//操作
+	private List<SysFunctions> handleList;
+	
+	public List<SysFunctions> getModuleList() {
 		return moduleList;
 	}
 
-	public static void setModuleList(List<SysFunctions> moduleList) {
-		FunctionsCache.moduleList = moduleList;
+	public void setModuleList(List<SysFunctions> moduleList1) {
+		moduleList = moduleList1;
 	}
 
-	public static List<SysFunctions> getFunctionList() {
+	public List<SysFunctions> getFunctionList() {
 		return functionList;
 	}
 
-	public static void setFunctionList(List<SysFunctions> functionList) {
-		FunctionsCache.functionList = functionList;
+	public void setFunctionList(List<SysFunctions> functionList1) {
+		functionList = functionList1;
 	}
 
-	public static List<SysFunctions> getHandleList() {
+	public List<SysFunctions> getHandleList() {
 		return handleList;
 	}
 
-	public static void setHandleList(List<SysFunctions> handleList) {
-		FunctionsCache.handleList = handleList;
+	public void setHandleList(List<SysFunctions> handleList1) {
+		handleList = handleList1;
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("功能加载开始==================================");
+		logger.info("功能加载开始==================================");
+		SysFunctionsExample example1 = new SysFunctionsExample();
+		example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
+		example1.setOrderByClause("seq asc,function_code asc");
+		setModuleList(sysFunctionsMapper.selectByExample(example1));
+		SysFunctionsExample example2 = new SysFunctionsExample();
+		example2.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION);
+		example2.setOrderByClause("seq asc,function_code asc");
+		setFunctionList(sysFunctionsMapper.selectByExample(example2));
+		SysFunctionsExample example3 = new SysFunctionsExample();
+		example3.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_HANDLE);
+		example3.setOrderByClause("seq asc,function_code asc");
+		setHandleList(sysFunctionsMapper.selectByExample(example3));
+		logger.info("功能加载完成==================================");
+		System.out.println("功能加载完成==================================");
 	}
 	
 	

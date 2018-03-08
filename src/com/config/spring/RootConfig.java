@@ -1,10 +1,13 @@
 package com.config.spring;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 import com.sys.service.SysServiceConfig;
+import com.sys.utils.cache.DictionariesCache;
+import com.sys.utils.cache.FunctionsCache;
 
 /**
  * @ClassName: RootConfig 
@@ -17,5 +20,20 @@ import com.sys.service.SysServiceConfig;
 @ComponentScan(basePackageClasses={SysServiceConfig.class})
 @Import({MybatisConfig.class})
 public class RootConfig {
-	
+	/**
+	 * 加载数据字典缓存类
+	 * @return
+	 */
+	@Bean
+	public DictionariesCache dictionariesCache() {
+		return new DictionariesCache();
+	}
+	/**
+	 * 加载功能缓存类
+	 * @return
+	 */
+	@Bean
+	public FunctionsCache functionsCache() {
+		return new FunctionsCache();
+	}
 }

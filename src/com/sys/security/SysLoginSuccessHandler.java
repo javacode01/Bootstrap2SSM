@@ -14,6 +14,7 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 
 import com.sys.model.SysFunctions;
 import com.sys.model.SysUsers;
+import com.sys.utils.BspUtils;
 import com.sys.utils.SysUtils;
 import com.sys.utils.cache.FunctionsCache;
 
@@ -42,7 +43,7 @@ public class SysLoginSuccessHandler extends SavedRequestAwareAuthenticationSucce
 			url = savedRequest.getRedirectUrl();
 			//判断访问地址是否是配置的功能地址
 			boolean f = false;
-			for (SysFunctions function : FunctionsCache.getHandleList()) {  
+			for (SysFunctions function : BspUtils.getHandleList()) {  
                   if(!SysUtils.isNull(function.getFunctionUrl())&&url.contains(function.getFunctionUrl())) {
                 	  f = true;
                 	  break;

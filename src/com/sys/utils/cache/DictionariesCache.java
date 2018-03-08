@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sys.client.SysDictionariesItemMapper;
 import com.sys.model.SysDictionariesItem;
@@ -15,34 +17,22 @@ import com.sys.utils.BspUtils;
  * @author Administrator
  *
  */
-public class DictionariesCache {
+public class DictionariesCache implements InitializingBean{
 	
 	private static final Logger logger = Logger.getLogger(DictionariesCache.class);
-	//数据字典项
-	private static List<SysDictionariesItem> dicItemList;
 	
-	static{
-		try{
-			System.out.println("数据字典加载开始==================================");
-			logger.info("数据字典加载开始==================================");
-			SysDictionariesItemMapper dicItemMapper = BspUtils.getBean(SysDictionariesItemMapper.class);
-			SysDictionariesItemExample example = new SysDictionariesItemExample();
-			example.createCriteria();
-			example.setOrderByClause("seq asc");
-			setDicItemList(dicItemMapper.selectByExample(example));
-			logger.info("数据字典加载完成==================================");
-			System.out.println("数据字典加载完成==================================");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
+	@Autowired
+	private SysDictionariesItemMapper sysDictionariesItemMapper;
+	
+	//数据字典项
+	private List<SysDictionariesItem> dicItemList;
 
-	public static List<SysDictionariesItem> getDicItemList() {
+	public List<SysDictionariesItem> getDicItemList() {
 		return dicItemList;
 	}
 
-	public static void setDicItemList(List<SysDictionariesItem> dicItemList) {
-		DictionariesCache.dicItemList = dicItemList;
+	public void setDicItemList(List<SysDictionariesItem> dicItemList1) {
+		dicItemList = dicItemList1;
 	}
 	
 	/**
@@ -50,7 +40,7 @@ public class DictionariesCache {
 	 * @param dicType
 	 * @return
 	 */
-	public static List<SysDictionariesItem> getDicItemByDicType(String dicType){
+	public List<SysDictionariesItem> getDicItemByDicType(String dicType){
 		List<SysDictionariesItem> list = new ArrayList<SysDictionariesItem>();
 		for(SysDictionariesItem item : dicItemList) {
 			if(dicType.equals(item.getDicType())) {
@@ -58,6 +48,22 @@ public class DictionariesCache {
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * 初始化加载数据
+	 */
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("数据字典加载开始==================================");
+		logger.info("数据字典加载开始==================================");
+		SysDictionariesItemExample example = new SysDictionariesItemExample();
+		example.createCriteria();
+		example.setOrderByClause("seq asc");
+		setDicItemList(sysDictionariesItemMapper.selectByExample(example));
+		logger.info("数据字典加载完成==================================");
+		System.out.println("数据字典加载完成==================================");
 	}
 	
 }

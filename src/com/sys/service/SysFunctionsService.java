@@ -63,7 +63,7 @@ public class SysFunctionsService {
 		//存储功能列表
 		List<SysFunctions> functionList = new ArrayList<SysFunctions>();
 		//获取全部功能
-		List<SysFunctions> allFunctionList = FunctionsCache.getFunctionList();
+		List<SysFunctions> allFunctionList = BspUtils.getFunctionList();
 		if(null==list||null==allFunctionList){
 			return functionList;
 		}
@@ -99,7 +99,7 @@ public class SysFunctionsService {
 		//存储模块列表
 		List<SysFunctions> moduleList = new ArrayList<SysFunctions>();
 		//获取全部模块
-		List<SysFunctions> allModuleList = FunctionsCache.getModuleList();
+		List<SysFunctions> allModuleList = BspUtils.getModuleList();
 		if(null==functionList||null==allModuleList){
 			return moduleList;
 		}

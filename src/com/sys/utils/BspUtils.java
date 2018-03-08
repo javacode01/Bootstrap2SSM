@@ -10,10 +10,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.sys.model.SysDictionariesItem;
+import com.sys.model.SysFunctions;
 import com.sys.model.SysOrgan;
 import com.sys.model.SysUsers;
 import com.sys.service.SysOrganService;
 import com.sys.utils.cache.DictionariesCache;
+import com.sys.utils.cache.FunctionsCache;
 
 /**
  * @ClassName: BspUtils 
@@ -59,8 +61,36 @@ public class BspUtils {
 	 * @return
 	 */
 	public static Object listDicItemJSONByDicType(String dicType) {
-		List<SysDictionariesItem> list = DictionariesCache.getDicItemByDicType(dicType);
+		DictionariesCache dictionariesCache = getBean(DictionariesCache.class);
+		List<SysDictionariesItem> list = dictionariesCache.getDicItemByDicType(dicType);
 		return JSON.toJSON(list);
+	}
+	
+	/**
+	 * 获取功能列表
+	 * @return
+	 */
+	public static List<SysFunctions> getFunctionList(){
+		FunctionsCache functionsCache = getBean(FunctionsCache.class);
+		return functionsCache.getFunctionList();
+	}
+	
+	/**
+	 * 获取操作列表
+	 * @return
+	 */
+	public static List<SysFunctions> getHandleList(){
+		FunctionsCache functionsCache = getBean(FunctionsCache.class);
+		return functionsCache.getHandleList();
+	}
+	
+	/**
+	 * 获取模块列表
+	 * @return
+	 */
+	public static List<SysFunctions> getModuleList(){
+		FunctionsCache functionsCache = getBean(FunctionsCache.class);
+		return functionsCache.getModuleList();
 	}
 	
 }
