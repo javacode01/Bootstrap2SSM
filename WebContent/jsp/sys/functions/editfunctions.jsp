@@ -46,7 +46,7 @@
 				</div>
 				<div class="form-group">
 					<label for="seq">序号</label>
-					<input type="text" class="form-control" id="seq" name="seq" value="${function.seq}">
+					<input type="text" class="form-control" id="seq" name="seq" value="${function.seq}" required>
 				</div>
 			</form>
 		</div>
