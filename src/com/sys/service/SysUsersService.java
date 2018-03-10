@@ -9,8 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sys.client.SysUserRoleMapper;
 import com.sys.client.SysUsersMapper;
-import com.sys.model.SysDictionariesItem;
-import com.sys.model.SysDictionariesItemExample;
 import com.sys.model.SysUserRole;
 import com.sys.model.SysUserRoleExample;
 import com.sys.model.SysUsers;

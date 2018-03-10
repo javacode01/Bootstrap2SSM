@@ -20,7 +20,6 @@ import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
-import com.sys.utils.cache.FunctionsCache;
 
 @Service
 public class SysFunctionsService {

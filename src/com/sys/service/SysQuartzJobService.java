@@ -1,0 +1,65 @@
+package com.sys.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sys.client.SysQuartzJobMapper;
+import com.sys.model.SysQuartzJob;
+import com.sys.model.SysQuartzJobExample;
+
+@Service
+public class SysQuartzJobService {
+	
+	@Autowired
+	private SysQuartzJobMapper sysQuartzJobMapper;
+	
+	/**
+	 * 查询定时任务列表
+	 * @param example
+	 * @return
+	 */
+	public List<SysQuartzJob> listQuartzJobByExample(SysQuartzJobExample example) {
+		// TODO Auto-generated method stub
+		return sysQuartzJobMapper.selectByExample(example);
+	}
+	
+	/**
+	 * 根据主键获取定时任务
+	 * @param recid
+	 * @return
+	 */
+	public SysQuartzJob getQuartzJobById(String recid) {
+		// TODO Auto-generated method stub
+		return sysQuartzJobMapper.selectByPrimaryKey(recid);
+	}
+	
+	/**
+	 * 新增定时任务
+	 * @param edit
+	 */
+	public void addSysQuartzJob(SysQuartzJob add) {
+		// TODO Auto-generated method stub
+		sysQuartzJobMapper.insertSelective(add);
+	}
+	
+	/**
+	 * 编辑定时任务
+	 * @param edit
+	 */
+	public void updateSysQuartzJob(SysQuartzJob edit) {
+		// TODO Auto-generated method stub
+		sysQuartzJobMapper.updateByPrimaryKeySelective(edit);
+	}
+	
+	/**
+	 * 删除定时任务
+	 * @param recid
+	 */
+	public void deleteSysQuartzJob(String recid) {
+		// TODO Auto-generated method stub
+		sysQuartzJobMapper.deleteByPrimaryKey(recid);
+	}
+	
+}
