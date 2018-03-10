@@ -22,6 +22,7 @@
 		<sqlMapGenerator targetPackage="com.sys.sqlmap" targetProject="src" />
 		<!-- 生成DAO的包名和位置 -->
 		<javaClientGenerator targetPackage="com.sys.client" targetProject="src" type="XMLMAPPER" />
+		<!-- 需要生成代码的表名 -->
 		<table tableName="SYS_USERS" schema="BOOTSTRAP2SSM"></table>
 		<table tableName="SYS_ROLES" schema="BOOTSTRAP2SSM"></table>
 		<table tableName="SYS_FUNCTIONS" schema="BOOTSTRAP2SSM"></table>
@@ -31,5 +32,6 @@
 		<table tableName="SYS_DICTIONARIES" schema="BOOTSTRAP2SSM"></table>
 		<table tableName="SYS_DICTIONARIES_ITEM" schema="BOOTSTRAP2SSM"></table>
 		<table tableName="SYS_ATTACHMENT" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="SYS_QUARTZ_JOB" schema="BOOTSTRAP2SSM"></table>
 	</context>
 </generatorConfiguration>
