@@ -20,8 +20,8 @@
 	<div class="container-fluid" style="height:100%;">
 		<div class="row" style="height:100%;">
 			<!-- 左侧的树状结构区域 -->
-			<div class="col-sm-3" style="height:100%;border-right:2px solid #555;">
-				<div calss="row sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;background-color:#555;color:#FFF;">
+			<div class="col-sm-3 sys-border-right" style="height:100%;">
+				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
 					<strong>&nbsp;功能树结构</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y:auto;">
@@ -30,7 +30,7 @@
 			</div>
 			<!-- 右侧操作区域 -->
 			<div class="col-sm-9" style="height:100%;">
-				<div calss="row sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;width:100%;height:30px;line-height: 30px;background-color:#555;color:#FFF;">
+				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;width:100%;height:30px;line-height: 30px;">
 					<strong>&nbsp;当前功能详情</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">

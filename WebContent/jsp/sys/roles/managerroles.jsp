@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="container" style="height:100%;">
-		<div calss="row sys-skin" style="position:fixed;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;background-color:#555;color:#FFF;">
+		<div class="sys-skin" style="position:fixed;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
 			<strong>&nbsp;角色管理</strong>
 		</div>
 		<div class="row" style="height:100%;padding-top:30px;">

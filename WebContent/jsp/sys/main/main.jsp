@@ -4,8 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%@ include file="/jsp/sys/include/main_header.jsp"%>
-  <link rel="stylesheet" href="${basepath}resource/css/tabs.css">
+  	<%@ include file="/jsp/sys/include/main_header.jsp"%>
+  	<link rel="stylesheet" href="${basepath}resource/css/tabs.css">
+  	<style>
+		.error{
+			color:red;
+		}
+	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
 <!-- 页面内容开始 -->
@@ -282,7 +287,7 @@
   </aside>
   <!-- Content Wrapper. Contains page content -->
   <div id="content_wrapper" class="content-wrapper" style="position:relative;">
-  	<div style="position:relative;margin-top:-1px;padding:0px;border-bottom: 2px solid #555;overflow:auto;">
+  	<div class="sys-border-bottom" style="position:relative;margin-top:-1px;padding:0px;overflow:auto;">
   		<div style="position:absolute;left:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.prev()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-backward"></span></button></div>
   		<div style="position:absolute;right:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.next()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-forward"></span></button></div>
   		<ul id="tabsMenu" class="nav nav-tabs pre-scrollable" style="position:relative;z-index:600; height:42px;background-color:#FFFFFF;margin:0px 40px;">

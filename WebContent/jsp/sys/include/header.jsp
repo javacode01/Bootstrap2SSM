@@ -20,25 +20,5 @@
   <script src="${basepath}resource/js/html5shiv.min.js"></script>
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
-<style>
-.sys-skin {
-	background-color:#555;
-	color:#FFF;
-}
-
-.panel {
- 	border: 0px;
-	border-radius: 0px;
-	-webkit-box-shadow: 0 0px 0px rgba(0,0,0,.05);
-	box-shadow: 0 0px 0px rgba(0,0,0,.05);
-	margin:0px;
-}
-
-.panel-heading {
-	border-radius: 0px;
-}
-
-.error{
-	color:red;
-}
-</style>
+<!-- 系统样式 -->
+<link rel="stylesheet" href="${basepath}resource/css/sys-style.css">

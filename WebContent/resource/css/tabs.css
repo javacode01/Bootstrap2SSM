@@ -1,6 +1,8 @@
+/***********************tab页导航栏样式******************/
 .nav-tabs {
     border-bottom: 0px;
 }
+
 .nav-tabs>li>a {
     margin-right: 2px;
     line-height: 1.42857143;
@@ -10,10 +12,19 @@
     margin:0px;
 }
 
+/**
+ *tab页切换按钮选中颜色
+ */
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: #fff;
     cursor: default;
     background-color: #555;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
+}
+/**
+ *tab页选择条底部颜色
+ */
+.sys-border-bottom {
+	border-bottom: 2px solid #555;
 }

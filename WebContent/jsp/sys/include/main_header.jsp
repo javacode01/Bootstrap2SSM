@@ -24,8 +24,3 @@
   <script src="${basepath}resource/js/html5shiv.min.js"></script>
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
-<style>
-.error{
-	color:red;
-}
-</style>
