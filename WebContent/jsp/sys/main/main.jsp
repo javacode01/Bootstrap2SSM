@@ -302,7 +302,7 @@
 	</div>
   </div>
   <!-- /.content-wrapper -->
-  <footer class="main-footer" style="background-color:#eee;padding:6px 15px;">
+  <footer class="main-footer" style="font-size:10px;background-color:#eee;padding:2px 15px;">
     <div class="pull-right hidden-xs">
       <b>版本</b> 1.0
     </div>
