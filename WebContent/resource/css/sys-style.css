@@ -1,0 +1,32 @@
+/******************系统统一风格***************/
+/**
+ *系统皮肤颜色-标题区域颜色
+ */
+.sys-skin {
+	background-color:#555;
+	color:#FFF;
+}
+
+/**
+ *系统皮肤颜色-区域分割线颜色
+ */
+.sys-border-right {
+	border-right:2px solid #555;
+}
+
+/*****************控件样式系统重新定义******************/
+.panel {
+ 	border: 0px;
+	border-radius: 0px;
+	-webkit-box-shadow: 0 0px 0px rgba(0,0,0,.05);
+	box-shadow: 0 0px 0px rgba(0,0,0,.05);
+	margin:0px;
+}
+
+.panel-heading {
+	border-radius: 0px;
+}
+
+.error{
+	color:red;
+}
