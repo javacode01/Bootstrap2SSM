@@ -89,8 +89,8 @@ public class SysQuartzJobController {
 		if(SysConstant.SYS_HANDLE_ADD.equals(handle)){//新增
 		}else if(SysConstant.SYS_HANDLE_EDIT.equals(handle)){//修改
 			String recid = request.getParameter("recid");
-			SysQuartzJob quartJob = sysQuartzJobService.getQuartzJobById(recid);
-			mv.addObject("quartJob",quartJob);
+			SysQuartzJob quartzJob = sysQuartzJobService.getQuartzJobById(recid);
+			mv.addObject("quartzJob",quartzJob);
 		}
 		mv.setViewName("jsp/sys/quartzjob/editquartzjob");
 		return mv;
@@ -128,6 +128,7 @@ public class SysQuartzJobController {
 				return rd;
 			}
 			if(SysUtils.isNull(edit.getRecid())) {//新增
+				edit.setRecid(SysUtils.getUUID());
 				edit.setCreater(BspUtils.getLoginUser().getUserId());
 				edit.setCreatetime(new Date());
 				edit.setUpdater(BspUtils.getLoginUser().getUserId());
@@ -154,5 +155,208 @@ public class SysQuartzJobController {
 			return rd;
 		}
 	}
-
+	
+	/**
+	 * 删除定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/deleteQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData deleteQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			sysQuartzJobService.deleteSysQuartzJob(recids);
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
+	/**
+	 * 启动定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/startQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData startQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			String[] array = recids.split(",");
+			for(String recid:array) {
+				SysQuartzJob job = sysQuartzJobService.getQuartzJobById(recid);
+				if(null==job) {
+					continue;
+				}
+				QuartzManager.runJob(job);
+			}
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
+	/**
+	 * 停止定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/stopQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData stopQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			String[] array = recids.split(",");
+			for(String recid:array) {
+				SysQuartzJob job = sysQuartzJobService.getQuartzJobById(recid);
+				if(null==job) {
+					continue;
+				}
+				QuartzManager.delJob(job);
+			}
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
+	/**
+	 * 暂停定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/pauseQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData pauseQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			String[] array = recids.split(",");
+			for(String recid:array) {
+				SysQuartzJob job = sysQuartzJobService.getQuartzJobById(recid);
+				if(null==job) {
+					continue;
+				}
+				QuartzManager.pauseJob(job);
+			}
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
+	/**
+	 * 恢复定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/resumeQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData resumeQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			String[] array = recids.split(",");
+			for(String recid:array) {
+				SysQuartzJob job = sysQuartzJobService.getQuartzJobById(recid);
+				if(null==job) {
+					continue;
+				}
+				QuartzManager.resumeJob(job);
+			}
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
+	/**
+	 * 执行定时任务
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/quartzjob/runQuartzJob",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData runQuartzJob(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			String recids = request.getParameter("recids");
+			if(SysUtils.isNull(recids)) {
+				rd.setCode(SysConstant.SYS_ERROR_PARAMETER);
+				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
+				return rd;
+			}
+			String[] array = recids.split(",");
+			for(String recid:array) {
+				SysQuartzJob job = sysQuartzJobService.getQuartzJobById(recid);
+				if(null==job) {
+					continue;
+				}
+				QuartzManager.triggerJob(job);
+			}
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(e.getMessage());
+			return rd;
+		}
+	}
+	
 }

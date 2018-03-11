@@ -4,10 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sys.client.SysQuartzJobMapper;
 import com.sys.model.SysQuartzJob;
 import com.sys.model.SysQuartzJobExample;
+import com.sys.model.SysRoleFunctionExample;
+import com.sys.model.SysRolesExample;
+import com.sys.model.SysUserRoleExample;
 import com.sys.utils.PageListData;
 import com.sys.utils.schedule.QuartzManager;
 
@@ -59,9 +63,21 @@ public class SysQuartzJobService {
 	 * 删除定时任务
 	 * @param recid
 	 */
-	public void deleteSysQuartzJob(String recid) {
+	@Transactional
+	public void deleteSysQuartzJob(String recids) {
 		// TODO Auto-generated method stub
-		sysQuartzJobMapper.deleteByPrimaryKey(recid);
+		String[] array = recids.split(",");
+		for(String recid:array) {
+			SysQuartzJob job = sysQuartzJobMapper.selectByPrimaryKey(recid);
+			if(null==job) {
+				continue;
+			}
+			String status = QuartzManager.getTriggerState(job);
+			if(!"NONE".equals(status)){
+				throw new RuntimeException("请先将任务停止后在进行删除");
+			}
+			sysQuartzJobMapper.deleteByPrimaryKey(recid);
+		}
 	}
 	
 	/**

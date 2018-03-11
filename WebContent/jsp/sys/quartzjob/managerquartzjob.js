@@ -126,7 +126,7 @@ function editQuartzJob(){
  * 删除定时任务
  * @returns
  */
-function removeQuartzJob(){
+function deleteQuartzJob(){
 	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
 	if(selected.length<1){
 		bootbox.alert({ 
@@ -166,6 +166,341 @@ function removeQuartzJob(){
 	    						  size: "small",
 	    						  title: "提示框",
 	    						  message: "删除成功"
+	    						});
+	    				   search();
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}
+
+/**
+ * 启动定时任务
+ * @returns
+ */
+function startQuartzJob(){
+	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
+	if(selected.length<1){
+		bootbox.alert({ 
+			  size: "small",
+			  title: "提示框",
+			  message: "请先选择要启动的定时任务"
+			});
+		return false;
+	}
+	bootbox.confirm({
+		title:"确认框",
+	    message: "是否确认启动当前选中的定时任务？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   var recids = new Array();
+	    	   $.each(selected,function(index,data){
+	    		   recids.push(data.recid);
+	    	   });
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/quartzjob/startQuartzJob',
+	    		   type:'post',
+	    		   data:{recids:recids.join(",")},
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "启动成功"
+	    						});
+	    				   search();
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}
+
+/**
+ * 停止定时任务
+ * @returns
+ */
+function stopQuartzJob(){
+	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
+	if(selected.length<1){
+		bootbox.alert({ 
+			  size: "small",
+			  title: "提示框",
+			  message: "请先选择要停止的定时任务"
+			});
+		return false;
+	}
+	bootbox.confirm({
+		title:"确认框",
+	    message: "是否确认停止当前选中的定时任务？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   var recids = new Array();
+	    	   $.each(selected,function(index,data){
+	    		   recids.push(data.recid);
+	    	   });
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/quartzjob/stopQuartzJob',
+	    		   type:'post',
+	    		   data:{recids:recids.join(",")},
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "停止成功"
+	    						});
+	    				   search();
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}
+
+/**
+ * 暂停定时任务
+ * @returns
+ */
+function pauseQuartzJob(){
+	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
+	if(selected.length<1){
+		bootbox.alert({ 
+			  size: "small",
+			  title: "提示框",
+			  message: "请先选择要暂停的定时任务"
+			});
+		return false;
+	}
+	bootbox.confirm({
+		title:"确认框",
+	    message: "是否确认暂停当前选中的定时任务？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   var recids = new Array();
+	    	   $.each(selected,function(index,data){
+	    		   recids.push(data.recid);
+	    	   });
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/quartzjob/pauseQuartzJob',
+	    		   type:'post',
+	    		   data:{recids:recids.join(",")},
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "暂停成功"
+	    						});
+	    				   search();
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}
+
+/**
+ * 恢复定时任务
+ * @returns
+ */
+function resumeQuartzJob(){
+	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
+	if(selected.length<1){
+		bootbox.alert({ 
+			  size: "small",
+			  title: "提示框",
+			  message: "请先选择要恢复的定时任务"
+			});
+		return false;
+	}
+	bootbox.confirm({
+		title:"确认框",
+	    message: "是否确认恢复当前选中的定时任务？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   var recids = new Array();
+	    	   $.each(selected,function(index,data){
+	    		   recids.push(data.recid);
+	    	   });
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/quartzjob/resumeQuartzJob',
+	    		   type:'post',
+	    		   data:{recids:recids.join(",")},
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "恢复成功"
+	    						});
+	    				   search();
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}
+
+/**
+ * 立即执行（一次）
+ * @returns
+ */
+function runQuartzJob(){
+	var selected = $("#quartzjobTable").bootstrapTable("getSelections");
+	if(selected.length<1){
+		bootbox.alert({ 
+			  size: "small",
+			  title: "提示框",
+			  message: "请先选择要执行的定时任务"
+			});
+		return false;
+	}
+	bootbox.confirm({
+		title:"确认框",
+	    message: "是否确认执行当前选中的定时任务？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   var recids = new Array();
+	    	   $.each(selected,function(index,data){
+	    		   recids.push(data.recid);
+	    	   });
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/quartzjob/runQuartzJob',
+	    		   type:'post',
+	    		   data:{recids:recids.join(",")},
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "执行成功"
 	    						});
 	    				   search();
 	    			   }else{
