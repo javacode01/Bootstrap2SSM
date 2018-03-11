@@ -22,6 +22,11 @@
 				<button type="button" class="btn btn-success btn-sm" onclick="addQuartzJob()">增加</button>
 				<button type="button" class="btn btn-primary btn-sm" onclick="editQuartzJob()">修改</button>
 				<button type="button" class="btn btn-danger btn-sm" onclick="removeQuartzJob()">删除</button>
+				<button type="button" class="btn btn-success btn-sm" onclick="addQuartzJob()">启动任务</button>
+				<button type="button" class="btn btn-danger btn-sm" onclick="editQuartzJob()">停止任务</button>
+				<button type="button" class="btn btn-warning btn-sm" onclick="removeQuartzJob()">暂停任务</button>
+				<button type="button" class="btn btn-success btn-sm" onclick="removeQuartzJob()">恢复任务</button>
+				<button type="button" class="btn btn-info btn-sm" onclick="removeQuartzJob()">立即执行(一次)</button>
 			</div>
 			<table id="quartzjobTable"></table>
 		</div>
@@ -31,6 +36,8 @@
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
 	<script src="${basepath}jsp/sys/quartzjob/managerquartzjob.js"></script>
 	<script type="text/javascript">
+		//加载字典项
+		var QUARTZJOBSTATUS = <%=BspUtils.listDicItemJSONByDicType("QUARTZJOBSTATUS") %>;
 		$(function(){
 			init();
 		});

@@ -53,7 +53,10 @@ function initTable(){
         }, {
             field: 'status',
             title: '状态',
-            width:"10%"
+            width:"10%",
+            formatter:function(value,row,index){
+            	return SysUtil.formatDicItem(value,QUARTZJOBSTATUS);
+            }
         }, {
             field: 'remark',
             title: '备注',
@@ -101,7 +104,7 @@ function addQuartzJob(){
 }
 
 /**
- * 修改角色
+ * 修改定时任务
  * @returns
  */
 function editQuartzJob(){
@@ -110,7 +113,7 @@ function editQuartzJob(){
 		bootbox.alert({ 
 			  size: "small",
 			  title: "提示框",
-			  message: "请选择一个定时任务"
+			  message: "请选择一个要修改定时任务"
 			});
 		return false;
 	}

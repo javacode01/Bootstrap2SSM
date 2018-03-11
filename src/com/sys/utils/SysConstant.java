@@ -18,6 +18,8 @@ public class SysConstant {
 	public final static String SYS_ERROR_PARAMETER_DESCRIPTION = "参数错误";
 	public final static String SYS_ERROR_EXISTS = "error_0002";
 	public final static String SYS_ERROR_EXISTS_DESCRIPTION = "数据重复";
+	public final static String SYS_ERROR_STATUS = "error_0003";
+	public final static String SYS_ERROR_STATUS_DESCRIPTION = "数据状态错误";
 	public final static String SYS_USER_ERROR_PASSWORD = "error_user_0001";
 	public final static String SYS_USER_ERROR_PASSWORD_DESCRIPTION = "密码错误";
 	

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.sys.client.SysQuartzJobMapper;
 import com.sys.model.SysQuartzJob;
 import com.sys.model.SysQuartzJobExample;
+import com.sys.utils.PageListData;
+import com.sys.utils.schedule.QuartzManager;
 
 @Service
 public class SysQuartzJobService {
@@ -60,6 +62,24 @@ public class SysQuartzJobService {
 	public void deleteSysQuartzJob(String recid) {
 		// TODO Auto-generated method stub
 		sysQuartzJobMapper.deleteByPrimaryKey(recid);
+	}
+	
+	/**
+	 * 定时任务分页查询
+	 * @param pote
+	 * @return
+	 */
+	public PageListData listQuartzJobByPage(SysQuartzJobExample example) {
+		// TODO Auto-generated method stub
+		int totalCount = sysQuartzJobMapper.countByExample(example);
+		List<SysQuartzJob> list = sysQuartzJobMapper.selectByExample(example);	
+		for(SysQuartzJob job:list){
+			job.setStatus(QuartzManager.getTriggerState(job));
+		}
+		PageListData pld = new PageListData();
+		pld.setTotal(totalCount);
+		pld.setRows(list);
+		return pld;
 	}
 	
 }

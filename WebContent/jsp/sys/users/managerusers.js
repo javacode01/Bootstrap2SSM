@@ -100,7 +100,10 @@ function initTable(){
         }, {
             field: 'status',
             title: '状态',
-            width:"10%"
+            width:"10%",
+            formatter:function(value,row,index){
+            	return SysUtil.formatDicItem(value,USERSSTATUS);
+            }
         }, {
             field: 'organCode',
             title: '所属组织机构',
