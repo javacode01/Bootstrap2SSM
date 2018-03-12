@@ -1,5 +1,5 @@
 prompt PL/SQL Developer import file
-prompt Created on 2018年2月2日 by Administrator
+prompt Created on 2018年3月12日 by Administrator
 set feedback off
 set define off
 prompt Creating SYS_ATTACHMENT...
@@ -205,6 +205,49 @@ comment on column SYS_ORGAN.UPDATER
 alter table SYS_ORGAN
   add constraint PK_SYS_ORGAN primary key (ORGAN_ID);
 
+prompt Creating SYS_QUARTZ_JOB...
+create table SYS_QUARTZ_JOB
+(
+  RECID           VARCHAR2(32) not null,
+  JOB_NAME        VARCHAR2(100),
+  JOB_GROUP_NAME  VARCHAR2(100),
+  JOB_CLASS       VARCHAR2(500),
+  CRON_EXPRESSION VARCHAR2(100),
+  STATUS          VARCHAR2(2),
+  REMARK          VARCHAR2(500),
+  CREATER         VARCHAR2(32),
+  CREATETIME      TIMESTAMP(6),
+  UPDATER         VARCHAR2(32),
+  UPDATETIME      TIMESTAMP(6)
+)
+;
+comment on table SYS_QUARTZ_JOB
+  is '定时任务管理';
+comment on column SYS_QUARTZ_JOB.RECID
+  is '定时任务记录ID';
+comment on column SYS_QUARTZ_JOB.JOB_NAME
+  is '任务名称';
+comment on column SYS_QUARTZ_JOB.JOB_GROUP_NAME
+  is '任务组';
+comment on column SYS_QUARTZ_JOB.JOB_CLASS
+  is '任务执行类';
+comment on column SYS_QUARTZ_JOB.CRON_EXPRESSION
+  is '触发时间';
+comment on column SYS_QUARTZ_JOB.STATUS
+  is '状态';
+comment on column SYS_QUARTZ_JOB.REMARK
+  is '备注';
+comment on column SYS_QUARTZ_JOB.CREATER
+  is '创建人';
+comment on column SYS_QUARTZ_JOB.CREATETIME
+  is '创建时间';
+comment on column SYS_QUARTZ_JOB.UPDATER
+  is '修改人';
+comment on column SYS_QUARTZ_JOB.UPDATETIME
+  is '修改时间';
+alter table SYS_QUARTZ_JOB
+  add constraint PK_SYS_QUARTZ_JOB primary key (RECID);
+
 prompt Creating SYS_ROLES...
 create table SYS_ROLES
 (
@@ -363,8 +406,10 @@ insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
 values ('5abc36d1b33e4b5d90eda11cf44cd68d', 'USERSSYSTEM', '是否系统用户', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
 values ('36078061cd8e47cc95490897c55db540', 'USERSSTATUS', '用户状态', null);
+insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
+values ('0fac0c2a71884287b5ade2dcff2ad80e', 'QUARTZJOBSTATUS', '定时任务状态', null);
 commit;
-prompt 8 records loaded
+prompt 9 records loaded
 prompt Loading SYS_DICTIONARIES_ITEM...
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('dfec3514f1ae4715b547997e96edf845', 'ISORNOT', '0', '否', null, null, 1);
@@ -406,8 +451,20 @@ insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, 
 values ('027ba33b6bfb48eeb66cfffe91b9c565', 'USERSSYSTEM', '0', '否', null, null, 1);
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('84a641f73a3d4a5a9ac39451af9cbb5b', 'USERSSYSTEM', '1', '是', null, null, 2);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('6bcf8ae61c10426ab4adcf55b288ff4e', 'QUARTZJOBSTATUS', 'NONE', '就绪', null, null, 1);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('8e834940bae84ba1ad590a7c7376b82b', 'QUARTZJOBSTATUS', 'NORMAL', '正常状态', null, null, 2);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('81f3f8ea96ee4c928ca61eed33090a45', 'QUARTZJOBSTATUS', 'PAUSED', '暂停状态', null, null, 3);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('0283268b51a849919a7b0edc71269dd3', 'QUARTZJOBSTATUS', 'COMPLETE', '触发器完成', null, null, 4);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('c687b285c7db4ce4854e547944fbd66c', 'QUARTZJOBSTATUS', 'BLOCKED', '线程阻塞状态', null, null, 5);
+insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
+values ('4d98864322874aac81625b5ebe01b767', 'QUARTZJOBSTATUS', 'ERROR', '出现错误', null, null, 6);
 commit;
-prompt 20 records loaded
+prompt 26 records loaded
 prompt Loading SYS_FUNCTIONS...
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('3F78BF1C4B424F4F9A8E0F2E62183B07', '系统管理', 'fa fa-th-large', '1', 'root', '0099', null, null, 99, null, to_timestamp('22-11-2017 15:16:35.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, to_timestamp('22-11-2017 15:16:35.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null);
@@ -431,8 +488,12 @@ insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_L
 values ('72086f4c94cd469ca9c65b5c750a7f68', '组织结构管理', 'fa fa-sitemap', '2', '0099', '00990005', null, null, 5, null, to_timestamp('24-12-2017 02:58:57.262000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 02:58:57.262000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('fc962c16a18b472492cb173ca361d679', '查询', null, '3', '00990005', '009900050001', 'sys/organ/initmanagerorgan', '1', 1, '1', to_timestamp('24-12-2017 03:00:34.336000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 03:00:34.336000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('ab8776f89a1344768af1811b34bbdd0b', '定时任务管理', 'fa fa-clock-o', '2', '0099', '00990006', null, null, 6, null, to_timestamp('11-03-2018 13:47:49.176000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 13:55:20.669000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('a13a6812a6fd41af9ca2e6aa23d8f32a', '查询', null, '3', '00990006', '009900060001', 'sys/quartzjob/initmanagerquartzjob', '1', 1, '1', to_timestamp('11-03-2018 13:58:32.760000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 13:58:32.760000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
-prompt 11 records loaded
+prompt 13 records loaded
 prompt Loading SYS_ORGAN...
 insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('56f7d190549e4d2994314cd5ddf20e5f', '000100010002', '财务1部', '00010001', null, 2, '4', null, '2', to_timestamp('24-12-2017 21:58:36.517000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:58:36.517000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
@@ -448,6 +509,11 @@ insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, 
 values ('e10d1c6ebaea45e29f56b25ff40e8182', '000100010001', '商务1部', '00010001', null, 1, '3', null, '2', to_timestamp('24-12-2017 21:57:42.438000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:57:51.690000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
 prompt 6 records loaded
+prompt Loading SYS_QUARTZ_JOB...
+insert into SYS_QUARTZ_JOB (RECID, JOB_NAME, JOB_GROUP_NAME, JOB_CLASS, CRON_EXPRESSION, STATUS, REMARK, CREATER, CREATETIME, UPDATER, UPDATETIME)
+values ('58b9878cf6d348b28d6a89614571fbf1', '定时任务测试', '1', 'com.sys.utils.schedule.QuartzJob', '0/2 * * * * ?', null, '测试', '1', to_timestamp('11-03-2018 20:51:02.757000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 21:01:26.290000', 'dd-mm-yyyy hh24:mi:ss.ff'));
+commit;
+prompt 1 records loaded
 prompt Loading SYS_ROLES...
 insert into SYS_ROLES (ROLE_ID, ROLE_NAME, DESCRIPTION, ORGAN_CODE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER, ROLE_CODE)
 values ('FD5E07609C0940DAB801A575C88B422F', '测试角色', '用于功能测试', null, to_timestamp('22-11-2017 15:26:30.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, to_timestamp('22-11-2017 15:26:30.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, '0001');
@@ -457,27 +523,29 @@ commit;
 prompt 2 records loaded
 prompt Loading SYS_ROLE_FUNCTION...
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('56c4185401694e3a80afc532b54591a5', '0001', '009900050001', to_timestamp('26-12-2017 20:19:18.341000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('7f67e7c37bfa443fabb464320eb30456', '0001', '009900050001', to_timestamp('11-03-2018 13:59:53.658000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('26760d3e8a604afb9a1989ed7953fd91', '0001', '009900040001', to_timestamp('26-12-2017 20:19:18.390000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('7d08123700f9484c882bf3711d5dd02e', '0001', '009900040001', to_timestamp('11-03-2018 13:59:53.664000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('57f7da1dea4c4fd19ee6566f5f18cd36', '0001', '009900020001', to_timestamp('26-12-2017 20:19:18.400000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('56f73f00e8fb449abfe2599d24bf2d53', '0001', '009900060001', to_timestamp('11-03-2018 13:59:53.669000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('e02c2eeceab9424492fef666fc796cd5', '0001', '009900030001', to_timestamp('26-12-2017 20:19:18.406000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('0c3990d78f8c410f9633987ed6654354', '0001', '009900020001', to_timestamp('11-03-2018 13:59:53.675000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('91f68009b1484e0b8d32e8de47890286', '0001', '009900010001', to_timestamp('26-12-2017 20:19:18.420000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('bad015d25303416d9e2d3a13d1280123', '0001', '009900030001', to_timestamp('11-03-2018 13:59:53.681000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('b7dd637735094cd291eb35b730e6d949', '0002', '009900050001', to_timestamp('26-12-2017 20:19:26.801000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('2b119e5a2e564a17826acd1ba651fbc4', '0001', '009900010001', to_timestamp('11-03-2018 13:59:53.686000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('1efb68bf0f7341c38145558e44f53358', '0002', '009900040001', to_timestamp('26-12-2017 20:19:26.810000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('5f4e58384c7d416c9b218b84e292fa93', '0002', '009900050001', to_timestamp('08-03-2018 17:10:15.158000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('7cf584377dc248a0966f13c47113a87e', '0002', '009900020001', to_timestamp('26-12-2017 20:19:26.814000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('cb653bc218e64362bc430e336f8fd619', '0002', '009900040001', to_timestamp('08-03-2018 17:10:15.166000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('c6d5fc33b8734f9b9cb66f41a70f59ea', '0002', '009900030001', to_timestamp('26-12-2017 20:19:26.820000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('8c6e530e6f004622919c5c66eb022387', '0002', '009900020001', to_timestamp('08-03-2018 17:10:15.171000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('19e781e96c334be9baf30087f86f88e3', '0002', '009900010001', to_timestamp('26-12-2017 20:19:26.825000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('84a99cbe664c43dabfbf6906e1cf0098', '0002', '009900030001', to_timestamp('08-03-2018 17:10:15.176000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
+values ('7015ed8d327c47318f92e9bea008667e', '0002', '009900010001', to_timestamp('08-03-2018 17:10:15.181000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
-prompt 10 records loaded
+prompt 11 records loaded
 prompt Loading SYS_USERS...
 insert into SYS_USERS (USER_ID, USER_NAME, PASSWORD, STATUS, SYSTEM, LOCK_TIME, EXPIRED_TIME, ORGAN_CODE, CREATE_TIME, UPDATE_TIME, CREATER, UPDATER, NICKNAME, USER_CODE)
 values ('1', 'admin', '96e79218965eb72c92a549dd5a330112', null, null, null, null, null, null, to_timestamp('31-12-2017 17:37:46.258000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, '1', '用户1', '1');
