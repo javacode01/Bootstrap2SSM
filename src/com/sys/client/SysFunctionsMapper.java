@@ -29,7 +29,7 @@ public interface SysFunctionsMapper {
     int updateByPrimaryKey(SysFunctions record);
     
     /**
-     * 根据用户编号获取用户操作
+     * 根据用户编号获取用户分配的模块、功能和操作
      * @param userCode
      * @return
      */

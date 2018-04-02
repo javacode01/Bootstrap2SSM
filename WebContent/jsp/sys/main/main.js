@@ -8,6 +8,7 @@ function init(){
 		url:basepath+'sys/functions/getUserMenus',
 		dataType:'json',
 		success:function(data){
+			addLevel1Menu(data.level1List);
 			recursionAddModules(data.moduleList);
 			addFunctions(data.functionList);
 			addLinks(data.handleList);
@@ -38,6 +39,24 @@ function initUserImage(){
 	});
 }
 /**
+ * 添加一级菜单
+ * @param level1List
+ * @returns
+ */
+function addLevel1Menu(level1List){
+	$.each(level1List,function(index,module){
+		var menu = '';
+		if(module.functionLevel=='1'){
+			menu = '<li class="treeview"><a href="javascript:void(0);"><i class="'+module.functionIcon+'"></i> <span>'+module.functionName+'</span> <span class="pull-right-container">'
+	          +'<i class="fa fa-angle-left pull-right"></i></span></a>'
+	          +'<ul class="treeview-menu" id="'+module.functionCode+'"></ul></li>';
+		}else if(module.functionLevel=='2'){
+			menu = '<li><a href="javascript:void(0);" id="'+module.functionCode+'" data-id="'+module.functionCode+'" data-name="'+module.functionName+'"><i class="'+module.functionIcon+'"></i>'+module.functionName+'</a></li>';
+		}
+		$('#menu_tree').append(menu);
+	});
+}
+/**
  * 添加模块代码
  * @param moduleList
  */
@@ -45,12 +64,7 @@ function recursionAddModules(moduleList){
 	var list = new Array();
 	$.each(moduleList,function(index,module){
 		var menu = '';
-		if(module.parentCode=='root'){
-			menu = '<li class="treeview"><a href="javascript:void(0);"><i class="'+module.functionIcon+'"></i> <span>'+module.functionName+'</span> <span class="pull-right-container">'
-              +'<i class="fa fa-angle-left pull-right"></i></span></a>'
-              +'<ul class="treeview-menu" id="'+module.functionCode+'"></ul></li>';
-			$('#menu_tree').append(menu);
-		}else if($('#'+module.parentCode).length>0){
+		if($('#'+module.parentCode).length>0){
 			menu = '<li class="treeview"><a href="javascript:void(0);"><i class="'+module.functionIcon+'"></i> <span>'+module.functionName+'</span> <span class="pull-right-container">'
 	            +'<i class="fa fa-angle-left pull-right"></i></span></a>'
 	            +'<ul class="treeview-menu" id="'+module.functionCode+'"></ul></li>';

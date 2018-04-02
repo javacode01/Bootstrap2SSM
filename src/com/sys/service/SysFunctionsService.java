@@ -18,6 +18,7 @@ import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
 import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
+import com.sys.utils.ConstantUtils;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
 
@@ -37,107 +38,42 @@ public class SysFunctionsService {
 		// TODO Auto-generated method stub
 		//获取当前用户
 		String userCode = BspUtils.getLoginUser().getUserCode();
-		//获取用户已分配操作
-		List<SysFunctions> handleList = sysFunctionsMapper.getFunctionsByUserCode(userCode);
-		//获取用户已分配操作所属功能
-		List<SysFunctions> functionList = getFunctions(handleList);
-		//获取用户已分配功能所属模块
-		List<SysFunctions> moduleList = getModules(functionList);
+		//获取用户已分配的模块、功能和操作
+		List<SysFunctions> userFunctionList = sysFunctionsMapper.getFunctionsByUserCode(userCode);
+		//获取一级菜单
+		List<SysFunctions> level1List = new ArrayList<SysFunctions>();
+		//用户已分配操作
+		List<SysFunctions> handleList = new ArrayList<SysFunctions>();
+		//用户已分配功能
+		List<SysFunctions> functionList = new ArrayList<SysFunctions>();
+		//用户已分配模块
+		List<SysFunctions> moduleList = new ArrayList<SysFunctions>();
+		//区分模块、功能、操作
+		if(null!=userFunctionList&&userFunctionList.size()>0) {
+			for(SysFunctions function:userFunctionList) {
+				if("root".equals(function.getParentCode())) {
+					level1List.add(function);
+				}else if(ConstantUtils.SYS_FLEVEL_1.equals(function.getFunctionLevel())) {
+					moduleList.add(function);
+				}else if(ConstantUtils.SYS_FLEVEL_2.equals(function.getFunctionLevel())) {
+					functionList.add(function);
+				}else if(ConstantUtils.SYS_FLEVEL_3.equals(function.getFunctionLevel())&&ConstantUtils.SYS_IS.equals(function.getDefaultAction())) {
+					handleList.add(function);
+				}
+			}
+		}
 		//功能排序
 		Collections.sort(functionList, new SortBySeq());
 		//模块排序
 		Collections.sort(moduleList, new SortBySeq());
+		//一级菜单排序
+		Collections.sort(level1List, new SortBySeq());
 		Map<String,List<SysFunctions>> userFunctionMap = new HashMap<String,List<SysFunctions>>();
 		userFunctionMap.put("handleList", handleList);
 		userFunctionMap.put("functionList", functionList);
 		userFunctionMap.put("moduleList", moduleList);
+		userFunctionMap.put("level1List", level1List);
 		return userFunctionMap;
-	}
-	
-	/**
-	 * 根据操作获取功能
-	 * @return
-	 */
-	public List<SysFunctions> getFunctions(List<SysFunctions> list){
-		//存储功能列表
-		List<SysFunctions> functionList = new ArrayList<SysFunctions>();
-		//获取全部功能
-		List<SysFunctions> allFunctionList = BspUtils.getFunctionList();
-		if(null==list||null==allFunctionList){
-			return functionList;
-		}
-		Map<String,SysFunctions> functionMap = new HashMap<String,SysFunctions>();
-		//获取操作所属功能
-		for(SysFunctions handle:list){
-			if(null!=handle.getParentCode()&&!functionMap.containsKey(handle.getParentCode())){
-				for(SysFunctions function:allFunctionList){
-					if(handle.getParentCode().equals(function.getFunctionCode())){
-						functionMap.put(function.getFunctionCode(), function);
-						break;
-					}
-				}
-			}
-		}
-		if(!functionMap.isEmpty()){
-			Iterator<String> it = functionMap.keySet().iterator();
-			while(it.hasNext()){
-				String key = it.next();
-				functionList.add(functionMap.get(key));
-			}
-		}
-		return functionList;
-	}
-	
-	/**
-	 * 根据功能获得模块
-	 * @param functionList
-	 * @return
-	 */
-	private List<SysFunctions> getModules(List<SysFunctions> functionList) {
-		// TODO Auto-generated method stub
-		//存储模块列表
-		List<SysFunctions> moduleList = new ArrayList<SysFunctions>();
-		//获取全部模块
-		List<SysFunctions> allModuleList = BspUtils.getModuleList();
-		if(null==functionList||null==allModuleList){
-			return moduleList;
-		}
-		Map<String,SysFunctions> moduleMap = new HashMap<String,SysFunctions>();
-		for(SysFunctions function:functionList){
-			if(null!=function.getParentCode()&&!moduleMap.containsKey(function.getParentCode())){
-				recursionAddModule(allModuleList,moduleMap,function);
-			}
-		}
-		if(!moduleMap.isEmpty()){
-			Iterator<String> it = moduleMap.keySet().iterator();
-			while(it.hasNext()){
-				String key = it.next();
-				moduleList.add(moduleMap.get(key));
-			}
-		}
-		return moduleList;
-	}
-	
-	/**
-	 * 递归获取模块
-	 * @param allModuleList
-	 * @param moduleMap
-	 * @param function
-	 */
-	private void recursionAddModule(List<SysFunctions> allModuleList,Map<String, SysFunctions> moduleMap, SysFunctions function) {
-		// TODO Auto-generated method stub
-		for(SysFunctions module:allModuleList){
-			if(function.getParentCode().equals(module.getFunctionCode())){
-				if(!moduleMap.containsKey(module.getFunctionCode())){
-					moduleMap.put(module.getFunctionCode(), module);
-				}
-				if(!SysConstant.SYS_FUNCTION_ROOT_CODE.equals(module.getFunctionCode())){
-					if(null!=module.getParentCode()&&!moduleMap.containsKey(module.getParentCode())){
-						recursionAddModule(allModuleList,moduleMap,module);
-					}
-				}
-			}
-		}
 	}
 	
 	/**

@@ -41,9 +41,7 @@
 		var checkeds = $('#tree').treeview('getChecked',[]);
 		var functionCodes = new Array();
 		$.each(checkeds,function(index,node){
-			if("3"==node.data.functionLevel){
-				functionCodes.push(node.data.functionCode);
-			}
+			functionCodes.push(node.data.functionCode);
 		});
 		//提交
 		$.ajax({
@@ -134,28 +132,25 @@
 		});
 	}
 	function treenodecheck(data){
+		var parentdata = $('#tree').treeview('getParent',[data.nodeId]);
+		if("undefined"!=typeof(parentdata)&&null!=parentdata&&"undefined"!=typeof(parentdata.state)){
+			$('#tree').treeview('checkNode',[parentdata.nodeId,{ silent: true }]);
+			treenodecheck(parentdata);
+		}
+	}
+	
+	function treenodeuncheck(data){
 		//获取同级节点
 		var datas = $('#tree').treeview('getSiblings',[data.nodeId]);
 		var f = true;
 		if("undefined"!=typeof(datas)&&null!=datas){
 			$.each(datas,function(index,node){
-				if(!node.state.checked){
+				if(node.state.checked){
 					f = false;
 				}
 			});
 		}
-		//父节点设为选中
-		if(f){
-			var parentdata = $('#tree').treeview('getParent',[data.nodeId]);
-			if("undefined"!=typeof(parentdata)&&null!=parentdata&&"undefined"!=typeof(parentdata.state)){
-				$('#tree').treeview('checkNode',[parentdata.nodeId,{ silent: true }]);
-				treenodecheck(parentdata);
-			}
-		}
-	}
-	
-	function treenodeuncheck(data){
-		if("undefined"!=typeof(data)&&null!=data){
+		if(f&&"undefined"!=typeof(data)&&null!=data){
 			//父节点设为未选中
 			var parentdata = $('#tree').treeview('getParent',[data.nodeId]);
 			if("undefined"!=typeof(parentdata)&&null!=parentdata&&"undefined"!=typeof(parentdata.state)){
@@ -181,7 +176,7 @@
 					$.each(nodes,function(index,node){
 						$.each(list,function(index1,temp){
 							if(node.data.functionCode==temp.functionCode){
-								$('#tree').treeview('checkNode',[node.nodeId]);
+								$('#tree').treeview('checkNode',[node.nodeId,{silent: true}]);
 								return false;
 							}
 						});
