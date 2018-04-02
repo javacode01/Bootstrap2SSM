@@ -85,7 +85,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ORGAN
+    from SYS_ORGAN
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -97,21 +97,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ORGAN
+    from SYS_ORGAN
     where ORGAN_ID = #{organId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_ORGAN
+    delete from SYS_ORGAN
     where ORGAN_ID = #{organId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysOrganExample">
-    delete from BOOTSTRAP2SSM.SYS_ORGAN
+    delete from SYS_ORGAN
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysOrgan">
-    insert into BOOTSTRAP2SSM.SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, 
+    insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, 
       PARENT_CODE, ICON_URL, SEQ, 
       ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, 
       CREATE_TIME, CREATER, UPDATE_TIME, 
@@ -123,7 +123,7 @@
       #{updater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysOrgan">
-    insert into BOOTSTRAP2SSM.SYS_ORGAN
+    insert into SYS_ORGAN
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="organId != null">
         ORGAN_ID,
@@ -208,13 +208,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysOrganExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_ORGAN
+    select count(*) from SYS_ORGAN
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ORGAN
+    update SYS_ORGAN
     <set>
       <if test="record.organId != null">
         ORGAN_ID = #{record.organId,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ORGAN
+    update SYS_ORGAN
     set ORGAN_ID = #{record.organId,jdbcType=VARCHAR},
       ORGAN_CODE = #{record.organCode,jdbcType=VARCHAR},
       ORGAN_NAME = #{record.organName,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysOrgan">
-    update BOOTSTRAP2SSM.SYS_ORGAN
+    update SYS_ORGAN
     <set>
       <if test="organCode != null">
         ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
@@ -322,7 +322,7 @@
     where ORGAN_ID = #{organId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysOrgan">
-    update BOOTSTRAP2SSM.SYS_ORGAN
+    update SYS_ORGAN
     set ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
       ORGAN_NAME = #{organName,jdbcType=VARCHAR},
       PARENT_CODE = #{parentCode,jdbcType=VARCHAR},

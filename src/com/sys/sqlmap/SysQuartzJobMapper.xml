@@ -83,7 +83,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    from SYS_QUARTZ_JOB
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,21 +95,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    from SYS_QUARTZ_JOB
     where RECID = #{recid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    delete from SYS_QUARTZ_JOB
     where RECID = #{recid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysQuartzJobExample" >
-    delete from BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    delete from SYS_QUARTZ_JOB
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysQuartzJob" >
-    insert into BOOTSTRAP2SSM.SYS_QUARTZ_JOB (RECID, JOB_NAME, JOB_GROUP_NAME, 
+    insert into SYS_QUARTZ_JOB (RECID, JOB_NAME, JOB_GROUP_NAME, 
       JOB_CLASS, CRON_EXPRESSION, STATUS, 
       REMARK, CREATER, CREATETIME, 
       UPDATER, UPDATETIME)
@@ -119,7 +119,7 @@
       #{updater,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysQuartzJob" >
-    insert into BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    insert into SYS_QUARTZ_JOB
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recid != null" >
         RECID,
@@ -192,13 +192,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysQuartzJobExample" resultType="java.lang.Integer" >
-    select count(*) from BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    select count(*) from SYS_QUARTZ_JOB
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    update SYS_QUARTZ_JOB
     <set >
       <if test="record.recid != null" >
         RECID = #{record.recid,jdbcType=VARCHAR},
@@ -239,7 +239,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    update SYS_QUARTZ_JOB
     set RECID = #{record.recid,jdbcType=VARCHAR},
       JOB_NAME = #{record.jobName,jdbcType=VARCHAR},
       JOB_GROUP_NAME = #{record.jobGroupName,jdbcType=VARCHAR},
@@ -256,7 +256,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysQuartzJob" >
-    update BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    update SYS_QUARTZ_JOB
     <set >
       <if test="jobName != null" >
         JOB_NAME = #{jobName,jdbcType=VARCHAR},
@@ -292,7 +292,7 @@
     where RECID = #{recid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysQuartzJob" >
-    update BOOTSTRAP2SSM.SYS_QUARTZ_JOB
+    update SYS_QUARTZ_JOB
     set JOB_NAME = #{jobName,jdbcType=VARCHAR},
       JOB_GROUP_NAME = #{jobGroupName,jdbcType=VARCHAR},
       JOB_CLASS = #{jobClass,jdbcType=VARCHAR},

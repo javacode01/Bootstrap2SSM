@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_USER_ROLE
+    from SYS_USER_ROLE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,27 +88,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_USER_ROLE
+    from SYS_USER_ROLE
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_USER_ROLE
+    delete from SYS_USER_ROLE
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysUserRoleExample">
-    delete from BOOTSTRAP2SSM.SYS_USER_ROLE
+    delete from SYS_USER_ROLE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysUserRole">
-    insert into BOOTSTRAP2SSM.SYS_USER_ROLE (ID, USER_CODE, ROLE_CODE, 
+    insert into SYS_USER_ROLE (ID, USER_CODE, ROLE_CODE, 
       CREATE_TIME, CREATER)
     values (#{id,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysUserRole">
-    insert into BOOTSTRAP2SSM.SYS_USER_ROLE
+    insert into SYS_USER_ROLE
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
@@ -145,13 +145,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysUserRoleExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_USER_ROLE
+    select count(*) from SYS_USER_ROLE
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_USER_ROLE
+    update SYS_USER_ROLE
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_USER_ROLE
+    update SYS_USER_ROLE
     set ID = #{record.id,jdbcType=VARCHAR},
       USER_CODE = #{record.userCode,jdbcType=VARCHAR},
       ROLE_CODE = #{record.roleCode,jdbcType=VARCHAR},
@@ -185,7 +185,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysUserRole">
-    update BOOTSTRAP2SSM.SYS_USER_ROLE
+    update SYS_USER_ROLE
     <set>
       <if test="userCode != null">
         USER_CODE = #{userCode,jdbcType=VARCHAR},
@@ -203,7 +203,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysUserRole">
-    update BOOTSTRAP2SSM.SYS_USER_ROLE
+    update SYS_USER_ROLE
     set USER_CODE = #{userCode,jdbcType=VARCHAR},
       ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

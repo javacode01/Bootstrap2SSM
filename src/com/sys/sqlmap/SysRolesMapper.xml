@@ -81,7 +81,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ROLES
+    from SYS_ROLES
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -93,21 +93,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ROLES
+    from SYS_ROLES
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_ROLES
+    delete from SYS_ROLES
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysRolesExample">
-    delete from BOOTSTRAP2SSM.SYS_ROLES
+    delete from SYS_ROLES
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysRoles">
-    insert into BOOTSTRAP2SSM.SYS_ROLES (ROLE_ID, ROLE_NAME, DESCRIPTION, 
+    insert into SYS_ROLES (ROLE_ID, ROLE_NAME, DESCRIPTION, 
       ORGAN_CODE, CREATE_TIME, CREATER, 
       UPDATE_TIME, UPDATER, ROLE_CODE
       )
@@ -117,7 +117,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysRoles">
-    insert into BOOTSTRAP2SSM.SYS_ROLES
+    insert into SYS_ROLES
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="roleId != null">
         ROLE_ID,
@@ -178,13 +178,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysRolesExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_ROLES
+    select count(*) from SYS_ROLES
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ROLES
+    update SYS_ROLES
     <set>
       <if test="record.roleId != null">
         ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
@@ -219,7 +219,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ROLES
+    update SYS_ROLES
     set ROLE_ID = #{record.roleId,jdbcType=VARCHAR},
       ROLE_NAME = #{record.roleName,jdbcType=VARCHAR},
       DESCRIPTION = #{record.description,jdbcType=VARCHAR},
@@ -234,7 +234,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysRoles">
-    update BOOTSTRAP2SSM.SYS_ROLES
+    update SYS_ROLES
     <set>
       <if test="roleName != null">
         ROLE_NAME = #{roleName,jdbcType=VARCHAR},
@@ -264,7 +264,7 @@
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysRoles">
-    update BOOTSTRAP2SSM.SYS_ROLES
+    update SYS_ROLES
     set ROLE_NAME = #{roleName,jdbcType=VARCHAR},
       DESCRIPTION = #{description,jdbcType=VARCHAR},
       ORGAN_CODE = #{organCode,jdbcType=VARCHAR},

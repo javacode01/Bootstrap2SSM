@@ -75,7 +75,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_DICTIONARIES
+    from SYS_DICTIONARIES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,27 +87,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_DICTIONARIES
+    from SYS_DICTIONARIES
     where RECID = #{recid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from BOOTSTRAP2SSM.SYS_DICTIONARIES
+    delete from SYS_DICTIONARIES
     where RECID = #{recid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysDictionariesExample" >
-    delete from BOOTSTRAP2SSM.SYS_DICTIONARIES
+    delete from SYS_DICTIONARIES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysDictionaries" >
-    insert into BOOTSTRAP2SSM.SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, 
+    insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, 
       NOTE)
     values (#{recid,jdbcType=VARCHAR}, #{dicType,jdbcType=VARCHAR}, #{dicName,jdbcType=VARCHAR}, 
       #{note,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysDictionaries" >
-    insert into BOOTSTRAP2SSM.SYS_DICTIONARIES
+    insert into SYS_DICTIONARIES
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recid != null" >
         RECID,
@@ -138,13 +138,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysDictionariesExample" resultType="java.lang.Integer" >
-    select count(*) from BOOTSTRAP2SSM.SYS_DICTIONARIES
+    select count(*) from SYS_DICTIONARIES
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_DICTIONARIES
+    update SYS_DICTIONARIES
     <set >
       <if test="record.recid != null" >
         RECID = #{record.recid,jdbcType=VARCHAR},
@@ -164,7 +164,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_DICTIONARIES
+    update SYS_DICTIONARIES
     set RECID = #{record.recid,jdbcType=VARCHAR},
       DIC_TYPE = #{record.dicType,jdbcType=VARCHAR},
       DIC_NAME = #{record.dicName,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysDictionaries" >
-    update BOOTSTRAP2SSM.SYS_DICTIONARIES
+    update SYS_DICTIONARIES
     <set >
       <if test="dicType != null" >
         DIC_TYPE = #{dicType,jdbcType=VARCHAR},
@@ -189,7 +189,7 @@
     where RECID = #{recid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysDictionaries" >
-    update BOOTSTRAP2SSM.SYS_DICTIONARIES
+    update SYS_DICTIONARIES
     set DIC_TYPE = #{dicType,jdbcType=VARCHAR},
       DIC_NAME = #{dicName,jdbcType=VARCHAR},
       NOTE = #{note,jdbcType=VARCHAR}

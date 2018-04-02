@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    from SYS_ROLE_FUNCTION
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,27 +88,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    from SYS_ROLE_FUNCTION
     where ID = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    delete from SYS_ROLE_FUNCTION
     where ID = #{id,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysRoleFunctionExample">
-    delete from BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    delete from SYS_ROLE_FUNCTION
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysRoleFunction">
-    insert into BOOTSTRAP2SSM.SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, 
+    insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, 
       CREATE_TIME, CREATER)
     values (#{id,jdbcType=VARCHAR}, #{roleCode,jdbcType=VARCHAR}, #{functionCode,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysRoleFunction">
-    insert into BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    insert into SYS_ROLE_FUNCTION
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         ID,
@@ -145,13 +145,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysRoleFunctionExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    select count(*) from SYS_ROLE_FUNCTION
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    update SYS_ROLE_FUNCTION
     <set>
       <if test="record.id != null">
         ID = #{record.id,jdbcType=VARCHAR},
@@ -174,7 +174,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    update SYS_ROLE_FUNCTION
     set ID = #{record.id,jdbcType=VARCHAR},
       ROLE_CODE = #{record.roleCode,jdbcType=VARCHAR},
       FUNCTION_CODE = #{record.functionCode,jdbcType=VARCHAR},
@@ -185,7 +185,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysRoleFunction">
-    update BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    update SYS_ROLE_FUNCTION
     <set>
       <if test="roleCode != null">
         ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
@@ -203,7 +203,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysRoleFunction">
-    update BOOTSTRAP2SSM.SYS_ROLE_FUNCTION
+    update SYS_ROLE_FUNCTION
     set ROLE_CODE = #{roleCode,jdbcType=VARCHAR},
       FUNCTION_CODE = #{functionCode,jdbcType=VARCHAR},
       CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

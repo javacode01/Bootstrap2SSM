@@ -85,7 +85,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ATTACHMENT
+    from SYS_ATTACHMENT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -97,21 +97,21 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_ATTACHMENT
+    from SYS_ATTACHMENT
     where RECID = #{recid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from BOOTSTRAP2SSM.SYS_ATTACHMENT
+    delete from SYS_ATTACHMENT
     where RECID = #{recid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysAttachmentExample" >
-    delete from BOOTSTRAP2SSM.SYS_ATTACHMENT
+    delete from SYS_ATTACHMENT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysAttachment" >
-    insert into BOOTSTRAP2SSM.SYS_ATTACHMENT (RECID, MODULE, BUSINESSID, 
+    insert into SYS_ATTACHMENT (RECID, MODULE, BUSINESSID, 
       TYPE, NAME, PATH, NOTE, 
       CREATE_TIME, CREATER, UPDATE_TIME, 
       UPDATER, ATTACHMENT_SIZE, SUFFIX
@@ -123,7 +123,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysAttachment" >
-    insert into BOOTSTRAP2SSM.SYS_ATTACHMENT
+    insert into SYS_ATTACHMENT
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recid != null" >
         RECID,
@@ -208,13 +208,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysAttachmentExample" resultType="java.lang.Integer" >
-    select count(*) from BOOTSTRAP2SSM.SYS_ATTACHMENT
+    select count(*) from SYS_ATTACHMENT
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_ATTACHMENT
+    update SYS_ATTACHMENT
     <set >
       <if test="record.recid != null" >
         RECID = #{record.recid,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update BOOTSTRAP2SSM.SYS_ATTACHMENT
+    update SYS_ATTACHMENT
     set RECID = #{record.recid,jdbcType=VARCHAR},
       MODULE = #{record.module,jdbcType=VARCHAR},
       BUSINESSID = #{record.businessid,jdbcType=VARCHAR},
@@ -280,7 +280,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysAttachment" >
-    update BOOTSTRAP2SSM.SYS_ATTACHMENT
+    update SYS_ATTACHMENT
     <set >
       <if test="module != null" >
         MODULE = #{module,jdbcType=VARCHAR},
@@ -322,7 +322,7 @@
     where RECID = #{recid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysAttachment" >
-    update BOOTSTRAP2SSM.SYS_ATTACHMENT
+    update SYS_ATTACHMENT
     set MODULE = #{module,jdbcType=VARCHAR},
       BUSINESSID = #{businessid,jdbcType=VARCHAR},
       TYPE = #{type,jdbcType=VARCHAR},

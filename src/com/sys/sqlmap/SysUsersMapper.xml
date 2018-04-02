@@ -88,7 +88,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_USERS
+    from SYS_USERS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -100,21 +100,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_USERS
+    from SYS_USERS
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_USERS
+    delete from SYS_USERS
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysUsersExample">
-    delete from BOOTSTRAP2SSM.SYS_USERS
+    delete from SYS_USERS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysUsers">
-    insert into BOOTSTRAP2SSM.SYS_USERS (USER_ID, USER_NAME, PASSWORD, 
+    insert into SYS_USERS (USER_ID, USER_NAME, PASSWORD, 
       STATUS, SYSTEM, LOCK_TIME, 
       EXPIRED_TIME, ORGAN_CODE, CREATE_TIME, 
       UPDATE_TIME, CREATER, UPDATER, 
@@ -126,7 +126,7 @@
       #{nickname,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysUsers">
-    insert into BOOTSTRAP2SSM.SYS_USERS
+    insert into SYS_USERS
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         USER_ID,
@@ -217,13 +217,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysUsersExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_USERS
+    select count(*) from SYS_USERS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_USERS
+    update SYS_USERS
     <set>
       <if test="record.userId != null">
         USER_ID = #{record.userId,jdbcType=VARCHAR},
@@ -273,7 +273,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_USERS
+    update SYS_USERS
     set USER_ID = #{record.userId,jdbcType=VARCHAR},
       USER_NAME = #{record.userName,jdbcType=VARCHAR},
       PASSWORD = #{record.password,jdbcType=VARCHAR},
@@ -293,7 +293,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysUsers">
-    update BOOTSTRAP2SSM.SYS_USERS
+    update SYS_USERS
     <set>
       <if test="userName != null">
         USER_NAME = #{userName,jdbcType=VARCHAR},
@@ -338,7 +338,7 @@
     where USER_ID = #{userId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysUsers">
-    update BOOTSTRAP2SSM.SYS_USERS
+    update SYS_USERS
     set USER_NAME = #{userName,jdbcType=VARCHAR},
       PASSWORD = #{password,jdbcType=VARCHAR},
       STATUS = #{status,jdbcType=CHAR},
@@ -367,7 +367,7 @@
   <select id="getUserByName" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_USERS
+    from SYS_USERS
     where USER_NAME = #{username,jdbcType=VARCHAR}
   </select>
 </mapper>

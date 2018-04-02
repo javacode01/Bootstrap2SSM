@@ -87,7 +87,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    from SYS_FUNCTIONS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -99,21 +99,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    from SYS_FUNCTIONS
     where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    delete from SYS_FUNCTIONS
     where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.sys.model.SysFunctionsExample">
-    delete from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    delete from SYS_FUNCTIONS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.sys.model.SysFunctions">
-    insert into BOOTSTRAP2SSM.SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, 
+    insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, 
       FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, 
       FUNCTION_URL, FUNCTION_TYPE, SEQ, 
       DEFAULT_ACTION, CREATE_TIME, CREATER, 
@@ -125,7 +125,7 @@
       #{updateTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.sys.model.SysFunctions">
-    insert into BOOTSTRAP2SSM.SYS_FUNCTIONS
+    insert into SYS_FUNCTIONS
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="functionId != null">
         FUNCTION_ID,
@@ -216,13 +216,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.sys.model.SysFunctionsExample" resultType="java.lang.Integer">
-    select count(*) from BOOTSTRAP2SSM.SYS_FUNCTIONS
+    select count(*) from SYS_FUNCTIONS
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    update SYS_FUNCTIONS
     <set>
       <if test="record.functionId != null">
         FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
@@ -272,7 +272,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    update SYS_FUNCTIONS
     set FUNCTION_ID = #{record.functionId,jdbcType=VARCHAR},
       FUNCTION_NAME = #{record.functionName,jdbcType=VARCHAR},
       FUNCTION_ICON = #{record.functionIcon,jdbcType=VARCHAR},
@@ -292,7 +292,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysFunctions">
-    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    update SYS_FUNCTIONS
     <set>
       <if test="functionName != null">
         FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
@@ -337,7 +337,7 @@
     where FUNCTION_ID = #{functionId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.sys.model.SysFunctions">
-    update BOOTSTRAP2SSM.SYS_FUNCTIONS
+    update SYS_FUNCTIONS
     set FUNCTION_NAME = #{functionName,jdbcType=VARCHAR},
       FUNCTION_ICON = #{functionIcon,jdbcType=VARCHAR},
       FUNCTION_LEVEL = #{functionLevel,jdbcType=CHAR},
