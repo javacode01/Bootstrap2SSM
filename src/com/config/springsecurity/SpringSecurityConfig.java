@@ -1,6 +1,5 @@
 package com.config.springsecurity;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -12,7 +11,6 @@ import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-import com.sys.client.SysUsersMapper;
 import com.sys.security.SysAccessDecisionManager;
 import com.sys.security.SysAccessDeniedHandler;
 import com.sys.security.SysAuthenticationProvider;
@@ -30,9 +28,6 @@ import com.sys.security.SysSecurityMetadataSource;
 @Configuration
 @EnableWebMvcSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	
-	@Autowired
-	private SysUsersMapper sysUsersMapper;
 	
 	/**
 	 * 配置Spring Security的Filter链
@@ -73,8 +68,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(AuthenticationManagerBuilder auth)
 			throws Exception {
 		// TODO Auto-generated method stub
-		//通过实现UserDetailsService实现用户验证
-//		auth.userDetailsService(new UsersDetailServiceImp(sysUsersMapper));
 		//使用自定义用户验证
 		auth.authenticationProvider(sysAuthenticationProvider());
 	}
