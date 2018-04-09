@@ -29,7 +29,6 @@ public class SysController {
 	@RequestMapping(value="/loginsuccess",method=RequestMethod.GET)
 	public ModelAndView loginsuccess(){
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("productName", ConfigUtils.getValue("sys.productName"));
 		mv.setViewName("jsp/sys/main/main");
 		return mv;
 	}

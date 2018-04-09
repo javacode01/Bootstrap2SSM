@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.sys.utils.BspUtils"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:url value="/" var="basepath"></c:url>
 <!DOCTYPE html>
@@ -7,9 +8,11 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Bootstrap2SSM登录</title>
+<title><%=BspUtils.getSysName() %></title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!-- 设置系统图标 -->
+<link rel="shortcut icon" href="${basepath}resource/img/<%=BspUtils.getFavicon() %>" type="image/x-icon"/>
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet" href="${basepath}resource/bower_components/bootstrap/dist/css/bootstrap.min.css">
 <!-- Font Awesome -->
@@ -31,7 +34,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a>后台管理系统</a>
+			<a><%=BspUtils.getSysName() %></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">

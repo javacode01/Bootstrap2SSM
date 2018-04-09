@@ -93,4 +93,28 @@ public class BspUtils {
 		return functionsCache.getModuleList();
 	}
 	
+	/**
+	 * 获取系统名称
+	 * @return
+	 */
+	public static String getSysName() {
+		return ConfigUtils.getValue("sys.productName");
+	}
+	
+	/**
+	 * 获取系统简称
+	 * @return
+	 */
+	public static String getSysShortName() {
+		return ConfigUtils.getValue("sys.shortName");
+	}
+	
+	/**
+	 * 获取系统图标
+	 * @return
+	 */
+	public static String getFavicon() {
+		return ConfigUtils.getValue("sys.favicon");
+	}
+	
 }

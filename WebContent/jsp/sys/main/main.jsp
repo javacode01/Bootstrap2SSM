@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/jsp/sys/include/taglib.jsp"%>
-<%@ page import="com.sys.utils.BspUtils"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,9 +19,9 @@
     <!-- logo区域 -->
     <a href="javascript:void(0);" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini">管理</span>
+      <span class="logo-mini"><%=BspUtils.getSysShortName() %></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">后台管理系统</span>
+      <span class="logo-lg"><%=BspUtils.getSysName() %></span>
     </a>
     <!-- logo区域结束 -->
     <!-- 右边顶部开始 -->
