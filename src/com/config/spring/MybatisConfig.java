@@ -1,6 +1,7 @@
 package com.config.spring;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
@@ -38,23 +39,36 @@ public class MybatisConfig {
 	/**
 	 * 配置数据源
 	 * @return
+	 * @throws SQLException 
 	 */
-	@Bean(destroyMethod="close")
-	public DataSource dataSource(){
+	@Bean(initMethod="init",destroyMethod="close")
+	public DataSource dataSource() throws SQLException{
 		DruidDataSource dataSource = new DruidDataSource();
+		//基本属性 url、user、password
 		dataSource.setUrl(env.getProperty("dataSource.url"));
 		dataSource.setUsername(env.getProperty("dataSource.username"));
 		dataSource.setPassword(env.getProperty("dataSource.password"));
+		//配置初始化大小、最小、最大
 		dataSource.setInitialSize(Integer.valueOf(env.getProperty("dataSource.initialSize")));
 		dataSource.setMinIdle(Integer.valueOf(env.getProperty("dataSource.minIdle")));
 		dataSource.setMaxActive(Integer.valueOf(env.getProperty("dataSource.maxActive")));
+		//配置获取连接等待超时的时间
 		dataSource.setMaxWait(Integer.valueOf(env.getProperty("dataSource.maxWait")));
+		//配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
 		dataSource.setTimeBetweenEvictionRunsMillis(Integer.valueOf(env.getProperty("dataSource.timeBetweenEvictionRunsMillis")));
+		//配置一个连接在池中最小生存的时间，单位是毫秒
 		dataSource.setMinEvictableIdleTimeMillis(Integer.valueOf(env.getProperty("dataSource.minEvictableIdleTimeMillis")));
 		dataSource.setValidationQuery(env.getProperty("dataSource.validationQuery"));
 		dataSource.setTestWhileIdle(Boolean.valueOf(env.getProperty("dataSource.testWhileIdle")));
 		dataSource.setTestOnBorrow(Boolean.valueOf(env.getProperty("dataSource.testOnBorrow")));
 		dataSource.setTestOnReturn(Boolean.valueOf(env.getProperty("dataSource.testOnReturn")));
+		//打开PSCache，并且指定每个连接上PSCache的大小
+		dataSource.setPoolPreparedStatements(Boolean.valueOf(env.getProperty("dataSource.poolPreparedStatements")));
+		dataSource.setMaxPoolPreparedStatementPerConnectionSize(Integer.valueOf(env.getProperty("dataSource.maxPoolPreparedStatementPerConnectionSize")));
+		//配置监控统计拦截的filters，去掉后监控界面sql无法统计
+		dataSource.setFilters(env.getProperty("dataSource.filters"));
+		//每隔5分钟将监控日志输出到日志文件中，单位是毫秒
+		dataSource.setTimeBetweenLogStatsMillis(Long.valueOf(env.getProperty("dataSource.timeBetweenLogStatsMillis")));
 		return dataSource;
 	}
 	
