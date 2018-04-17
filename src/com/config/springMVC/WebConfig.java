@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
+import com.demo.action.DemoActionConfig;
 import com.sys.action.SysActionConfig;
 
 /**
@@ -22,7 +23,7 @@ import com.sys.action.SysActionConfig;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses={SysActionConfig.class})
+@ComponentScan(basePackageClasses={SysActionConfig.class,DemoActionConfig.class})
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
 	/**

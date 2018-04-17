@@ -18,6 +18,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import com.demo.client.DemoClientConfig;
 import com.sys.client.SysClientConfig;
 
 /**
@@ -29,7 +30,7 @@ import com.sys.client.SysClientConfig;
  */
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackageClasses={SysClientConfig.class})
+@MapperScan(basePackageClasses={SysClientConfig.class,DemoClientConfig.class})
 @PropertySource("classpath:/datasource.properties")
 public class MybatisConfig {
 	
@@ -94,7 +95,7 @@ public class MybatisConfig {
 		ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();  
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();  
         sqlSessionFactoryBean.setDataSource(dataSource);  
-        sqlSessionFactoryBean.setMapperLocations(resourcePatternResolver.getResources("classpath*:com/sys/**/sqlmap/*.xml"));  
+        sqlSessionFactoryBean.setMapperLocations(resourcePatternResolver.getResources("classpath*:com/**/**/sqlmap/**/*.xml"));  
         return sqlSessionFactoryBean;
 	}
 	

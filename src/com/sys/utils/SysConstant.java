@@ -22,6 +22,8 @@ public class SysConstant {
 	public final static String SYS_ERROR_STATUS_DESCRIPTION = "数据状态错误";
 	public final static String SYS_USER_ERROR_PASSWORD = "error_user_0001";
 	public final static String SYS_USER_ERROR_PASSWORD_DESCRIPTION = "密码错误";
+	public final static String SYS_ERROR_ADD = "新增失败";
+	public final static String SYS_ERROR_UPDATE = "更新失败";
 	
 	/*********功能级别*********/
 	public final static String SYS_FUNCTION_LEVEL_MODULE = "1";//模块
