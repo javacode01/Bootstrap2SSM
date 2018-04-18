@@ -100,7 +100,7 @@ public class ${className}Controller {
 	 * @return
 	 */
 	@RequestMapping(value="/${urlPrefix}/${className?lower_case}/edit${className}",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody ResultData edit${className}(DemoOrder edit,HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody ResultData edit${className}(${className} edit,HttpServletRequest request, HttpServletResponse response) {
 		ResultData rd = new ResultData();
 		try {
 			if(null==edit) {

@@ -93,7 +93,7 @@ function edit(){
 		bootbox.alert({ 
 			  size: "small",
 			  title: "提示框",
-			  message: "请选择一个要编辑的角色"
+			  message: "请选择一个要编辑的记录"
 			});
 		return false;
 	}
@@ -112,13 +112,13 @@ function remove(){
 		bootbox.alert({ 
 			  size: "small",
 			  title: "提示框",
-			  message: "请先选择要删除的订单"
+			  message: "请先选择要删除的记录"
 			});
 		return false;
 	}
 	bootbox.confirm({
 		title:"确认框",
-	    message: "是否确认删除当前选中的订单？",
+	    message: "是否确认删除当前选中的记录？",
 	    buttons: {
 	        confirm: {
 	            label: '确定',
