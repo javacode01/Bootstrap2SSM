@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import ${basePackage}.model${baseModule}.${className};
-import ${basePackage}.order${baseModule}.${className}Example;
+import ${basePackage}.model${baseModule}.${className}Example;
 import ${basePackage}.service${baseModule}.${className}Service;
 import com.sys.model.SysRoles;
 import com.sys.model.SysRolesExample;

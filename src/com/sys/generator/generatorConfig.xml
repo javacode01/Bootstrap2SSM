@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 	<classPathEntry
-		location="E:\workspace\Bootstrap2SSM\WebContent\WEB-INF\lib\ojdbc6.jar" />
+		location="E:\eclipse-workspace\Bootstrap2SSM\WebContent\WEB-INF\lib\ojdbc6.jar" />
 	<context id="DB2Tables" targetRuntime="MyBatis3">
 		<!-- 这里引入扩展分页插件 -->
 		<plugin type="com.sys.generator.plugin.OraclePaginationPlugin" />

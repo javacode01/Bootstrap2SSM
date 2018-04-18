@@ -25,7 +25,7 @@
 </div>
 <!-- /.modal -->
 <script type="text/javascript">
-	var edit_handle = 'r"${handle}"';//操作类型
+	var edit_handle = '${r"${handle}"}';//操作类型
 	$(function(){
 		//初始化界面
 		if('add'==edit_handle){
