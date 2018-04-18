@@ -9,12 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.demo.client.order.DemoOrderMapper;
 import com.demo.model.order.DemoOrder;
 import com.demo.model.order.DemoOrderExample;
-import com.sys.model.SysRoleFunctionExample;
-import com.sys.model.SysRolesExample;
-import com.sys.model.SysUserRoleExample;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
-import com.sys.utils.SysUtils;
 
 @Service
 public class DemoOrderService {
