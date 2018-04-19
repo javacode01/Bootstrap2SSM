@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="${basepath}resource/bower_components/font-awesome/css/font-awesome.min.css">
 <!-- Ionicons -->
 <link rel="stylesheet" href="${basepath}resource/bower_components/Ionicons/css/ionicons.min.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <!-- Bootstrap Table -->
 <link rel="stylesheet" href="${basepath}resource/css/bootstrap-table.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

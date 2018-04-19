@@ -5,6 +5,8 @@
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
 <link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
+<!-- Theme style -->
+<link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
 .list-group-item:first-child {
     border-top-left-radius: 0px;
