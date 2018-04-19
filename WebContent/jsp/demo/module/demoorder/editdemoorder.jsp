@@ -4,21 +4,37 @@
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
 				aria-hidden="true">&times;</button>
-			<h4 class="modal-title">角色-<small id="addEditTitle">新增</small></h4>
+			<h4 class="modal-title">订单（示例表）-<small id="addEditTitle">新增</small></h4>
 		</div>
 		<div class="modal-body">
 			<form role="form" id="addEditForm">
-				<div class="form-group" style="display:none;">
-					<label for="recid">订单Id</label>
-					<input type="text" class="form-control" id="recid" name="recid" value="${demoOrder.recid}">
+				<div class="form-group">
+					<label for="recid">订单id</label>
+					<input type="text" class="form-control" id="recid" name="recid" value="${demoorder.recid}">
 				</div>
 				<div class="form-group">
-					<label for="orderNo">订单编码</label>
-					<input type="text" class="form-control" id="orderNo" name="orderNo" value="${demoOrder.orderNo}" required>
+					<label for="recid">订单编号</label>
+					<input type="text" class="form-control" id="orderNo" name="orderNo" value="${demoorder.orderNo}">
 				</div>
 				<div class="form-group">
-					<label for="description">角色描述</label>
-					<input type="text" class="form-control" id="description" name="description" value="${demoOrder.description}">
+					<label for="recid">订单简介</label>
+					<input type="text" class="form-control" id="description" name="description" value="${demoorder.description}">
+				</div>
+				<div class="form-group">
+					<label for="recid">创建人</label>
+					<input type="text" class="form-control" id="creater" name="creater" value="${demoorder.creater}">
+				</div>
+				<div class="form-group">
+					<label for="recid">创建时间</label>
+					<input type="text" class="form-control" id="createTime" name="createTime" value="${demoorder.createTime}">
+				</div>
+				<div class="form-group">
+					<label for="recid">更新人</label>
+					<input type="text" class="form-control" id="updater" name="updater" value="${demoorder.updater}">
+				</div>
+				<div class="form-group">
+					<label for="recid">更新时间</label>
+					<input type="text" class="form-control" id="updateTime" name="updateTime" value="${demoorder.updateTime}">
 				</div>
 			</form>
 		</div>
@@ -48,7 +64,7 @@
 		}
 		//提交
 		$.ajax({
-			url:basepath+'demo/demoorder/editDemoOrder',
+			url:basepath+'module/demoorder/editDemoOrder',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){

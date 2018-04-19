@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.demo.client.order.DemoOrderMapper" >
-  <resultMap id="BaseResultMap" type="com.demo.model.order.DemoOrder" >
+<mapper namespace="com.demo.client.module.DemoOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.model.module.DemoOrder" >
     <id column="RECID" property="recid" jdbcType="VARCHAR" />
     <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
     <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
@@ -71,7 +71,7 @@
   <sql id="Base_Column_List" >
     RECID, ORDER_NO, DESCRIPTION, CREATER, CREATE_TIME, UPDATER, UPDATE_TIME
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.demo.model.order.DemoOrderExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.demo.model.module.DemoOrderExample" >
     <include refid="OracleDialectPrefix" />
     select
     <if test="distinct" >
@@ -97,13 +97,13 @@
     delete from DEMO_ORDER
     where RECID = #{recid,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.demo.model.order.DemoOrderExample" >
+  <delete id="deleteByExample" parameterType="com.demo.model.module.DemoOrderExample" >
     delete from DEMO_ORDER
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.demo.model.order.DemoOrder" >
+  <insert id="insert" parameterType="com.demo.model.module.DemoOrder" >
     insert into DEMO_ORDER (RECID, ORDER_NO, DESCRIPTION, 
       CREATER, CREATE_TIME, UPDATER, 
       UPDATE_TIME)
@@ -111,7 +111,7 @@
       #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updater,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.demo.model.order.DemoOrder" >
+  <insert id="insertSelective" parameterType="com.demo.model.module.DemoOrder" >
     insert into DEMO_ORDER
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="recid != null" >
@@ -160,7 +160,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.demo.model.order.DemoOrderExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.demo.model.module.DemoOrderExample" resultType="java.lang.Integer" >
     select count(*) from DEMO_ORDER
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -208,7 +208,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.order.DemoOrder" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.model.module.DemoOrder" >
     update DEMO_ORDER
     <set >
       <if test="orderNo != null" >
@@ -232,7 +232,7 @@
     </set>
     where RECID = #{recid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.demo.model.order.DemoOrder" >
+  <update id="updateByPrimaryKey" parameterType="com.demo.model.module.DemoOrder" >
     update DEMO_ORDER
     set ORDER_NO = #{orderNo,jdbcType=VARCHAR},
       DESCRIPTION = #{description,jdbcType=VARCHAR},

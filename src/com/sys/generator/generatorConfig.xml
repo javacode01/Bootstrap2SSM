@@ -14,24 +14,15 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		<jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver"
-			connectionURL="jdbc:oracle:thin:@localhost:1521/ORCL" userId="BOOTSTRAP2SSM"
-			password="BOOTSTRAP2SSM" />
+			connectionURL="jdbc:oracle:thin:@10.48.44.198:1521/ORCL" userId="SDGS12315"
+			password="SDGS12315" />
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="com.sys.model" targetProject="src" />
+		<javaModelGenerator targetPackage="com.demo.model.module" targetProject="src" />
 		<!-- 生成映射文件的包名和位置 -->
-		<sqlMapGenerator targetPackage="com.sys.sqlmap" targetProject="src" />
+		<sqlMapGenerator targetPackage="com.demo.sqlmap.module" targetProject="src" />
 		<!-- 生成DAO的包名和位置 -->
-		<javaClientGenerator targetPackage="com.sys.client" targetProject="src" type="XMLMAPPER" />
+		<javaClientGenerator targetPackage="com.demo.client.module" targetProject="src" type="XMLMAPPER" />
 		<!-- 需要生成代码的表名 -->
-		<table tableName="SYS_USERS" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_ROLES" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_FUNCTIONS" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_ORGAN" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_USER_ROLE" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_ROLE_FUNCTION" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_DICTIONARIES" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_DICTIONARIES_ITEM" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_ATTACHMENT" schema="BOOTSTRAP2SSM"></table>
-		<table tableName="SYS_QUARTZ_JOB" schema="BOOTSTRAP2SSM"></table>
+		<table tableName="DEMO_ORDER"></table>
 	</context>
 </generatorConfiguration>

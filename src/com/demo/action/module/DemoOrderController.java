@@ -1,7 +1,6 @@
-package com.demo.action.order;
+package com.demo.action.module;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.demo.model.order.DemoOrder;
-import com.demo.model.order.DemoOrderExample;
-import com.demo.service.order.DemoOrderService;
-import com.sys.model.SysRoles;
-import com.sys.model.SysRolesExample;
+import com.demo.model.module.DemoOrder;
+import com.demo.model.module.DemoOrderExample;
+import com.demo.service.module.DemoOrderService;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
 import com.sys.utils.Page;
@@ -27,35 +24,28 @@ import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
 
-/**
- * @ClassName: DemoOrderController 
- * @Description: 订单管理（示例）
- * @author AK
- * @date 2017-11-22 下午4:36:45 
- *
- */
 @Controller
 public class DemoOrderController {
 	
 	@Autowired
-	private DemoOrderService demoOrderService;
+	private DemoOrderService demoorderService;
 	
 	/**
-	 * 跳转订单管理界面
+	 * 跳转订单（示例表）管理界面
 	 * @return
 	 */
-	@RequestMapping(value="/demo/demoorder/initManageDemoOrder",method=RequestMethod.GET)
+	@RequestMapping(value="/module/demoorder/initManageDemoOrder",method=RequestMethod.GET)
 	public String initManageDemoOrder(){
-		return "jsp/demo/order/managedemoorder";
+		return "jsp/demo/module/demoorder/managedemoorder";
 	}
 	
 	/**
-	 * 订单分页查询
+	 * 分页查询
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/demo/demoorder/listDemoOrderByPage",method=RequestMethod.GET,produces="application/json")
+	@RequestMapping(value="/module/demoorder/listDemoOrderByPage",method=RequestMethod.GET,produces="application/json")
 	public @ResponseBody PageListData listDemoOrderByPage(HttpServletRequest request, HttpServletResponse response) {
 		String start = request.getParameter("offset");//当前第几页
 		String rows = request.getParameter("limit");//每页显示条数
@@ -77,15 +67,15 @@ public class DemoOrderController {
 		p.setBegin(Integer.parseInt(start));
 		p.setEnd(Integer.parseInt(start)+Integer.parseInt(rows));
 		pote.setPage(p);
-		PageListData pageData = demoOrderService.listDemoOrderByPage(pote);
+		PageListData pageData = demoorderService.listDemoOrderByPage(pote);
 		return pageData;
 	}
 	
 	/**
-	 * 跳转订单编辑界面
+	 * 跳转订单（示例表）编辑界面
 	 * @return
 	 */
-	@RequestMapping(value="/demo/demoorder/toEditDemoOrder",method=RequestMethod.GET)
+	@RequestMapping(value="/module/demoorder/toEditDemoOrder",method=RequestMethod.GET)
 	public ModelAndView toEditDemoOrder(HttpServletRequest request, HttpServletResponse response){
 		String handle = request.getParameter("handle");
 		ModelAndView mv = new ModelAndView();
@@ -93,20 +83,20 @@ public class DemoOrderController {
 		if(SysConstant.SYS_HANDLE_ADD.equals(handle)){//新增
 		}else if(SysConstant.SYS_HANDLE_EDIT.equals(handle)){//修改
 			String recid = request.getParameter("recid");
-			DemoOrder demoOrder = demoOrderService.getDemoOrderById(recid);
-			mv.addObject("demoOrder",demoOrder);
+			DemoOrder demoorder = demoorderService.getDemoOrderById(recid);
+			mv.addObject("demoorder",demoorder);
 		}
-		mv.setViewName("jsp/demo/order/editdemoorder");
+		mv.setViewName("jsp/demo/module/demoorder//editdemoorder");
 		return mv;
 	}
 	
 	/**
-	 * 保存订单编辑内容
+	 * 保存订单（示例表）编辑内容
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/demo/demoorder/editDemoOrder",method=RequestMethod.POST,produces="application/json")
+	@RequestMapping(value="/module/demoorder/editDemoOrder",method=RequestMethod.POST,produces="application/json")
 	public @ResponseBody ResultData editDemoOrder(DemoOrder edit,HttpServletRequest request, HttpServletResponse response) {
 		ResultData rd = new ResultData();
 		try {
@@ -121,11 +111,11 @@ public class DemoOrderController {
 				edit.setCreater(BspUtils.getLoginUser().getUserId());
 				edit.setUpdateTime(new Date());
 				edit.setUpdater(BspUtils.getLoginUser().getUserId());
-				demoOrderService.addDemoOrder(edit);
+				demoorderService.addDemoOrder(edit);
 			}else {//修改
 				edit.setUpdateTime(new Date());
 				edit.setUpdater(BspUtils.getLoginUser().getUserId());
-				demoOrderService.updateDemoOrder(edit);
+				demoorderService.updateDemoOrder(edit);
 			}
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(edit);
@@ -139,12 +129,12 @@ public class DemoOrderController {
 	}
 	
 	/**
-	 * 删除订单
+	 * 删除订单（示例表）
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/demo/demoorder/deleteDemoOrder",method=RequestMethod.POST,produces="application/json")
+	@RequestMapping(value="/module/demoorder/deleteDemoOrder",method=RequestMethod.POST,produces="application/json")
 	public @ResponseBody ResultData deleteDemoOrder(HttpServletRequest request, HttpServletResponse response) {
 		ResultData rd = new ResultData();
 		try {
@@ -154,7 +144,7 @@ public class DemoOrderController {
 				rd.setData(SysConstant.SYS_ERROR_PARAMETER_DESCRIPTION);
 				return rd;
 			}
-			demoOrderService.deleteDemoOrder(recids);
+			demoorderService.deleteDemoOrder(recids);
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
 			return rd;

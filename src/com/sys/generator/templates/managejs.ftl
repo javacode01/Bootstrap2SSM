@@ -13,7 +13,7 @@ function init() {
  */
 function initTable(){
 	$('#table').bootstrapTable({
-		url:basepath+"${urlPrefix}/${className?lower_case}/get${className}ByPage",
+		url:basepath+"${urlPrefix}/${className?lower_case}/list${className}ByPage",
         striped: true,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         queryParams: function(params){

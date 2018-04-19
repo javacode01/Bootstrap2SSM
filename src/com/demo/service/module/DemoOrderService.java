@@ -1,4 +1,4 @@
-package com.demo.service.order;
+package com.demo.service.module;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.demo.client.order.DemoOrderMapper;
-import com.demo.model.order.DemoOrder;
-import com.demo.model.order.DemoOrderExample;
+import com.demo.client.module.DemoOrderMapper;
+import com.demo.model.module.DemoOrder;
+import com.demo.model.module.DemoOrderExample;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
 
@@ -16,7 +16,7 @@ import com.sys.utils.SysConstant;
 public class DemoOrderService {
 	
 	@Autowired
-	private DemoOrderMapper demoOrderMapper;
+	private DemoOrderMapper demoorderMapper;
 	
 	/**
 	 * 分页查询
@@ -24,8 +24,8 @@ public class DemoOrderService {
 	 * @return
 	 */
 	public PageListData listDemoOrderByPage(DemoOrderExample example) {
-		int totalCount = demoOrderMapper.countByExample(example);
-		List<DemoOrder> list = demoOrderMapper.selectByExample(example);			
+		int totalCount = demoorderMapper.countByExample(example);
+		List<DemoOrder> list = demoorderMapper.selectByExample(example);			
 		PageListData pld = new PageListData();
 		pld.setTotal(totalCount);
 		pld.setRows(list);
@@ -33,46 +33,46 @@ public class DemoOrderService {
 	}
 	
 	/**
-	 * 根据主键获取订单
+	 * 根据主键获取对象
 	 * @param recid
 	 * @return
 	 */
 	public DemoOrder getDemoOrderById(String id) {
-		return demoOrderMapper.selectByPrimaryKey(id);
+		return demoorderMapper.selectByPrimaryKey(id);
 	}
 	
 	/**
-	 * 新增订单
+	 * 新增对象
 	 * @param edit
 	 */
 	public void addDemoOrder(DemoOrder add) {
-		int count = demoOrderMapper.insertSelective(add);
+		int count = demoorderMapper.insertSelective(add);
 		if(1!=count) {
 			throw new RuntimeException(SysConstant.SYS_ERROR_ADD);
 		}
 	}
 	
 	/**
-	 * 更新订单信息
+	 * 更新对象信息
 	 * @param edit
 	 */
 	@Transactional
 	public void updateDemoOrder(DemoOrder edit) {
-		int count = demoOrderMapper.updateByPrimaryKeySelective(edit);
+		int count = demoorderMapper.updateByPrimaryKeySelective(edit);
 		if(1!=count) {
 			throw new RuntimeException(SysConstant.SYS_ERROR_UPDATE);
 		}
 	}
 	
 	/**
-	 * 批量删除订单
+	 * 批量删除对象
 	 * @param orderids
 	 */
 	@Transactional
 	public void deleteDemoOrder(String recids) {
 		String[] array = recids.split(",");
 		for(String recid:array) {
-			demoOrderMapper.deleteByPrimaryKey(recid);
+			demoorderMapper.deleteByPrimaryKey(recid);
 		}
 		
 	}

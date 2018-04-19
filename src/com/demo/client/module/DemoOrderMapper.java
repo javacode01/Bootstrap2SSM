@@ -1,7 +1,7 @@
-package com.demo.client.order;
+package com.demo.client.module;
 
-import com.demo.model.order.DemoOrder;
-import com.demo.model.order.DemoOrderExample;
+import com.demo.model.module.DemoOrder;
+import com.demo.model.module.DemoOrderExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 

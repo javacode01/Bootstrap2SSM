@@ -1,4 +1,4 @@
-package com.demo.model.order;
+package com.demo.model.module;
 
 import java.util.Date;
 

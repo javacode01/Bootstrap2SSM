@@ -13,7 +13,7 @@ function init() {
  */
 function initTable(){
 	$('#table').bootstrapTable({
-		url:basepath+"demo/demoorder/listDemoOrderByPage",
+		url:basepath+"module/demoorder/listDemoOrderByPage",
         striped: true,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         queryParams: function(params){
@@ -34,13 +34,38 @@ function initTable(){
         showToggle:true,
         columns: [{
         	checkbox:true
-        }, {
-            field: 'orderNo',
-            title: '订单编号'
-        }, {
-            field: 'description',
-            title: '订单简介'
-        }]
+        }, 
+        {
+        	field:'recid',
+        	title:'订单id'
+        },
+        {
+        	field:'orderNo',
+        	title:'订单编号'
+        },
+        {
+        	field:'description',
+        	title:'订单简介'
+        },
+        {
+        	field:'creater',
+        	title:'创建人'
+        },
+        {
+        	field:'createTime',
+        	title:'创建时间'
+        },
+        {
+        	field:'updater',
+        	title:'更新人'
+        },
+        {
+        	field:'updateTime',
+        	title:'更新时间'
+        },
+		{
+			title:'操作'
+		}]
 	});
 }
 
@@ -51,9 +76,33 @@ function initTable(){
  */
 function getParam(params){
 	var filter = new HashMap();
-	var searchOrderno = $("#search_orderno").val();
-	if(searchOrderno){
-		filter.put("orderNo@LIKE","%"+searchOrderno+"%");
+    var searchrecid = $("#search_recid").val();
+	if(searchrecid){
+		filter.put("recid@=",searchrecid);
+	}
+    var searchorderNo = $("#search_orderNo").val();
+	if(searchorderNo){
+		filter.put("orderNo@=",searchorderNo);
+	}
+    var searchdescription = $("#search_description").val();
+	if(searchdescription){
+		filter.put("description@=",searchdescription);
+	}
+    var searchcreater = $("#search_creater").val();
+	if(searchcreater){
+		filter.put("creater@=",searchcreater);
+	}
+    var searchcreateTime = $("#search_createTime").val();
+	if(searchcreateTime){
+		filter.put("createTime@=",searchcreateTime);
+	}
+    var searchupdater = $("#search_updater").val();
+	if(searchupdater){
+		filter.put("updater@=",searchupdater);
+	}
+    var searchupdateTime = $("#search_updateTime").val();
+	if(searchupdateTime){
+		filter.put("updateTime@=",searchupdateTime);
 	}
 	$.extend(params,{filter:filter.getJSON()});
 	return params;
@@ -73,13 +122,13 @@ function search(){
  * @returns
  */
 function add(){
-	$("#editModal").load(basepath+"demo/demoorder/toEditDemoOrder?handle=add",function(){
+	$("#editModal").load(basepath+"module/demoorder/toEditDemoOrder?handle=add",function(){
 		$("#editModal").modal({backdrop: 'static', keyboard: false});
 	});
 }
 
 /**
- * 修改角色
+ * 修改
  * @returns
  */
 function edit(){
@@ -88,17 +137,17 @@ function edit(){
 		bootbox.alert({ 
 			  size: "small",
 			  title: "提示框",
-			  message: "请选择一个要编辑的角色"
+			  message: "请选择一个要编辑的记录"
 			});
 		return false;
 	}
-	$("#editModal").load(basepath+"demo/demoorder/toEditDemoOrder?handle=edit&recid="+selected[0].recid,function(){
+	$("#editModal").load(basepath+"module/demoorder/toEditDemoOrder?handle=edit&recid="+selected[0].recid,function(){
 		$("#editModal").modal({backdrop: 'static', keyboard: false});
 	});
 }
 
 /**
- * 字典删除
+ * 删除
  * @returns
  */
 function remove(){
@@ -107,13 +156,13 @@ function remove(){
 		bootbox.alert({ 
 			  size: "small",
 			  title: "提示框",
-			  message: "请先选择要删除的订单"
+			  message: "请先选择要删除的记录"
 			});
 		return false;
 	}
 	bootbox.confirm({
 		title:"确认框",
-	    message: "是否确认删除当前选中的订单？",
+	    message: "是否确认删除当前选中的记录？",
 	    buttons: {
 	        confirm: {
 	            label: '确定',
@@ -132,7 +181,7 @@ function remove(){
 	    	   })
 	    	   //提交
 	    	   $.ajax({
-	    		   url:basepath+'demo/demoorder/deleteDemoOrder',
+	    		   url:basepath+'module/demoorder/deleteDemoOrder',
 	    		   type:'post',
 	    		   data:{recids:recids.join(",")},
 	    		   success:function(result){

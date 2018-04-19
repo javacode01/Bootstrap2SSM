@@ -1,7 +1,6 @@
 package ${basePackage}.action${baseModule};
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ${basePackage}.model${baseModule}.${className};
 import ${basePackage}.model${baseModule}.${className}Example;
 import ${basePackage}.service${baseModule}.${className}Service;
-import com.sys.model.SysRoles;
-import com.sys.model.SysRolesExample;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
 import com.sys.utils.Page;

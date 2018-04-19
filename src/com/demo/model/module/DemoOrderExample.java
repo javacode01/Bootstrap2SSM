@@ -1,4 +1,4 @@
-package com.demo.model.order;
+package com.demo.model.module;
 
 import com.sys.utils.BeanUtils;
 import com.sys.utils.Page;
