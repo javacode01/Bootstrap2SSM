@@ -4,24 +4,14 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<style>
-.list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-.list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-</style>
 </head>
 <body>
-	<div class="container" style="height:100%;">
-		<div class="sys-skin" style="position:fixed;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
+	<div class="container">
+		<div class="sys-skin sys-manage-title">
 			<strong>&nbsp;${comment}管理</strong>
 		</div>
-		<div class="row" style="height:100%;padding-top:30px;">
-			<div class="row" style="padding-top:10px;">
+		<div class="row sys-manage-body">
+			<div class="row sys-manage-body-search">
 				<#list columns as column>
 					<div class="col-sm-1" style="line-height: 34px;padding-right:0px;">${column.columnComment}</div>
 					<div class="col-sm-1"><input class="form-control" id="search_${column.propertyName}"></div>

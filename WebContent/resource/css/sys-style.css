@@ -13,6 +13,31 @@
 .sys-border-right {
 	border-right:2px solid #555;
 }
+
+/**
+ *管理页标题栏样式
+ */
+.sys-manage-title {
+	position:fixed;
+	left:0px;
+	right:0px;
+	z-index:600;
+	height:30px;
+	line-height: 30px;
+}
+
+/**
+ *管理页内容区样式
+ */
+.sys-manage-body {
+	padding-top:30px;
+}
+/**
+ *管理页内容区-搜索条件区域样式
+ */
+.sys-manage-body-search {
+	padding-top:10px;
+}
 /********************自定义样式***********************/
 .cust-panel {
  	border: 0px;

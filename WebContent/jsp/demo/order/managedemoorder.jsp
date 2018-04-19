@@ -4,24 +4,14 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<style>
-.list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-.list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-</style>
 </head>
 <body>
-	<div class="container" style="height:100%;">
-		<div class="sys-skin" style="position:fixed;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
+	<div class="container">
+		<div class="sys-skin sys-manage-title">
 			<strong>&nbsp;订单管理</strong>
 		</div>
-		<div class="row" style="height:100%;padding-top:30px;">
-			<div class="row" style="padding-top:10px;">
+		<div class="row sys-manage-body">
+			<div class="row sys-manage-body-search">
 				<div class="col-sm-1" style="line-height: 34px;padding-right:0px;">角色编号</div>
 				<div class="col-sm-3"><input class="form-control" id="search_orderno"></div>
 				<div class="col-sm-4"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
