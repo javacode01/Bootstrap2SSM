@@ -1,3 +1,7 @@
+系统使用说明：
+java类构建路径：如：com.公司名称.aciton.模块名
+jsp路径：如：jsp/公司名/模块名/表名
+
 系统说明
 目的：
 构建一个基于Bootstrap、SpringMVC、Spring、Mybatis的基础后台管理系统。
