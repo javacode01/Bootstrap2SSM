@@ -34,8 +34,8 @@
 					<strong>&nbsp;用户操作区域</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
-					<div class="panel panel-default">
-					    <div class="panel-heading">
+					<div class="panel panel-default cust-panel">
+					    <div class="panel-heading cust-panel-heading">
 					    	<div>当前机构信息</div>
 					    </div>
 					    <div class="panel-body">
@@ -57,8 +57,8 @@
 					    	</div>
 					    </div>
 					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
+					<div class="panel panel-default cust-panel">
+						<div class="panel-heading cust-panel-heading">
 							用户列表
 						</div>
 						<div class="panel-body">

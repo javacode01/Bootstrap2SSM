@@ -41,7 +41,7 @@
 					<strong>&nbsp;字典项管理</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
-				<div class="panel panel-default">
+				<div class="panel panel-default cust-panel">
 					<div class="panel-body">
 						<div id="toolbar">
 					    	<button type="button" class="btn btn-success btn-sm" onclick="addDicItem()">增加</button>

@@ -13,9 +13,8 @@
 .sys-border-right {
 	border-right:2px solid #555;
 }
-
-/*****************控件样式系统重新定义******************/
-.panel {
+/********************自定义样式***********************/
+.cust-panel {
  	border: 0px;
 	border-radius: 0px;
 	-webkit-box-shadow: 0 0px 0px rgba(0,0,0,.05);
@@ -23,10 +22,10 @@
 	margin:0px;
 }
 
-.panel-heading {
+.cust-panel-heading {
 	border-radius: 0px;
 }
-
+/*****************控件样式系统重新定义******************/
 .error{
 	color:red;
 }

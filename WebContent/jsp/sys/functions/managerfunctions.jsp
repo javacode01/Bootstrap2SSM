@@ -34,8 +34,8 @@
 					<strong>&nbsp;当前功能详情</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
-					<div class="panel panel-default">
-					    <div class="panel-heading" style="text-align: right;">
+					<div class="panel panel-default cust-panel">
+					    <div class="panel-heading cust-panel-heading" style="text-align: right;">
 					    	<div style="float:left;">当前功能信息</div>
 					    	<button type="button" class="btn btn-primary btn-sm" onclick="edit()">编辑</button>
 					    	<button type="button" class="btn btn-success btn-sm" onclick="add()">新增下级</button>
@@ -60,8 +60,8 @@
 					    	</div>
 					    </div>
 					</div>
-					<div class="panel panel-default">
-						<div class="panel-heading">
+					<div class="panel panel-default cust-panel">
+						<div class="panel-heading cust-panel-heading">
 							下级功能列表
 						</div>
 						<div class="panel-body">
