@@ -10,8 +10,8 @@
 			<form role="form" id="addEditForm">
 				<#list columns as column>
 				<div class="form-group">
-					<label for="recid">${column.columnComment}</label>
-					<input type="text" class="form-control" id="${column.propertyName}" name="${column.propertyName}" value="${r"${"}${className?lower_case}.${column.propertyName}${r"}"}">
+					<label for="${column.propertyName}">${column.columnComment}</label>
+					<input type="text" class="form-control" id="${column.propertyName}" name="${column.propertyName}" value="${r"${"}${className?lower_case}.${column.propertyName}${r"}"}" required>
 				</div>
 				</#list>
 			</form>
