@@ -10,31 +10,31 @@
 			<form role="form" id="addEditForm">
 				<div class="form-group">
 					<label for="recid">订单id</label>
-					<input type="text" class="form-control" id="recid" name="recid" value="${demoorder.recid}">
+					<input type="text" class="form-control" id="recid" name="recid" value="${demoorder.recid}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">订单编号</label>
-					<input type="text" class="form-control" id="orderNo" name="orderNo" value="${demoorder.orderNo}">
+					<label for="orderNo">订单编号</label>
+					<input type="text" class="form-control" id="orderNo" name="orderNo" value="${demoorder.orderNo}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">订单简介</label>
-					<input type="text" class="form-control" id="description" name="description" value="${demoorder.description}">
+					<label for="description">订单简介</label>
+					<input type="text" class="form-control" id="description" name="description" value="${demoorder.description}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">创建人</label>
-					<input type="text" class="form-control" id="creater" name="creater" value="${demoorder.creater}">
+					<label for="creater">创建人</label>
+					<input type="text" class="form-control" id="creater" name="creater" value="${demoorder.creater}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">创建时间</label>
-					<input type="text" class="form-control" id="createTime" name="createTime" value="${demoorder.createTime}">
+					<label for="createTime">创建时间</label>
+					<input type="text" class="form-control" id="createTime" name="createTime" value="${demoorder.createTime}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">更新人</label>
-					<input type="text" class="form-control" id="updater" name="updater" value="${demoorder.updater}">
+					<label for="updater">更新人</label>
+					<input type="text" class="form-control" id="updater" name="updater" value="${demoorder.updater}" required>
 				</div>
 				<div class="form-group">
-					<label for="recid">更新时间</label>
-					<input type="text" class="form-control" id="updateTime" name="updateTime" value="${demoorder.updateTime}">
+					<label for="updateTime">更新时间</label>
+					<input type="text" class="form-control" id="updateTime" name="updateTime" value="${demoorder.updateTime}" required>
 				</div>
 			</form>
 		</div>

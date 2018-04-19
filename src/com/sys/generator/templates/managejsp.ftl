@@ -13,10 +13,10 @@
 		<div class="row sys-manage-body">
 			<div class="row sys-manage-body-search">
 				<#list columns as column>
-					<div class="col-sm-1" style="line-height: 34px;padding-right:0px;">${column.columnComment}</div>
-					<div class="col-sm-1"><input class="form-control" id="search_${column.propertyName}"></div>
+					<div class="col-sm-1 sys-search-label">${column.columnComment}</div>
+					<div class="col-sm-3 sys-search-input"><input class="form-control" id="search_${column.propertyName}"></div>
 				</#list>
-				<div class="col-sm-1"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
+				<div class="col-sm-1 sys-search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
 			</div>
 			<div id="toolbar">
 				<button type="button" class="btn btn-success btn-sm" onclick="add()">增加</button>
