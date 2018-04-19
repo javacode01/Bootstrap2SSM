@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sys.service.SysService;
-import com.sys.utils.ConfigUtils;
 
 @Controller
 public class SysController {

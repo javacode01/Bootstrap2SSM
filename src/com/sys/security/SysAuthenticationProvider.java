@@ -20,7 +20,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.sys.model.SysUserRole;
 import com.sys.model.SysUserRoleExample;
 import com.sys.model.SysUsers;
-import com.sys.service.SysOrganService;
 import com.sys.service.SysUsersService;
 
 /**
@@ -37,8 +36,6 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 	
 	@Autowired
 	private SysUsersService sysUsersService;
-	@Autowired
-	private SysOrganService sysOrganService;
 	/**
 	 * 用户验证
 	 */

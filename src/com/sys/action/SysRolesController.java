@@ -89,7 +89,6 @@ public class SysRolesController {
 		String filter = request.getParameter("filter");
 		Map<String,Object> filterMap = JsonUtils.json2map(filter);
 		String sortfield=request.getParameter("sortfield");
-		Page p= new Page();
 		SysRolesExample pote= new SysRolesExample();
 		if(null!=filterMap){
 			pote.createCriteria();

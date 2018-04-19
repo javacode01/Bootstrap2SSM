@@ -9,9 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sys.client.SysQuartzJobMapper;
 import com.sys.model.SysQuartzJob;
 import com.sys.model.SysQuartzJobExample;
-import com.sys.model.SysRoleFunctionExample;
-import com.sys.model.SysRolesExample;
-import com.sys.model.SysUserRoleExample;
 import com.sys.utils.PageListData;
 import com.sys.utils.schedule.QuartzManager;
 

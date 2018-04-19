@@ -55,7 +55,6 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
 		Iterator<String> it = resourceMap.keySet().iterator();
 		while (it.hasNext()) {
 			String resURL = it.next();
-			Iterator<String> ite = resourceMap.keySet().iterator();
 			pathMatcher = new AntPathRequestMatcher(resURL);
 			if (pathMatcher.matches(((FilterInvocation) object).getRequest())) {
 				Collection<ConfigAttribute> returnCollection = resourceMap

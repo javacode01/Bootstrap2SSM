@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sys.model.SysDictionaries;
-import com.sys.model.SysDictionariesExample;
 import com.sys.model.SysDictionariesItem;
 import com.sys.model.SysDictionariesItemExample;
 import com.sys.service.SysDictionariesItemService;

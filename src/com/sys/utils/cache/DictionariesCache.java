@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.sys.client.SysDictionariesItemMapper;
 import com.sys.model.SysDictionariesItem;
 import com.sys.model.SysDictionariesItemExample;
-import com.sys.utils.BspUtils;
 
 /**
  * 数据字典项缓存

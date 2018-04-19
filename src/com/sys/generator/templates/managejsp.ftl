@@ -4,7 +4,6 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<link rel="stylesheet" href="${r"${basepath}"}resource/bootstrap_treeview/bootstrap-treeview.css">
 <style>
 .list-group-item:first-child {
     border-top-left-radius: 0px;
@@ -40,7 +39,6 @@
 	<!-- 模态框（Modal） -->
 	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
-	<script src="${r"${basepath}"}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
 	<script src="${r"${basepath}"}${targetDir}manage${className?lower_case}.js"></script>
 	<script type="text/javascript">
 		$(function(){

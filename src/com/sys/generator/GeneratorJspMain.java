@@ -27,7 +27,6 @@ public class GeneratorJspMain {
 	public static void main(String[] args) throws IOException,
 			TemplateException {
 		List<TableMeta> tableList;
-		Writer out = null;
 		String targetDir = "WebContent/"+GeneratorConsts.TARGET_DIR;
 
 		tableList = AnalysisDB.readDB();

@@ -141,7 +141,6 @@ public class SysFunctionsController {
 		String filter = request.getParameter("filter");
 		Map<String,Object> filterMap = JsonUtils.json2map(filter);
 		String sortfield=request.getParameter("sortfield");
-		Page p= new Page();
 		SysFunctionsExample pote= new SysFunctionsExample();
 		if(null!=filterMap){
 			pote.createCriteria();

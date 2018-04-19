@@ -37,7 +37,7 @@ public class QuartzManager {
 	 * 
 	 * @return
 	 */
-	public static List getPlaningJobs() {
+	public static List<SysQuartzJob> getPlaningJobs() {
 		List<SysQuartzJob> jobList = new ArrayList<SysQuartzJob>();
 		Scheduler scheduler;
 		try {
@@ -75,7 +75,7 @@ public class QuartzManager {
 	 * 
 	 * @return
 	 */
-	public static List getRuningJobs() {
+	public static List<SysQuartzJob> getRuningJobs() {
 		List<SysQuartzJob> jobList = new ArrayList<SysQuartzJob>();
 		Scheduler scheduler;
 		try {

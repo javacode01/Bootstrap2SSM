@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
 import com.sys.utils.ConstantUtils;
 import com.sys.utils.PageListData;
-import com.sys.utils.SysConstant;
 
 @Service
 public class SysFunctionsService {

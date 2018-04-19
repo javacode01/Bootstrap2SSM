@@ -16,16 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sys.model.SysFunctions;
-import com.sys.model.SysFunctionsExample;
-import com.sys.model.SysOrgan;
-import com.sys.model.SysOrganExample;
 import com.sys.model.SysOrgan;
 import com.sys.model.SysOrganExample;
 import com.sys.service.SysOrganService;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
-import com.sys.utils.Page;
 import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
@@ -94,7 +89,6 @@ public class SysOrganController {
 		String filter = request.getParameter("filter");
 		Map<String,Object> filterMap = JsonUtils.json2map(filter);
 		String sortfield=request.getParameter("sortfield");
-		Page p= new Page();
 		SysOrganExample pote= new SysOrganExample();
 		if(null!=filterMap){
 			pote.createCriteria();
