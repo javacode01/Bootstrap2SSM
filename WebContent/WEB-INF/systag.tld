@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"  
+                        "http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">  
+<taglib>  
+    <tlib-version>1.0</tlib-version>  
+    <jsp-version>1.2</jsp-version>  
+    <short-name>systag</short-name>  
+    <!-- 引用路径 例：<%@ taglib uri="http://www.dictTag.com" prefix="mi" %> -->  
+    <uri>http://systag.bootstrap2ssm.com</uri>  
+    <description></description>  
+    <!-- 如果需要新增标签，在munu tag下面再新增一套需要添加的tag标签即可 -->
+    <tag>  
+        <!-- 这个tag的名字，关系到jsp页面的引用 <yy:select> -->  
+        <name>menu</name>  
+        <!-- 这个Tag是由那个类实现的,这个class可以在struts.jar包中找到 -->  
+        <tag-class>com.sys.tag.SysMenuTag</tag-class>  
+        <!--body-content有三个可选值  
+         1."jsp"     表示标签体由其他jsp元素组成   
+                      如果其有jsp元素，那么标签会先解释，然后将元素的实际值传入。  
+                      比如标签体里含有<%=attributeName%>这样子的jsp元素，  
+                      此时标签会按attributeName的实际值是什么就传入什么。这个是最常用的一个。  
+         2."empty"   标签体必须为空     
+                       在引用这个Tag的时候，可以<mi:select id="attributeName" />，  
+                       而不必<mi:select id="attributeName" ></yy:select>   
+         3."tagdependent"   由标签解释，不带jsp转换 -->  
+        <body-content>empty</body-content>  
+        <!-- <attribute> </attribute>这里标识的是这个Tag的一个参数。  
+                    例如<systag:menu id="attributeName" />中的id -->  
+        <attribute>  
+            <name>id</name>  
+            <required>true</required>  
+            <rtexprvalue>false</rtexprvalue>  
+        </attribute>  
+        <attribute>  
+            <!-- 这个参数的名字 -->  
+            <name>path</name>  
+            <!-- 这个参数是否是必填项， 如果为true则必须写这个参数，否则会报错 -->  
+            <required>true</required>  
+            <!-- 是说这个标签的值是否可以动态赋值，如value="<%=attributeName%>" -->  
+            <rtexprvalue>true</rtexprvalue>  
+        </attribute>  
+    </tag>  
+</taglib>  

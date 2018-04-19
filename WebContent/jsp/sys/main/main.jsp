@@ -278,9 +278,11 @@
         </div>
       </div>
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul id="menu_tree" class="sidebar-menu" data-widget="tree">
+      <!-- <ul id="menu_tree" class="sidebar-menu" data-widget="tree">
         <li class="header">功能菜单</li>
-      </ul>
+      </ul> -->
+      <!-- 菜单加载方式改为自定义标签 -->
+      <systag:menu id="menu_tree" path="${basepath}"/>
     </section>
     <!-- /.sidebar -->
   </aside>

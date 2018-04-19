@@ -2,21 +2,21 @@
  * 主页初始化
  */
 function init(){
-	//初始化菜单
-	$.ajax({
-		type:'POST',
-		url:basepath+'sys/functions/getUserMenus',
-		dataType:'json',
-		success:function(data){
-			addLevel1Menu(data.level1List);
-			recursionAddModules(data.moduleList);
-			addFunctions(data.functionList);
-			addLinks(data.handleList);
-			//设置iframe高度
-//			$('#tabsContent').height(tabs.getIframeHeight());
-//			$('#widgets_iframe').height($('#tabsContent').height());
-		}
-	});
+	//初始化菜单（菜单加载方式改为自定义标签）
+//	$.ajax({
+//		type:'POST',
+//		url:basepath+'sys/functions/getUserMenus',
+//		dataType:'json',
+//		success:function(data){
+//			addLevel1Menu(data.level1List);
+//			recursionAddModules(data.moduleList);
+//			addFunctions(data.functionList);
+//			addLinks(data.handleList);
+//			//设置iframe高度
+////			$('#tabsContent').height(tabs.getIframeHeight());
+////			$('#widgets_iframe').height($('#tabsContent').height());
+//		}
+//	});
 	//初始化用户头像
 	initUserImage();
 }

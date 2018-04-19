@@ -25,6 +25,9 @@ public class SysConstant {
 	public final static String SYS_ERROR_ADD = "新增失败";
 	public final static String SYS_ERROR_UPDATE = "更新失败";
 	
+	/*********系统常量*********/
+	public final static String SYS_NOT = "0";//否
+	public final static String SYS_IS = "1";//是
 	/*********功能级别*********/
 	public final static String SYS_FUNCTION_LEVEL_MODULE = "1";//模块
 	public final static String SYS_FUNCTION_LEVEL_FUNCTION = "2";//功能
