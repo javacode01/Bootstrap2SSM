@@ -2,6 +2,11 @@
 java类构建路径：如：com.公司名称.aciton.模块名
 jsp路径：如：jsp/公司名/模块名/表名
 
+手机功能模块接口说明：
+手机功能模块接口需要新建Controller和Service，model层使用系统统一的model即可。
+手机使用token方式。token分两种：1、requestToken：普通请求时需要带着此参数
+2、loginToken：使用token进行登录及刷新requestToken时，使用loginToken。
+
 系统说明
 目的：
 构建一个基于Bootstrap、SpringMVC、Spring、Mybatis的基础后台管理系统。
