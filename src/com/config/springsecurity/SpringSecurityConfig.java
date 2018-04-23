@@ -35,7 +35,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// TODO Auto-generated method stub
-		web.ignoring().antMatchers("/resource/**");//允许访问静态的资源，和在XML配置http@security=none的效果一样
+		web.ignoring().antMatchers("/resource/**","/mobile/**");//允许访问静态的资源，和在XML配置http@security=none的效果一样
 	}
 	
 	/**

@@ -8,10 +8,13 @@ import org.springframework.web.multipart.support.StandardServletMultipartResolve
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.demo.action.DemoActionConfig;
+import com.mobile.action.MobileActionConfig;
+import com.mobile.interceptor.JwtInterceptor;
 import com.sys.action.SysActionConfig;
 
 /**
@@ -23,7 +26,7 @@ import com.sys.action.SysActionConfig;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackageClasses={SysActionConfig.class,DemoActionConfig.class})
+@ComponentScan(basePackageClasses={SysActionConfig.class,DemoActionConfig.class,MobileActionConfig.class})
 public class WebConfig extends WebMvcConfigurerAdapter{
 	
 	/**
@@ -50,6 +53,24 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		// TODO Auto-generated method stub
 		configurer.enable();
 	}
+	
+	/**
+	 * 添加自定义SpringMVC拦截器
+	 * @return
+	 */
+	@Bean
+	public JwtInterceptor jwtInterceptor() {
+		return new JwtInterceptor();
+	}
+	
+	/** 
+     * 将自定义拦截器添加到springMVC拦截器，并设置拦截路径 
+     * @param registry 
+     */
+	@Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(jwtInterceptor()).addPathPatterns("/mobile/**");
+    }
 	
 //	/**
 //	 * 配置springMVC文件上传
