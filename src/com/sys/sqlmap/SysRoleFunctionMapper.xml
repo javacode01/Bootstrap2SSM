@@ -226,8 +226,8 @@
          t1.function_code,
          t1.function_name,
          t1.function_url,
-         case when wm_concat(t0.role_code) is null then 'SUPERADMIN' 
-         else wm_concat(t0.role_code)||',SUPERADMIN' 
+         case when to_char(wm_concat(t0.role_code)) is null then 'SUPERADMIN' 
+         else to_char(wm_concat(t0.role_code))||',SUPERADMIN' 
          end as authority_mark
     from sys_role_function t0, sys_functions t1
    where t0.function_code(+) = t1.function_code 
