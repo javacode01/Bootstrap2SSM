@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -29,6 +30,8 @@ import com.sys.utils.SysUtils;
  * 
  */
 public class SysSecurityMetadataSource implements FilterInvocationSecurityMetadataSource,InitializingBean {
+	
+	private static final Logger logger = Logger.getLogger(SysSecurityMetadataSource.class);
 
 	@Autowired
 	private SysRolesService sysRolesService;
@@ -116,8 +119,9 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
+		logger.info("权限的缓存加载开始==================================");
 		resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-		 List<Map<String,String>> resources = sysRolesService.getRoleFunction();
+		List<Map<String,String>> resources = sysRolesService.getRoleFunction();
 		for (Map resource : resources) {
 			Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 			// 以权限名封装为Spring的security Object
@@ -140,6 +144,7 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
 			// 或者是 比如 /manager/**/*.jh 或者 /system/manager/**/*.jsp
 			resourceMap.put("/"+(String)resource.get("FUNCTION_URL"), configAttributes);
 		}
+		logger.info("权限的缓存加载完成==================================");
 	}
 	
 	public void refresh() throws Exception {

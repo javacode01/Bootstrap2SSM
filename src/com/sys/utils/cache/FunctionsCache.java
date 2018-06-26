@@ -59,7 +59,7 @@ public class FunctionsCache implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		logger.info("功能加载开始==================================");
+		logger.info("各级功能缓存加载开始==================================");
 		SysFunctionsExample example1 = new SysFunctionsExample();
 		example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
 		example1.setOrderByClause("seq asc,function_code asc");
@@ -72,7 +72,7 @@ public class FunctionsCache implements InitializingBean{
 		example3.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_HANDLE);
 		example3.setOrderByClause("seq asc,function_code asc");
 		setHandleList(sysFunctionsMapper.selectByExample(example3));
-		logger.info("功能加载完成==================================");
+		logger.info("各级功能缓存加载完成==================================");
 	}
 	
 	/**
