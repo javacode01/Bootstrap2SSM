@@ -235,6 +235,8 @@ public class SysFunctionsController {
 			node.setData(edit);
 			//刷新功能缓存
 			BspUtils.refreshFunctionsCache();
+			//刷新权限缓存，将新增的功能加入权限控制
+			BspUtils.refreshSecurityCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(node);
 			return rd;
@@ -265,6 +267,8 @@ public class SysFunctionsController {
 			sysFunctionsService.deleteSysFunctions(functionId);
 			//刷新功能缓存
 			BspUtils.refreshFunctionsCache();
+			//刷新权限缓存，将新增的功能加入权限控制
+			BspUtils.refreshSecurityCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
 			return rd;
