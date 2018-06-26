@@ -59,7 +59,6 @@ public class FunctionsCache implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("功能加载开始==================================");
 		logger.info("功能加载开始==================================");
 		SysFunctionsExample example1 = new SysFunctionsExample();
 		example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
@@ -74,7 +73,26 @@ public class FunctionsCache implements InitializingBean{
 		example3.setOrderByClause("seq asc,function_code asc");
 		setHandleList(sysFunctionsMapper.selectByExample(example3));
 		logger.info("功能加载完成==================================");
-		System.out.println("功能加载完成==================================");
+	}
+	
+	/**
+	 * 刷新功能缓存
+	 */
+	public void refresh() {
+		logger.info("功能缓存刷新开始==================================");
+		SysFunctionsExample example1 = new SysFunctionsExample();
+		example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
+		example1.setOrderByClause("seq asc,function_code asc");
+		setModuleList(sysFunctionsMapper.selectByExample(example1));
+		SysFunctionsExample example2 = new SysFunctionsExample();
+		example2.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION);
+		example2.setOrderByClause("seq asc,function_code asc");
+		setFunctionList(sysFunctionsMapper.selectByExample(example2));
+		SysFunctionsExample example3 = new SysFunctionsExample();
+		example3.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_HANDLE);
+		example3.setOrderByClause("seq asc,function_code asc");
+		setHandleList(sysFunctionsMapper.selectByExample(example3));
+		logger.info("功能缓存刷新完成==================================");
 	}
 	
 	

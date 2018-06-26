@@ -272,4 +272,26 @@ public class SysFunctionsController {
 		}
 	}
 	
+	/**
+	 * 刷新功能缓存
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/functions/refreshFunctions",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData refreshFunctions(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			BspUtils.refreshFunctionsCache();
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
+			return rd;
+		}
+	}
+	
 }

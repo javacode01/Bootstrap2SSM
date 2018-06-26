@@ -31,6 +31,7 @@
 						<button type="button" class="btn btn-success btn-xs" onclick="addDic()">增加</button>
 						<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
 						<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
+						<button type="button" class="btn btn-success btn-xs" onclick="refreshDictionaries()">刷新字典缓存</button>
 					</div>
 				</div>
 				<div class="row" style="height:100%;padding-top:60px;overflow-y:auto;">

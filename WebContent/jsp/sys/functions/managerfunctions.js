@@ -269,3 +269,55 @@ function remove(){
 	    }
 	});
 }
+
+/**
+ * 刷新功能缓存
+ * @returns
+ */
+function refreshFunctions(){
+	bootbox.confirm({
+		title:"确认框",
+	    message: "新增、修改、删除功能后配置后才有必要刷新功能缓存，是否继续？",
+	    buttons: {
+	        confirm: {
+	            label: '确定',
+	            className: 'btn-danger'
+	        },
+	        cancel: {
+	            label: '取消',
+	            className: 'btn-success'
+	        }
+	    },
+	    callback: function (result) {
+	       if(result){
+	    	   //提交
+	    	   $.ajax({
+	    		   url:basepath+'sys/functions/refreshFunctions',
+	    		   type:'post',
+	    		   success:function(result){
+	    			   if(result.code=='success'){
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "提示框",
+	    						  message: "刷新成功"
+	    						});
+	    			   }else{
+	    				   bootbox.alert({ 
+	    						  size: "small",
+	    						  title: "警告框",
+	    						  message: result.data
+	    						});
+	    			   }
+	    		  },
+	    		  error:function(error){
+	    			  bootbox.alert({ 
+						  size: "small",
+						  title: "警告框",
+						  message: error
+						});
+	    		  }
+	    	   });
+	       }
+	    }
+	});
+}

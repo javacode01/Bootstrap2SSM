@@ -65,6 +65,14 @@ public class BspUtils {
 	}
 	
 	/**
+	 * 刷新数据字典缓存
+	 */
+	public static void refreshDictionariesCache() {
+		DictionariesCache dictionariesCache = getBean(DictionariesCache.class);
+		dictionariesCache.refresh();
+	}
+	
+	/**
 	 * 获取功能列表
 	 * @return
 	 */
@@ -89,6 +97,14 @@ public class BspUtils {
 	public static List<SysFunctions> getModuleList(){
 		FunctionsCache functionsCache = getBean(FunctionsCache.class);
 		return functionsCache.getModuleList();
+	}
+	
+	/**
+	 * 刷新功能缓存
+	 */
+	public static void refreshFunctionsCache() {
+		FunctionsCache functionsCache = getBean(FunctionsCache.class);
+		functionsCache.refresh();
 	}
 	
 	/**

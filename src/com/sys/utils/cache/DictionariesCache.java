@@ -55,14 +55,23 @@ public class DictionariesCache implements InitializingBean{
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("数据字典加载开始==================================");
-		logger.info("数据字典加载开始==================================");
+		logger.info("数据字典初始化加载开始==================================");
 		SysDictionariesItemExample example = new SysDictionariesItemExample();
 		example.createCriteria();
 		example.setOrderByClause("seq asc");
 		setDicItemList(sysDictionariesItemMapper.selectByExample(example));
-		logger.info("数据字典加载完成==================================");
-		System.out.println("数据字典加载完成==================================");
+		logger.info("数据字典初始化加载完成==================================");
 	}
 	
+	/**
+	 * 刷新数据字典项缓存
+	 */
+	public void refresh() {
+		logger.info("数据字典缓存刷新开始==================================");
+		SysDictionariesItemExample example = new SysDictionariesItemExample();
+		example.createCriteria();
+		example.setOrderByClause("seq asc");
+		setDicItemList(sysDictionariesItemMapper.selectByExample(example));
+		logger.info("数据字典缓存刷新完成==================================");
+	}
 }

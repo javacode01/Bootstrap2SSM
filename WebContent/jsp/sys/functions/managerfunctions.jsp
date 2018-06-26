@@ -42,6 +42,7 @@
 					    	<button type="button" class="btn btn-primary btn-sm" onclick="edit()">编辑</button>
 					    	<button type="button" class="btn btn-success btn-sm" onclick="add()">新增下级</button>
 					    	<button type="button" class="btn btn-danger btn-sm" onclick="remove()">删除</button>
+					    	<button type="button" class="btn btn-success btn-sm" onclick="refreshFunctions()">刷新功能缓存</button>
 					    </div>
 					    <div class="panel-body">
 					    	<div class="row">

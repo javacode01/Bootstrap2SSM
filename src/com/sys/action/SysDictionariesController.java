@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sys.model.SysDictionaries;
 import com.sys.model.SysDictionariesExample;
 import com.sys.service.SysDictionariesService;
+import com.sys.utils.BspUtils;
 import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
@@ -149,6 +150,28 @@ public class SysDictionariesController {
 				return rd;
 			}
 			sysDictionariesService.deleteSysDictionaries(recid);
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
+			return rd;
+		}
+	}
+	
+	/**
+	 * 刷新字典缓存
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/dictionaries/refreshDictionaries",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData refreshDictionaries(HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			BspUtils.refreshDictionariesCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
 			return rd;
