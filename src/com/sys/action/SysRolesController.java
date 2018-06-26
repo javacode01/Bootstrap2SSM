@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ import com.sys.utils.SysUtils;
 @Controller
 public class SysRolesController {
 	
+	private static final Logger logger = Logger.getLogger(SysRolesController.class);
 	@Autowired
 	private SysRolesService sysRolesService;
 	
@@ -174,6 +176,7 @@ public class SysRolesController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
@@ -202,6 +205,7 @@ public class SysRolesController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
@@ -233,6 +237,7 @@ public class SysRolesController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
@@ -261,6 +266,7 @@ public class SysRolesController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;

@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ import com.sys.utils.TreeNode;
 @Controller
 public class SysOrganController {
 	
+	private static final Logger logger = Logger.getLogger(SysOrganController.class);
 	@Autowired
 	private SysOrganService sysOrganService;
 	
@@ -153,6 +155,7 @@ public class SysOrganController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
@@ -209,6 +212,7 @@ public class SysOrganController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;

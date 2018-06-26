@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.quartz.CronExpression;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,7 @@ import com.sys.utils.schedule.QuartzManager;
 @Controller
 public class SysQuartzJobController {
 	
+	private static final Logger logger = Logger.getLogger(SysQuartzJobController.class);
 	@Autowired
 	private SysQuartzJobService sysQuartzJobService;
 	
@@ -150,6 +152,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
@@ -178,6 +181,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;
@@ -213,6 +217,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;
@@ -248,6 +253,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;
@@ -283,6 +289,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;
@@ -318,6 +325,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;
@@ -353,6 +361,7 @@ public class SysQuartzJobController {
 			return rd;
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 			return rd;

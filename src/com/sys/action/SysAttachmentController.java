@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,7 @@ import com.sys.utils.SysUtils;
 @Controller
 public class SysAttachmentController {
 	
+	private static final Logger logger = Logger.getLogger(SysAttachmentController.class);
 	@Autowired
 	private SysAttachmentService sysAttachmentService;
 	@Autowired
@@ -115,6 +117,7 @@ public class SysAttachmentController {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 		}
@@ -143,6 +146,7 @@ public class SysAttachmentController {
 			rd.setData(list);
 		}catch(Exception e) {
 			e.printStackTrace();
+			logger.error(e);
 			rd.setCode(SysConstant.SYS_ERROR);
 			rd.setData(e.getMessage());
 		}
