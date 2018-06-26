@@ -226,6 +226,8 @@ public class SysRolesController {
 				return rd;
 			}
 			sysRolesService.saveRoleFunction(roleCode,functionCodes);
+			//刷新角色功能关系缓存
+			BspUtils.refreshSecurityCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
 			return rd;

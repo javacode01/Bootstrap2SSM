@@ -11,6 +11,7 @@ import com.sys.model.SysDictionariesItem;
 import com.sys.model.SysFunctions;
 import com.sys.model.SysOrgan;
 import com.sys.model.SysUsers;
+import com.sys.security.SysSecurityMetadataSource;
 import com.sys.service.SysOrganService;
 import com.sys.utils.cache.DictionariesCache;
 import com.sys.utils.cache.FunctionsCache;
@@ -66,8 +67,9 @@ public class BspUtils {
 	
 	/**
 	 * 刷新数据字典缓存
+	 * @throws Exception 
 	 */
-	public static void refreshDictionariesCache() {
+	public static void refreshDictionariesCache() throws Exception {
 		DictionariesCache dictionariesCache = getBean(DictionariesCache.class);
 		dictionariesCache.refresh();
 	}
@@ -101,10 +103,20 @@ public class BspUtils {
 	
 	/**
 	 * 刷新功能缓存
+	 * @throws Exception 
 	 */
-	public static void refreshFunctionsCache() {
+	public static void refreshFunctionsCache() throws Exception {
 		FunctionsCache functionsCache = getBean(FunctionsCache.class);
 		functionsCache.refresh();
+	}
+	
+	/**
+	 * 刷新角色功能关系缓存
+	 * @throws Exception 
+	 */
+	public static void refreshSecurityCache() throws Exception {
+		SysSecurityMetadataSource sysSecurityMetadataSource = getBean(SysSecurityMetadataSource.class);
+		sysSecurityMetadataSource.refresh();
 	}
 	
 	/**

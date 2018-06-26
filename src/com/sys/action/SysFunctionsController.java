@@ -233,6 +233,8 @@ public class SysFunctionsController {
 			}
 			node.setState(state);
 			node.setData(edit);
+			//刷新功能缓存
+			BspUtils.refreshFunctionsCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(node);
 			return rd;
@@ -261,27 +263,7 @@ public class SysFunctionsController {
 				return rd;
 			}
 			sysFunctionsService.deleteSysFunctions(functionId);
-			rd.setCode(SysConstant.SYS_SUCCESS);
-			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);
-			return rd;
-		}catch(Exception e) {
-			e.printStackTrace();
-			rd.setCode(SysConstant.SYS_ERROR);
-			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
-			return rd;
-		}
-	}
-	
-	/**
-	 * 刷新功能缓存
-	 * @param request
-	 * @param response
-	 * @return
-	 */
-	@RequestMapping(value="/sys/functions/refreshFunctions",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody ResultData refreshFunctions(HttpServletRequest request, HttpServletResponse response) {
-		ResultData rd = new ResultData();
-		try {
+			//刷新功能缓存
 			BspUtils.refreshFunctionsCache();
 			rd.setCode(SysConstant.SYS_SUCCESS);
 			rd.setData(SysConstant.SYS_SUCCESS_DESCRIPTION);

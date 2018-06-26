@@ -141,5 +141,9 @@ public class SysSecurityMetadataSource implements FilterInvocationSecurityMetada
 			resourceMap.put("/"+(String)resource.get("FUNCTION_URL"), configAttributes);
 		}
 	}
+	
+	public void refresh() throws Exception {
+		afterPropertiesSet();
+	}
 
 }

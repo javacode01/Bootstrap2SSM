@@ -77,22 +77,10 @@ public class FunctionsCache implements InitializingBean{
 	
 	/**
 	 * 刷新功能缓存
+	 * @throws Exception 
 	 */
-	public void refresh() {
-		logger.info("功能缓存刷新开始==================================");
-		SysFunctionsExample example1 = new SysFunctionsExample();
-		example1.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_MODULE);
-		example1.setOrderByClause("seq asc,function_code asc");
-		setModuleList(sysFunctionsMapper.selectByExample(example1));
-		SysFunctionsExample example2 = new SysFunctionsExample();
-		example2.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION);
-		example2.setOrderByClause("seq asc,function_code asc");
-		setFunctionList(sysFunctionsMapper.selectByExample(example2));
-		SysFunctionsExample example3 = new SysFunctionsExample();
-		example3.createCriteria().andFunctionLevelEqualTo(SysConstant.SYS_FUNCTION_LEVEL_HANDLE);
-		example3.setOrderByClause("seq asc,function_code asc");
-		setHandleList(sysFunctionsMapper.selectByExample(example3));
-		logger.info("功能缓存刷新完成==================================");
+	public void refresh() throws Exception {
+		afterPropertiesSet();
 	}
 	
 	
