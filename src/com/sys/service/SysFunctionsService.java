@@ -17,8 +17,8 @@ import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
 import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
-import com.sys.utils.ConstantUtils;
 import com.sys.utils.PageListData;
+import com.sys.utils.SysConstant;
 
 @Service
 public class SysFunctionsService {
@@ -51,11 +51,11 @@ public class SysFunctionsService {
 			for(SysFunctions function:userFunctionList) {
 				if("root".equals(function.getParentCode())) {
 					level1List.add(function);
-				}else if(ConstantUtils.SYS_FLEVEL_1.equals(function.getFunctionLevel())) {
+				}else if(SysConstant.SYS_FUNCTION_LEVEL_MODULE.equals(function.getFunctionLevel())) {
 					moduleList.add(function);
-				}else if(ConstantUtils.SYS_FLEVEL_2.equals(function.getFunctionLevel())) {
+				}else if(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION.equals(function.getFunctionLevel())) {
 					functionList.add(function);
-				}else if(ConstantUtils.SYS_FLEVEL_3.equals(function.getFunctionLevel())&&ConstantUtils.SYS_IS.equals(function.getDefaultAction())) {
+				}else if(SysConstant.SYS_FUNCTION_LEVEL_HANDLE.equals(function.getFunctionLevel())&&SysConstant.SYS_IS.equals(function.getDefaultAction())) {
 					handleList.add(function);
 				}
 			}

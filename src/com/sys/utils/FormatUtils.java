@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 /**
  * @ClassName: FormatUtils 
- * @Description: 用于格式转换
+ * @Description: 系统格式转换类
  * @author AK
  * @date 2017-11-15 下午10:41:39 
  *

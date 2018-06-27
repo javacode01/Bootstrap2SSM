@@ -19,6 +19,11 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+/**
+ * 系统JSON操作类
+ * @author Administrator
+ *
+ */
 public class JsonUtils {
 
 	private final static MyCustomMapper objectMapper = new MyCustomMapper();

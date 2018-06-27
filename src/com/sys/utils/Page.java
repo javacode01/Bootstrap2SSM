@@ -1,6 +1,7 @@
 package com.sys.utils;
 
 /**
+ * 分页查询类
  * @author pan.wei
  * @date 2011-12-1 上午11:36:12
  */

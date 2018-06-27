@@ -18,7 +18,7 @@ import com.sys.utils.cache.FunctionsCache;
 
 /**
  * @ClassName: BspUtils 
- * @Description: 系统工具类
+ * @Description: 系统逻辑处理工具类
  * @author AK
  * @date 2017-11-19 下午2:51:29 
  *

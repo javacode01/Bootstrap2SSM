@@ -1,5 +1,10 @@
 package com.sys.utils;
 
+/**
+ * ajax请求返回数据格式类
+ * @author Administrator
+ *
+ */
 public class ResultData {
 	private String code;
 	private Object data;
