@@ -17,6 +17,7 @@ import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
 import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
+import com.sys.utils.ConfigUtils;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
 
@@ -37,7 +38,14 @@ public class SysFunctionsService {
 		//获取当前用户
 		String userCode = BspUtils.getLoginUser().getUserCode();
 		//获取用户已分配的模块、功能和操作
-		List<SysFunctions> userFunctionList = sysFunctionsMapper.getFunctionsByUserCode(userCode);
+		List<SysFunctions> userFunctionList = null;
+		if("false".equals(ConfigUtils.getValue("sys.productModel"))) {//开发模式，用户拥有全部的功能权限
+			SysFunctionsExample exmaple = new SysFunctionsExample();
+			exmaple.createCriteria();
+			userFunctionList = sysFunctionsMapper.selectByExample(exmaple);
+		}else {
+			userFunctionList = sysFunctionsMapper.getFunctionsByUserCode(userCode);
+		}
 		//获取一级菜单
 		List<SysFunctions> level1List = new ArrayList<SysFunctions>();
 		//用户已分配操作

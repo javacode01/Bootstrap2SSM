@@ -21,6 +21,7 @@ import com.sys.model.SysUserRole;
 import com.sys.model.SysUserRoleExample;
 import com.sys.model.SysUsers;
 import com.sys.service.SysUsersService;
+import com.sys.utils.ConfigUtils;
 
 /**
  * 自定义用户认证，并获取用户权限
@@ -78,6 +79,12 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
     	SysUserRoleExample roleExample = new SysUserRoleExample();
     	roleExample.createCriteria().andUserCodeEqualTo(sysuser.getUserCode());
     	List<SysUserRole> roleslist = sysUsersService.getSysUserRole(roleExample);
+    	//如果为开发模式，用户都拥有SUPERADMIN角色
+    	if("false".equals(ConfigUtils.getValue("sys.productModel"))) {
+    		SysUserRole superadmin = new SysUserRole();
+    		superadmin.setRoleCode("SUPERADMIN");
+    		roleslist.add(superadmin);
+    	}
     	for(final SysUserRole role:roleslist){
     		authorities.add(new GrantedAuthority() {
     			private static final long serialVersionUID = 1L;
@@ -87,9 +94,7 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
     			}
     		});
     	}
-    	/**
-    	 * 用户都拥有ROLE_USER角色
-    	 */
+    	//用户都拥有ROLE_USER角色
     	authorities.add(new GrantedAuthority() {
 			private static final long serialVersionUID = 1L;
 			@Override
