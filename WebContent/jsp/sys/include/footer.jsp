@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!-- jQuery 3 -->
 <script src="${basepath}resource/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- 页面加载进度 -->
+<script src="${basepath}resource/bower_components/PACE/pace.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="${basepath}resource/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Bootstrap Table -->
@@ -15,7 +17,16 @@
 
 <script>
 	var basepath = '${basepath}';
-	$(function(){  
+	$(function(){
+		//设置进度条
+		paceOptions = {
+			ajax: false, // disabled
+			document: true, // enabled
+			eventLag: false, // disabled
+			//elements: {
+			  //	selectors: ['.my-page']
+			//}
+		};
 		//设置提示框语言
 		bootbox.setLocale("zh_CN");
 		//设置提示框按钮默认值

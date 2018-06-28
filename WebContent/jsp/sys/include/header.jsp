@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="${basepath}resource/bower_components/Ionicons/css/ionicons.min.css">
 <!-- Bootstrap Table -->
 <link rel="stylesheet" href="${basepath}resource/css/bootstrap-table.css">
+<!-- 页面加载进度条样式 -->
+<link rel="stylesheet" href="${basepath}resource/bower_components/PACE/themes/blue/pace-theme-minimal.css">
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
