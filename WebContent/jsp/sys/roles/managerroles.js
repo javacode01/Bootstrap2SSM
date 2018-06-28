@@ -140,7 +140,7 @@ function removeRoles(){
 	    	   $.each(selected,function(index,data){
 	    		   roleCodes.push(data.roleCode);
 	    	   });
-	    	   $('body').busyLoad("show",{
+	    	   $.busyLoadFull("show",{
 	    		   fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
 	    	   });
 	    	   //提交
@@ -149,7 +149,7 @@ function removeRoles(){
 	    		   type:'post',
 	    		   data:{roleCodes:roleCodes.join(",")},
 	    		   success:function(result){
-	    			   $('body').busyLoad("hide");
+	    			   $.busyLoadFull("hide");
 	    			   if(result.code=='success'){
 	    				   bootbox.alert({ 
 	    						  size: "small",
@@ -166,7 +166,7 @@ function removeRoles(){
 	    			   }
 	    		  },
 	    		  error:function(error){
-	    			  $('body').busyLoad("hide");
+	    			  $.busyLoadFull("hide");
 	    			  bootbox.alert({ 
 						  size: "small",
 						  title: "警告框",
