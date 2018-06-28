@@ -13,6 +13,7 @@
 <script src="${basepath}resource/js/jquery.validate.min.js"></script>
 <script src="${basepath}resource/js/messages_zh.min.js"></script>
 <script src="${basepath}resource/js/bootbox.min.js"></script>
+<script src="${basepath}resource/buzy-load/loading.min.js"></script>
 <script src="${basepath}resource/js/sysutil.js"></script>
 
 <script>

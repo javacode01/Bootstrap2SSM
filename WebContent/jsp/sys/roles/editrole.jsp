@@ -51,12 +51,16 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
+		$('#roleEdit').busyLoad("show",{
+			fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
+		});
 		//提交
 		$.ajax({
 			url:basepath+'sys/roles/editRole',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				$('#roleEdit').busyLoad("hide");
 				if(result.code=='success'){
 					bootbox.alert({ 
 						  size: "small",
@@ -74,6 +78,7 @@
 				}
 			},
 			error:function(error){
+				$('#roleEdit').busyLoad("hide");
 				bootbox.alert({ 
 					  size: "small",
 					  title: "警告框",

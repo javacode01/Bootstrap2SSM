@@ -20,5 +20,7 @@
   <script src="${basepath}resource/js/html5shiv.min.js"></script>
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
+<!-- loading样式 -->
+<link rel="stylesheet" href="${basepath}resource/buzy-load/loading.min.css">
 <!-- 系统样式 -->
 <link rel="stylesheet" href="${basepath}resource/css/sys-style.css">
