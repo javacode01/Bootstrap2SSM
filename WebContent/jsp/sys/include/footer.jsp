@@ -16,6 +16,14 @@
 <script>
 	var basepath = '${basepath}';
 	$(function(){  
+		//设置提示框语言
+		bootbox.setLocale("zh_CN");
+		//设置提示框按钮默认值
+		bootbox.addLocale("zh_CN", {
+		    OK : '确定',
+		    CANCEL : '取消',
+		    CONFIRM : '确定'
+		});
 	    var token = $("meta[name='_csrf']").attr("content");  
 	    var header = $("meta[name='_csrf_header']").attr("content");  
 	    $.ajaxSetup({
