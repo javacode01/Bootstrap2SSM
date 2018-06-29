@@ -7,7 +7,7 @@ var PluginUtil = (function(){
 	 * 信息提示框
 	 */
 	obj.info = function(message){
-		toastr.info(message);
+		layer.msg(message);
 	};
 	/**
 	 * 警告提示框
@@ -15,7 +15,7 @@ var PluginUtil = (function(){
 	obj.alert = function(message){
 		bootbox.alert({ 
 			  size: "small",
-			  title: "<font color='#EFAD4F'>警告</font>",
+			  title: "<font color='#D9544F'>警告</font>",
 			  message: message
 			});
 	};
@@ -51,25 +51,13 @@ var PluginUtil = (function(){
 	 * 显示遮罩层
 	 */
 	obj.mask = function(elementId){
-		if(elementId=='body'){
-			$.busyLoadFull("show",{
-				fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
-	    	});
-		}else{
-			$('#'+elementId).busyLoad("show",{
-				fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
-			});
-		}
+		layer.load();
 	};
 	/**
 	 * 隐藏遮罩层
 	 */
 	obj.unmask = function(elementId){
-		if(elementId=='body'){
-			 $.busyLoadFull("hide");
-		}else{
-			$('#'+elementId).busyLoad("hide");
-		}
+		layer.closeAll('loading');
 	};
 	return obj;
 })();
