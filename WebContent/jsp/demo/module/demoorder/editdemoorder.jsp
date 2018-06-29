@@ -8,7 +8,7 @@
 		</div>
 		<div class="modal-body">
 			<form role="form" id="addEditForm">
-				<div class="form-group">
+				<div class="form-group" style="display:none;">
 					<label for="recid">订单id</label>
 					<input type="text" class="form-control" id="recid" name="recid" value="${demoorder.recid}" required>
 				</div>
@@ -19,22 +19,6 @@
 				<div class="form-group">
 					<label for="description">订单简介</label>
 					<input type="text" class="form-control" id="description" name="description" value="${demoorder.description}" required>
-				</div>
-				<div class="form-group">
-					<label for="creater">创建人</label>
-					<input type="text" class="form-control" id="creater" name="creater" value="${demoorder.creater}" required>
-				</div>
-				<div class="form-group">
-					<label for="createTime">创建时间</label>
-					<input type="text" class="form-control" id="createTime" name="createTime" value="${demoorder.createTime}" required>
-				</div>
-				<div class="form-group">
-					<label for="updater">更新人</label>
-					<input type="text" class="form-control" id="updater" name="updater" value="${demoorder.updater}" required>
-				</div>
-				<div class="form-group">
-					<label for="updateTime">更新时间</label>
-					<input type="text" class="form-control" id="updateTime" name="updateTime" value="${demoorder.updateTime}" required>
 				</div>
 			</form>
 		</div>
