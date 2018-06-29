@@ -131,7 +131,7 @@ public class SysUsersController {
 				edit.setUpdater(BspUtils.getLoginUser().getUserId());
 				sysUsersService.addSysUsers(edit);
 			}else {//修改
-				if(!edit.getUserId().equals(list.get(0).getUserId())||!edit.getUserId().equals(user.getUserId())) {
+				if(!edit.getUserId().equals(list.get(0).getUserId())||(null!=user&&!edit.getUserId().equals(user.getUserId()))) {
 					rd.setCode(SysConstant.SYS_ERROR_EXISTS);
 					rd.setData(SysConstant.SYS_ERROR_EXISTS_DESCRIPTION);
 					return rd;
