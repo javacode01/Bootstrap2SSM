@@ -90,11 +90,7 @@ function add(){
 function edit(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一个要编辑的记录"
-			});
+		PluginUtil.info("请选择一个要编辑的记录");
 		return false;
 	}
 	$("#editModal").load(basepath+"${urlPrefix}/${className?lower_case}/toEdit${className}?handle=edit&recid="+selected[0].recid,function(){
@@ -109,62 +105,33 @@ function edit(){
 function remove(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择要删除的记录"
-			});
+		PluginUtil.info("请先选择要删除的记录");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的记录？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   var recids = new Array();
-	    	   $.each(selected,function(index,data){
-	    		   recids.push(data.recid);
-	    	   })
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'${urlPrefix}/${className?lower_case}/delete${className}',
-	    		   type:'post',
-	    		   data:{recids:recids.join(",")},
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   search();
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("是否确认删除当前选中的记录？",function(){
+		var recids = new Array();
+	   	$.each(selected,function(index,data){
+			recids.push(data.recid);
+	   	});
+	   	PluginUtil.mask("body");
+	   	//提交
+	   	$.ajax({
+		   	url:basepath+'${urlPrefix}/${className?lower_case}/delete${className}',
+		   	type:'post',
+		   	data:{recids:recids.join(",")},
+		   	success:function(result){
+		   		PluginUtil.unmask("body");
+		    	if(result.code=='success'){
+					PluginUtil.info("删除成功");
+				   	search();
+			   	}else{
+					PluginUtil.alert(result.data);
+			   	}
+		  	},
+		  	error:function(error){
+		  		PluginUtil.unmask("body");
+				PluginUtil.alert(error);
+		 	 }
+	  	 });
 	});
 }
