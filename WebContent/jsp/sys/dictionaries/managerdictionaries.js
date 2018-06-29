@@ -137,19 +137,11 @@ function addDic(){
 function editDic(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择要编辑的字典"
-			});
+		PluginUtil.info("请先选择要编辑的字典");
 		return false;
 	}
 	if('root'==selected[0].id){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能编辑"
-			});
+		PluginUtil.info("根节点不能编辑");
 		return false;
 	}
 	$("#dicEdit").load(basepath+"sys/dictionaries/toEditDic?handle=edit&recid="+selected[0].id+"&nodeId="+selected[0].nodeId,function(){
@@ -164,67 +156,33 @@ function editDic(){
 function removeDic(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择要删除的字典"
-			});
+		PluginUtil.info("请先选择要删除的字典");
 		return false;
 	}
 	if('root'==selected[0].id){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能删除"
-			});
+		PluginUtil.info("根节点不能删除");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的字典？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/dictionaries/deleteDic',
-	    		   type:'post',
-	    		   data:{recid:selected[0].id},
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   treeReload();
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("是否确认删除当前选中的字典？",function(){
+		PluginUtil.mask("body");
+		$.ajax({
+ 		   url:basepath+'sys/dictionaries/deleteDic',
+ 		   type:'post',
+ 		   data:{recid:selected[0].id},
+ 		   success:function(result){
+ 			   PluginUtil.unmask("body");
+ 			   if(result.code=='success'){
+ 				   PluginUtil.info("删除成功");
+ 				   treeReload();
+ 			   }else{
+ 				   PluginUtil.alert(result.data);
+ 			   }
+ 		  },
+ 		  error:function(error){
+ 			  PluginUtil.unmask("body");
+ 			  PluginUtil.alert(error);
+ 		  }
+ 	   });
 	});
 	
 }
@@ -234,50 +192,25 @@ function removeDic(){
  * @returns
  */
 function refreshDictionaries(){
-	bootbox.confirm({
-		title:"确认框",
-	    message: "新增、修改、删除字典项后，才有必要刷新缓存，是否继续？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/dictionaries/refreshDictionaries',
-	    		   type:'post',
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "刷新成功"
-	    						});
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("新增、修改、删除字典项后，才有必要刷新缓存，是否继续？",function(){
+		PluginUtil.mask("body");
+		//提交
+ 	   $.ajax({
+ 		   url:basepath+'sys/dictionaries/refreshDictionaries',
+ 		   type:'post',
+ 		   success:function(result){
+ 			   PluginUtil.unmask("body");
+ 			   if(result.code=='success'){
+ 				   	PluginUtil.info("刷新成功");
+ 			   }else{
+ 				   	PluginUtil.alert(result.data);
+ 			   }
+ 		  },
+ 		  error:function(error){
+ 			  PluginUtil.unmask("body");
+ 			  PluginUtil.alert(error);
+ 		  }
+ 	   });
 	});
 }
 
@@ -288,19 +221,11 @@ function refreshDictionaries(){
 function addDicItem(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择左侧字典树要增加字典项的字典"
-			});
+		PluginUtil.info("请先选择左侧字典树要增加字典项的字典");
 		return false;
 	}
 	if('root'==selected[0].id){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能增加字典项"
-			});
+		PluginUtil.info("根节点不能增加字典项");
 		return false;
 	}
 	$("#dicItemEdit").load(basepath+"sys/dictionariesitem/toEditDicItem?handle=add",function(){
@@ -315,11 +240,7 @@ function addDicItem(){
 function editDicItem(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一条要编辑的字典项"
-			});
+		PluginUtil.info("请选择一条要编辑的字典项");
 		return false;
 	}
 	$("#dicItemEdit").load(basepath+"sys/dictionariesitem/toEditDicItem?handle=edit&recid="+selected[0].recid,function(){
@@ -334,65 +255,35 @@ function editDicItem(){
 function removeDicItem(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择要删除的字典项"
-			});
+		PluginUtil.info("请选择要删除的字典项");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的字典？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   var recids = new Array();
-	    	   $.each(selected,function(index,data){
-	    		   recids.push(data.recid);
-	    	   })
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/dictionariesitem/deleteDicItems',
-	    		   type:'post',
-	    		   data:{recids:recids.join(",")},
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   $('#table').bootstrapTable('refresh');
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("是否确认删除当前选中的字典？",function(){
+		var recids = new Array();
+ 	   $.each(selected,function(index,data){
+ 		   recids.push(data.recid);
+ 	   })
+ 	   PluginUtil.mask("body");
+ 	   //提交
+ 	   $.ajax({
+ 		   url:basepath+'sys/dictionariesitem/deleteDicItems',
+ 		   type:'post',
+ 		   data:{recids:recids.join(",")},
+ 		   success:function(result){
+ 			   PluginUtil.unmask("body");
+ 			   if(result.code=='success'){
+ 				   PluginUtil.info("删除成功");
+ 				   $('#table').bootstrapTable('refresh');
+ 			   }else{
+ 				   	PluginUtil.alert(result.data);
+ 			   }
+ 		  },
+ 		  error:function(error){
+ 			  PluginUtil.unmask("body");
+ 			  PluginUtil.alert(result.data);
+ 		  }
+ 	   });
 	});
-	
 }
 
 /**

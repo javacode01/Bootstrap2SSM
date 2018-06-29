@@ -52,34 +52,25 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
+		PluginUtil.mask("dicEdit");
 		//提交
 		$.ajax({
 			url:basepath+'sys/dictionaries/editDic',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("dicEdit");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					treeReload();
 					$('#dicEdit').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("dicEdit");
+				PluginUtil.alert(error);
 			}
 		});
 	}

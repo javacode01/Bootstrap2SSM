@@ -21,11 +21,7 @@
 	var userCode = "${userCode}";
 	$("#userrole").height($(window).height()-150);
 	if(userCode==""){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "参数错误"
-			});
+		PluginUtil.info("参数错误");
 		$('#userModal').modal('hide');
 	}
 	$(function(){
@@ -94,33 +90,24 @@
 		$.each(selected,function(index,item){
 			roleCodes.push(item.roleCode);
 		});
+		PluginUtil.mask("userModal");
 		//提交
 		$.ajax({
 			url:basepath+'sys/users/saveUserRole',
 			type:'post',
 			data:{userCode:userCode,roleCodes:roleCodes.join(",")},
 			success:function(result){
+				PluginUtil.unmask("userModal");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#userModal').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("userModal");
+				PluginUtil.alert(error);
 			}
 		});
 	}

@@ -68,18 +68,16 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
+		PluginUtil.mask("organModal");
 		//提交
 		$.ajax({
 			url:basepath+'sys/organ/editOrgan',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("organModal");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#table').bootstrapTable('refresh');
 					$('#organModal').modal('hide');
 					var selected = $("#tree").treeview('getSelected');
@@ -106,19 +104,12 @@
 						$('#tree').treeview('expandNode',[parentNode.nodeId, {levels: 1}]);
 					}
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("organModal");
+				PluginUtil.alert(error);
 			}
 		});
 	}

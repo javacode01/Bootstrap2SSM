@@ -58,34 +58,25 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
+		PluginUtil.mask("quartzjobEdit");
 		//提交
 		$.ajax({
 			url:basepath+'sys/quartzjob/editQuartzJob',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("quartzjobEdit");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					search();
 					$('#quartzjobEdit').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("quartzjobEdit");
+				PluginUtil.alert(error);
 			}
 		});
 	}

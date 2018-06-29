@@ -145,19 +145,11 @@ function getTree(){
 function edit(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择一个节点操作"
-			});
+		PluginUtil.info("请先选择一个节点操作");
 		return false;
 	}
 	if('root'==selected[0].data.organCode){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能编辑"
-			});
+		PluginUtil.info("根节点不能编辑");
 		return false;
 	}
 	$("#organModal").load(basepath+"sys/organ/toEditOrgan",{
@@ -175,11 +167,7 @@ function edit(){
 function add(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择一个节点操作"
-			});
+		PluginUtil.info("请先选择一个节点操作");
 		return false;
 	}
 	$("#organModal").load(basepath+"sys/organ/toEditOrgan",{
@@ -197,69 +185,36 @@ function add(){
 function remove(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请在左侧树中选择要删除的机构"
-			});
+		PluginUtil.info("请在左侧树中选择要删除的机构");
 		return false;
 	}
 	if('root'==selected[0].id){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能删除"
-			});
+		PluginUtil.info("根节点不能删除");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的机构及其下级机构？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/organ/deleteOrgan',
-	    		   type:'post',
-	    		   data:{organId:selected[0].data.organId},
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   var selected = $("#tree").treeview('getSelected');
-	    				   var parentNode = $('#tree').treeview('getParent', selected[0].nodeId);
-	    				   $("#tree").treeview("deleteNode", [selected[0].nodeId, { silent: true }]);
-	    				   $('#tree').treeview('selectNode', [parentNode.nodeId]);
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("是否确认删除当前选中的机构及其下级机构？",function(){
+		PluginUtil.mask("body");
+		//提交
+ 	   $.ajax({
+ 		   url:basepath+'sys/organ/deleteOrgan',
+ 		   type:'post',
+ 		   data:{organId:selected[0].data.organId},
+ 		   success:function(result){
+ 			   PluginUtil.unmask("body");
+ 			   if(result.code=='success'){
+ 				   PluginUtil.info("删除成功");
+ 				   var selected = $("#tree").treeview('getSelected');
+ 				   var parentNode = $('#tree').treeview('getParent', selected[0].nodeId);
+ 				   $("#tree").treeview("deleteNode", [selected[0].nodeId, { silent: true }]);
+ 				   $('#tree').treeview('selectNode', [parentNode.nodeId]);
+ 			   }else{
+ 				   PluginUtil.alert(result.data);
+ 			   }
+ 		  },
+ 		  error:function(error){
+ 			  PluginUtil.unmask("body");
+ 			  PluginUtil.alert(error);
+ 		  }
+ 	   });
 	});
 }

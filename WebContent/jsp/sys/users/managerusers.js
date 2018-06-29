@@ -167,19 +167,11 @@ function getTree(){
 function addUser(){
 	var selected = $("#tree").treeview('getSelected');
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择左侧机构树要增加用户的机构"
-			});
+		PluginUtil.info("请先选择左侧机构树要增加用户的机构");
 		return false;
 	}
 	if('root'==selected[0].id){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "根节点不能增加用户"
-			});
+		PluginUtil.info("根节点不能增加用户");
 		return false;
 	}
 	$("#userModal").load(basepath+"sys/users/toEditUsers?handle=add&organCode="+selected[0].data.organCode,function(){
@@ -194,11 +186,7 @@ function addUser(){
 function editUser(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一个要编辑的用户"
-			});
+		PluginUtil.info("请选择一个要编辑的用户");
 		return false;
 	}
 	$("#userModal").load(basepath+"sys/users/toEditUsers?handle=edit&userId="+selected[0].userId,function(){
@@ -213,74 +201,41 @@ function editUser(){
 function removeUser(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择要删除的用户"
-			});
+		PluginUtil.info("请选择要删除的用户");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的用户？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   var userCodes = new Array();
-	    	   $.each(selected,function(index,data){
-	    		   userCodes.push(data.userCode);
-	    	   })
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/users/deleteUsers',
-	    		   type:'post',
-	    		   data:{userCodes:userCodes.join(",")},
-	    		   success:function(result){
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   $('#table').bootstrapTable('refresh');
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
+	PluginUtil.confirm("是否确认删除当前选中的用户？",function(){
+		var userCodes = new Array();
+ 	   $.each(selected,function(index,data){
+ 		   userCodes.push(data.userCode);
+ 	   });
+ 	   PluginUtil.mask("body");
+ 	   //提交
+ 	   $.ajax({
+ 		   url:basepath+'sys/users/deleteUsers',
+ 		   type:'post',
+ 		   data:{userCodes:userCodes.join(",")},
+ 		   success:function(result){
+ 			   PluginUtil.unmask("body");
+ 			   if(result.code=='success'){
+ 				   PluginUtil.info("删除成功");
+ 				   $('#table').bootstrapTable('refresh');
+ 			   }else{
+ 				   PluginUtil.alert(result.data);
+ 			   }
+ 		  },
+ 		  error:function(error){
+ 			  PluginUtil.unmask("body");
+ 			  PluginUtil.alert(error);
+ 		  }
+ 	   });
 	});
 }
 
 function userRole(){
 	var selected = $("#table").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一个要分配的用户"
-			});
+		PluginUtil.info("请选择一个要分配的用户");
 		return false;
 	}
 	$("#userModal").load(basepath+"sys/users/toUserRole?userCode="+selected[0].userCode,function(){

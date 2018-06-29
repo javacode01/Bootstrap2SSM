@@ -66,34 +66,25 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
+		PluginUtil.mask("userModal");
 		//提交
 		$.ajax({
 			url:basepath+'sys/users/editUsers',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("userModal");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#table').bootstrapTable('refresh');
 					$('#userModal').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("userModal");
+				PluginUtil.alert(error);
 			}
 		});
 	}

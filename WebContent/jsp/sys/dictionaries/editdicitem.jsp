@@ -60,34 +60,25 @@
 		if(!$('#addEditItemForm').valid()){
 			return false;
 		}
+		PluginUtil.mask("dicItemEdit");
 		//提交
 		$.ajax({
 			url:basepath+'sys/dictionariesitem/editDicItem',
 			type:'post',
 			data:$("#addEditItemForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("dicItemEdit");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#table').bootstrapTable('refresh');
 					$('#dicItemEdit').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("dicItemEdit");
+				PluginUtil.alert(error);
 			}
 		});
 	}

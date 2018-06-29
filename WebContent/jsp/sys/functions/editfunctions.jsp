@@ -87,18 +87,16 @@
 			return false;
 		}
 		$("#functionLevel").removeAttr("disabled");
+		PluginUtil.mask("myModal");
 		//提交
 		$.ajax({
 			url:basepath+'sys/functions/editFunctions',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
+				PluginUtil.unmask("myModal");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#table').bootstrapTable('refresh');
 					$('#myModal').modal('hide');
 					var selected = $("#tree").treeview('getSelected');
@@ -125,19 +123,11 @@
 						$('#tree').treeview('expandNode',[parentNode.nodeId, {levels: 1}]);
 					}
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.alert(error);
 			}
 		});
 	}
