@@ -95,11 +95,7 @@ function addRole(){
 function editRole(){
 	var selected = $("#rolesTable").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一个要编辑的角色"
-			});
+		PluginUtil.info("请选择一个要编辑的角色");
 		return false;
 	}
 	$("#roleEdit").load(basepath+"sys/roles/toEditRole?handle=edit&roleId="+selected[0].roleId,function(){
@@ -114,69 +110,35 @@ function editRole(){
 function removeRoles(){
 	var selected = $("#rolesTable").bootstrapTable("getSelections");
 	if(selected.length<1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请先选择要删除的角色"
-			});
+		PluginUtil.info("请先选择要删除的角色");
 		return false;
 	}
-	bootbox.confirm({
-		title:"确认框",
-	    message: "是否确认删除当前选中的角色？",
-	    buttons: {
-	        confirm: {
-	            label: '确定',
-	            className: 'btn-danger'
-	        },
-	        cancel: {
-	            label: '取消',
-	            className: 'btn-success'
-	        }
-	    },
-	    callback: function (result) {
-	       if(result){
-	    	   var roleCodes = new Array();
-	    	   $.each(selected,function(index,data){
-	    		   roleCodes.push(data.roleCode);
-	    	   });
-	    	   $.busyLoadFull("show",{
-	    		   fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
-	    	   });
-	    	   //提交
-	    	   $.ajax({
-	    		   url:basepath+'sys/roles/deleteRoles',
-	    		   type:'post',
-	    		   data:{roleCodes:roleCodes.join(",")},
-	    		   success:function(result){
-	    			   $.busyLoadFull("hide");
-	    			   if(result.code=='success'){
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "提示框",
-	    						  message: "删除成功"
-	    						});
-	    				   search();
-	    			   }else{
-	    				   bootbox.alert({ 
-	    						  size: "small",
-	    						  title: "警告框",
-	    						  message: result.data
-	    						});
-	    			   }
-	    		  },
-	    		  error:function(error){
-	    			  $.busyLoadFull("hide");
-	    			  bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: error
-						});
-	    		  }
-	    	   });
-	       }
-	    }
-	});
+	PluginUtil.confirm("是否确认删除当前选中的角色？",function () {
+		   var roleCodes = new Array();
+		   $.each(selected,function(index,data){
+			   roleCodes.push(data.roleCode);
+		   });
+		   PluginUtil.mask("body");
+		   //提交
+		   $.ajax({
+			   url:basepath+'sys/roles/deleteRoles',
+			   type:'post',
+			   data:{roleCodes:roleCodes.join(",")},
+			   success:function(result){
+				   PluginUtil.unmask("body");
+				   if(result.code=='success'){
+					   PluginUtil.info("删除成功");
+					   search();
+				   }else{
+					   PluginUtil.alert(result.data);
+				   }
+			  },
+			  error:function(error){
+				  PluginUtil.unmask("body");
+				  PluginUtil.alert(error);
+			  }
+		   });
+    });
 }
 
 /**
@@ -186,11 +148,7 @@ function removeRoles(){
 function roleFunction(){
 	var selected = $("#rolesTable").bootstrapTable("getSelections");
 	if(selected.length!=1){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "请选择一个角色分配权限"
-			});
+		PluginUtil.info("请选择一个角色分配权限");
 		return false;
 	}
 	$("#roleEdit").load(basepath+"sys/roles/toRoleFunction?roleCode="+selected[0].roleCode,function(){

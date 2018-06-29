@@ -22,5 +22,6 @@
   <![endif]-->
 <!-- loading样式 -->
 <link rel="stylesheet" href="${basepath}resource/buzy-load/loading.min.css">
+<!-- toast样式 -->
 <!-- 系统样式 -->
 <link rel="stylesheet" href="${basepath}resource/css/sys-style.css">

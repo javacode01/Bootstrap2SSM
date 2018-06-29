@@ -21,11 +21,7 @@
 	var roleCode = "${roleCode}";
 	$("#rolefuction").height($(window).height()-150);
 	if(roleCode==""){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "提示框",
-			  message: "参数错误"
-			});
+		PluginUtil.info("参数错误");
 		$('#roleEdit').modal('hide');
 	}
 	$(function(){
@@ -43,33 +39,23 @@
 		$.each(checkeds,function(index,node){
 			functionCodes.push(node.data.functionCode);
 		});
+		PluginUtil.mask("roleEdit");
 		//提交
 		$.ajax({
 			url:basepath+'sys/roles/saveRoleFunction',
 			type:'post',
 			data:{roleCode:roleCode,functionCodes:functionCodes.join(",")},
 			success:function(result){
+				PluginUtil.unmask("roleEdit");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					$('#roleEdit').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.alert(error);
 			}
 		});
 	}

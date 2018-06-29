@@ -51,39 +51,25 @@
 		if(!$('#addEditForm').valid()){
 			return false;
 		}
-		$('#roleEdit').busyLoad("show",{
-			fontawesome: "fa fa-spinner fa-spin fa-3x fa-fw"
-		});
+		PluginUtil.mask("roleEdit");
 		//提交
 		$.ajax({
 			url:basepath+'sys/roles/editRole',
 			type:'post',
 			data:$("#addEditForm").serialize(),
 			success:function(result){
-				$('#roleEdit').busyLoad("hide");
+				PluginUtil.unmask("roleEdit");
 				if(result.code=='success'){
-					bootbox.alert({ 
-						  size: "small",
-						  title: "提示框",
-						  message: "保存成功"
-						});
+					PluginUtil.info("保存成功");
 					search();
 					$('#roleEdit').modal('hide');
 				}else{
-					bootbox.alert({ 
-						  size: "small",
-						  title: "警告框",
-						  message: result.data
-						});
+					PluginUtil.alert(result.data);
 				}
 			},
 			error:function(error){
-				$('#roleEdit').busyLoad("hide");
-				bootbox.alert({ 
-					  size: "small",
-					  title: "警告框",
-					  message: error
-					})
+				PluginUtil.unmask("roleEdit");
+				PluginUtil.alert(error);
 			}
 		});
 	}
