@@ -51,7 +51,7 @@ var PluginUtil = (function(){
 	 * 显示遮罩层
 	 */
 	obj.mask = function(elementId){
-		layer.load();
+		layer.load(0,{shade:[0.3,'#000000']});
 	};
 	/**
 	 * 隐藏遮罩层
