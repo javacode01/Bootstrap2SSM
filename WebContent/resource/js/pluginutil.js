@@ -7,11 +7,7 @@ var PluginUtil = (function(){
 	 * 信息提示框
 	 */
 	obj.info = function(message){
-		bootbox.alert({ 
-			  size: "small",
-			  title: "<font color='#EFAD4F'>提示</font>",
-			  message: message
-			});
+		toastr.info(message);
 	};
 	/**
 	 * 警告提示框
