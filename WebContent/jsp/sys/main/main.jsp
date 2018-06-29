@@ -9,6 +9,49 @@
 		.error{
 			color:red;
 		}
+		.spinner {
+			text-align: center;
+			padding-top:20%;
+		}
+		.spinner > div {
+			width: 30px;
+			height: 30px;
+		  	background-color: #67CF22;
+			
+		  	border-radius: 100%;
+		  	display: inline-block;
+		  	-webkit-animation: bouncedelay 1.4s infinite ease-in-out;
+		  	animation: bouncedelay 1.4s infinite ease-in-out;
+		  	/* Prevent first frame from flickering when animation starts */
+		  	-webkit-animation-fill-mode: both;
+		  	animation-fill-mode: both;
+		}
+		 
+		.spinner .bounce1 {
+		  	-webkit-animation-delay: -0.32s;
+		  	animation-delay: -0.32s;
+		}
+		 
+		.spinner .bounce2 {
+			-webkit-animation-delay: -0.16s;
+		  	animation-delay: -0.16s;
+		}
+		 
+		@-webkit-keyframes bouncedelay {
+		  	0%, 80%, 100% { -webkit-transform: scale(0.0) }
+		  	40% { -webkit-transform: scale(1.0) }
+		}
+		 
+		@keyframes bouncedelay {
+		  	0%, 80%, 100% {
+		    	transform: scale(0.0);
+		    	-webkit-transform: scale(0.0);
+		  	} 
+		  	40% {
+		    	transform: scale(1.0);
+		    	-webkit-transform: scale(1.0);
+		  	}
+		}
 	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
@@ -287,7 +330,7 @@
     <!-- /.sidebar -->
   </aside>
   <!-- Content Wrapper. Contains page content -->
-  <div id="content_wrapper" class="content-wrapper" style="position:relative;">
+  <div id="content_wrapper" class="content-wrapper" style="position:relative;background-color:#FFFFFF;">
   	<div class="sys-border-bottom" style="position:relative;margin-top:-1px;padding:0px;overflow:auto;">
   		<div style="position:absolute;left:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.prev()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-backward"></span></button></div>
   		<div style="position:absolute;right:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.next()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-forward"></span></button></div>
@@ -295,6 +338,12 @@
 		    <li data-id="widgets" class="active"><a id="tab_widgets" data-id="widgets" href="#widgets_div" data-toggle="tab">首页</a></li>
 		</ul>
   	</div>
+  	<!-- 页面动画加载 -->
+  	<div class="spinner" style="position:absolute;top:93px;bottom:0px;z-index:0;width:100%;">
+  		<div class="bounce1"></div>
+		<div class="bounce2"></div>
+		<div class="bounce3"></div>
+	</div>
   	<div id="tabsContent" class="tab-content" style="position:absolute;top:93px;bottom:0px;z-index:900;width:100%;">
 	    <div class="tab-pane fade in active" id="widgets_div" style="width:100%;height:100%;">
 	        <iframe src="${basepath}/toWidgets" id="widgets_iframe" frameborder="0" scrolling="auto"
