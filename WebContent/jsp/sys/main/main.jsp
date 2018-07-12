@@ -334,7 +334,7 @@
   	<div class="sys-border-bottom" style="position:relative;margin-top:-1px;padding:0px;overflow:auto;">
   		<div style="position:absolute;left:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.prev()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-backward"></span></button></div>
   		<div style="position:absolute;right:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.next()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-forward"></span></button></div>
-  		<ul id="tabsMenu" class="nav nav-tabs pre-scrollable" style="position:relative;z-index:600; height:42px;background-color:#FFFFFF;margin:0px 40px;">
+  		<ul id="tabsMenu" class="nav nav-tabs pre-scrollable" style="position:relative;z-index:600; height:42px;background-color:#EEEEEE;margin:0px 40px;">
 		    <li data-id="widgets" class="active"><a id="tab_widgets" data-id="widgets" href="#widgets_div" data-toggle="tab">首页</a></li>
 		</ul>
   	</div>

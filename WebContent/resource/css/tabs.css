@@ -18,7 +18,7 @@
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: #fff;
     cursor: default;
-    background-color: #555;
+    background-color:  #114678;
     border: 1px solid #ddd;
     border-bottom-color: transparent;
 }
@@ -26,5 +26,5 @@
  *tab页选择条底部颜色
  */
 .sys-border-bottom {
-	border-bottom: 2px solid #555;
+	border-bottom: 2px solid #3C8DBC;
 }
