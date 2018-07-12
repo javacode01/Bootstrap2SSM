@@ -32,12 +32,13 @@
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
-	<div class="login-box">
+	<div style="height:100%;padding-top:7%;">
+	<div class="login-box" style="margin:auto;">
 		<div class="login-logo">
 			<a><%=BspUtils.getSysName() %></a>
 		</div>
 		<!-- /.login-logo -->
-		<div class="login-box-body">
+		<div class="login-box-body" style="background-color:rgba(255,255,255,0.5)">
 			<c:if test="${param.error != null}">
 				<p class="login-box-msg" style="color:red;">用户名密码错误</p>
 			</c:if>
@@ -74,6 +75,7 @@
 		<!-- /.login-box-body -->
 	</div>
 	<!-- /.login-box -->
+	</div>
 
 	<!-- jQuery 3 -->
 	<script src="${basepath}resource/bower_components/jquery/dist/jquery.min.js"></script>
