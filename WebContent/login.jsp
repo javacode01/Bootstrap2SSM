@@ -38,7 +38,7 @@
 			<a><%=BspUtils.getSysName() %></a>
 		</div>
 		<!-- /.login-logo -->
-		<div class="login-box-body" style="background-color:rgba(255,255,255,0.5)">
+		<div class="login-box-body">
 			<c:if test="${param.error != null}">
 				<p class="login-box-msg" style="color:red;">用户名密码错误</p>
 			</c:if>
