@@ -37,7 +37,7 @@ public class SysMenuTag extends RequestContextAwareTag{
 			List<SysFunctions> handleList = functionMap.get("handleList");
 			//step2.拼装菜单列表
 			StringBuffer menu = new StringBuffer();
-			menu.append("<ul id=\""+id+"\" class=\"sidebar-menu\" data-widget=\"tree\"><li class=\"header\">功能菜单</li>");
+			menu.append("<ul id=\""+id+"\" class=\"sidebar-menu\" data-widget=\"tree\"><li class=\"header\">功能菜单导航</li>");
 			for(SysFunctions level1 : level1List) {//添加一级菜单
 				if(SysConstant.SYS_FUNCTION_LEVEL_MODULE.equals(level1.getFunctionLevel())) {//如果是模块
 					menu.append("<li class=\"treeview\"><a href=\"javascript:void(0);\"><i class=\""+level1.getFunctionIcon()+"\"></i> <span>"+level1.getFunctionName()+"</span> <span class=\"pull-right-container\">");

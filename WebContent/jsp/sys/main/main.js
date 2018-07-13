@@ -22,7 +22,7 @@ function init(){
 }
 
 function initUserImage(){
-	$('#userImg1').attr("src",user_img);
+//	$('#userImg1').attr("src",user_img);
 	$('#userImg2').attr("src",user_img);
 	$.ajax({
 		url:basepath+'sys/attachment/getAttachmentPath/USER/'+userId+'/USER',
@@ -31,7 +31,7 @@ function initUserImage(){
 			if(result.code=="success"){
 				if(result.data.length>0){
 					user_img = basepath+'sys/attachment/getImg/'+result.data[0].recid;
-					$('#userImg1').attr("src",user_img);
+//					$('#userImg1').attr("src",user_img);
 					$('#userImg2').attr("src",user_img);
 				}
 			}

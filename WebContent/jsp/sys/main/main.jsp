@@ -311,6 +311,7 @@
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
       <!-- Sidebar user panel -->
+      <!-- 
       <div class="user-panel">
         <div class="pull-left image">
           <img id="userImg1" src="javascript:void(0)" class="img-circle">
@@ -320,6 +321,7 @@
           <a href="javascript:void(0);"><%=BspUtils.getLoginOrgan()==null?"未知":BspUtils.getLoginOrgan().getOrganName()%></a>
         </div>
       </div>
+       -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <!-- <ul id="menu_tree" class="sidebar-menu" data-widget="tree">
         <li class="header">功能菜单</li>
