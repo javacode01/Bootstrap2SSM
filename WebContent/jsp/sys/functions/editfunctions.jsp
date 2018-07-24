@@ -41,7 +41,7 @@
 					<select class="form-control" id="defaultAction" name="defaultAction"></select>
 				</div>
 				<div class="form-group showfunction">
-					<label for="functionIcon">功能图标</label>
+					<label for="functionIcon">功能图标<a href="http://www.fontawesome.com.cn/faicons/" target="view_window">【图标参考】</a></label>
 					<input type="text" class="form-control" id="functionIcon" name="functionIcon" value="${function.functionIcon}">
 				</div>
 				<div class="form-group">
