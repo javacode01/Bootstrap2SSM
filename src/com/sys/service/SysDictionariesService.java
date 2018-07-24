@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.sys.client.SysDictionariesMapper;
 import com.sys.model.SysDictionaries;
 import com.sys.model.SysDictionariesExample;
+import com.sys.utils.PageListData;
 
 @Service
 public class SysDictionariesService {
@@ -60,6 +61,21 @@ public class SysDictionariesService {
 	public void deleteSysDictionaries(String recid) {
 		// TODO Auto-generated method stub
 		sysDictionariesMapper.deleteByPrimaryKey(recid);
+	}
+	
+	/**
+	 * 数据字典分页查询
+	 * @param example
+	 * @return
+	 */
+	public PageListData listDictionariesByPage(SysDictionariesExample example) {
+		// TODO Auto-generated method stub
+		int totalCount = sysDictionariesMapper.countByExample(example);
+		List<SysDictionaries> list = sysDictionariesMapper.selectByExample(example);			
+		PageListData pld = new PageListData();
+		pld.setTotal(totalCount);
+		pld.setRows(list);
+		return pld;
 	}
 	
 }

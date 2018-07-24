@@ -36,7 +36,6 @@
 <!-- /.modal -->
 <script type="text/javascript">
 	var edit_handle = '${handle}';//操作类型
-	var edit_nodeId = '${nodeId}';
 	$(function(){
 		//初始化界面
 		if('add'==edit_handle){
@@ -62,7 +61,7 @@
 				PluginUtil.unmask("dicEdit");
 				if(result.code=='success'){
 					PluginUtil.info("保存成功");
-					treeReload();
+					$('#dicTable').bootstrapTable('refresh');
 					$('#dicEdit').modal('hide');
 				}else{
 					PluginUtil.alert(result.data);

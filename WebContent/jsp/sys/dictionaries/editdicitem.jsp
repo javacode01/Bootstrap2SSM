@@ -48,8 +48,8 @@
 		//初始化界面
 		if('add'==edit_item_handle){
 			$('#addEditItemTitle').html("新增");
-			var selected = $("#tree").treeview('getSelected');
-			$('#itemdicType').val(selected[0].data.dicType);
+			var selected = $("#dicTable").bootstrapTable('getSelections');
+			$('#itemdicType').val(selected[0].dicType);
 		}else if("edit"==edit_item_handle){
 			$('#addEditItemTitle').html("修改");
 		}

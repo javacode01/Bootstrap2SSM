@@ -4,67 +4,81 @@
  * @returns
  */
 function init() {
-	initTree();
-	initTable();
+	initDicTable();
+	initTable("");
 }
 
 /**
- * 初始化字典树
+ * 初始化字典类型表格
  * @returns
  */
-function initTree(){
-	$('#tree').treeview({
-		data : getTree(),
-		backColor:'#fff',//设置所有列表树节点的背景颜色。
-		borderColor:'#fff',//设置列表树容器的边框颜色，如果不想要边框可以设置showBorder属性为false。
-		checkedIcon:'glyphicon glyphicon-check',//设置处于checked状态的复选框图标。
-		collapseIcon:'glyphicon glyphicon-minus',//设置列表树可收缩节点的图标。
-		color:'#555',//设置列表树所有节点的前景色。
-		expandIcon:'glyphicon glyphicon-plus',//设置列表树可展开节点的图标。
-		highlightSelected:true,//当选择节点时是否高亮显示。
-		onhoverColor:'#F5F5F5',//设置列表树的节点在用户鼠标滑过时的背景颜色。
-		levels:0,//Default: 2 设置继承树默认展开的级别。
-		showBorder:false,//是否在节点上显示边框。
-		onNodeExpanded:function(event,data){
-			var param = data.id
-			if(data.nodes.length<=0){
-				$.ajax({
-					type:"post",
-					async:false,
-					url:basepath+"sys/dictionaries/getDictionariesNodes",
-					dataType:'json',
-					data: {functionCode:param},
-					success:function(result){
-						if(undefined!=result&&null!=result){
-							for(var i=0;i<result.length;i++){
-								var temp = result[i];
-								$("#tree").treeview("addNode",[data.nodeId,{node:temp,silent:true}]);
-							}
-						}
-					}
-				});
-			}
-		},
-		onNodeSelected:function(event,data){
-			$('#table').bootstrapTable('destroy');
-			initTable();
-			
-		}
+function initDicTable(){
+	$('#dicTable').bootstrapTable({
+		url:basepath+"sys/dictionaries/listDictionariesByPage",
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        queryParams: function(params){
+        	return getDicParam(params);
+        },									//传递参数（*）
+        pagination:true,//启用分页
+        sidePagination:"server",//在服务端分页
+        sortable: false,                     //是否启用排序
+        sortOrder: "asc",                   //排序方式
+        pageNumber:1,//首页页码
+        pageSize:8,//页面数据条数
+        clickToSelect: true,                //是否启用点击选中行
+        uniqueId: "recid",                     //每一行的唯一标识，一般为主键列
+        toolbar: "#dicToolbar",                //工具按钮用哪个容器
+        showColumns:false,
+        showRefresh:false,
+        showToggle:false,
+        onClickRow:function(row){
+        	$('#table').bootstrapTable('destroy');
+			initTable(row.dicType);
+        },
+        columns: [{
+        	radio:true
+        },{
+            field: 'dicName',
+            title: '字典名称'
+        }]
 	});
-	$('#tree').treeview('expandAll',{levels:2});
+}
+
+/**
+ * 数据字典分页查询获取查询条件
+ * @param params
+ * @returns
+ */
+function getDicParam(params){
+	var filter = new HashMap();
+	var dicSearch = $("#dicSearch").val();
+	if(dicSearch){
+		filter.put("dicName@like","%"+dicSearch+"%");
+	}
+	$.extend(params,{filter:filter.getJSON()});
+	return params;
+}
+
+/**
+ * 数据字典查询
+ * @returns
+ */
+function searchDic(){
+	$('#dicTable').bootstrapTable('refresh');
 }
 
 /**
  * 初始化表格
  * @returns
  */
-function initTable(){
+function initTable(dicType){
 	$('#table').bootstrapTable({
 		url:basepath+"sys/dictionariesitem/listDictionariesItemByPage",
         striped: true,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         queryParams: function(params){
-        	return getParam(params);
+        	return getParam(params,dicType);
         },									//传递参数（*）
         pagination:true,//启用分页
         sidePagination:"server",//在服务端分页
@@ -106,16 +120,12 @@ function initTable(){
  * @param params
  * @returns
  */
-function getParam(params){
-	var selected = $("#tree").treeview('getSelected');
-	if(selected.length<1){
-		return false;
-	}
-	if("root"==selected[0].id){
+function getParam(params,dicType){
+	if(null==dicType||""==dicType){
 		return false;
 	}
 	var filter = new HashMap();
-	filter.put("dicType@=",selected[0].data.dicType);
+	filter.put("dicType@=",dicType);
 	$.extend(params,{filter:filter.getJSON()});
 	return params;
 }
@@ -135,16 +145,12 @@ function addDic(){
  * @returns
  */
 function editDic(){
-	var selected = $("#tree").treeview('getSelected');
+	var selected = $("#dicTable").bootstrapTable('getSelections');
 	if(selected.length<1){
 		PluginUtil.info("请先选择要编辑的字典");
 		return false;
 	}
-	if('root'==selected[0].id){
-		PluginUtil.info("根节点不能编辑");
-		return false;
-	}
-	$("#dicEdit").load(basepath+"sys/dictionaries/toEditDic?handle=edit&recid="+selected[0].id+"&nodeId="+selected[0].nodeId,function(){
+	$("#dicEdit").load(basepath+"sys/dictionaries/toEditDic?handle=edit&recid="+selected[0].recid,function(){
 		$("#dicEdit").modal({backdrop: 'static', keyboard: false});
 	});
 }
@@ -154,13 +160,9 @@ function editDic(){
  * @returns
  */
 function removeDic(){
-	var selected = $("#tree").treeview('getSelected');
+	var selected = $("#dicTable").bootstrapTable('getSelections');
 	if(selected.length<1){
 		PluginUtil.info("请先选择要删除的字典");
-		return false;
-	}
-	if('root'==selected[0].id){
-		PluginUtil.info("根节点不能删除");
 		return false;
 	}
 	PluginUtil.confirm("是否确认删除当前选中的字典？",function(){
@@ -168,12 +170,12 @@ function removeDic(){
 		$.ajax({
  		   url:basepath+'sys/dictionaries/deleteDic',
  		   type:'post',
- 		   data:{recid:selected[0].id},
+ 		   data:{recid:selected[0].recid},
  		   success:function(result){
  			   PluginUtil.unmask("body");
  			   if(result.code=='success'){
  				   PluginUtil.info("删除成功");
- 				   treeReload();
+ 				   $('#dicTable').bootstrapTable('refresh');
  			   }else{
  				   PluginUtil.alert(result.data);
  			   }
@@ -219,13 +221,9 @@ function refreshDictionaries(){
  * @returns
  */
 function addDicItem(){
-	var selected = $("#tree").treeview('getSelected');
+	var selected = $("#dicTable").bootstrapTable('getSelections');
 	if(selected.length<1){
-		PluginUtil.info("请先选择左侧字典树要增加字典项的字典");
-		return false;
-	}
-	if('root'==selected[0].id){
-		PluginUtil.info("根节点不能增加字典项");
+		PluginUtil.info("请先选择左侧要增加字典项的字典");
 		return false;
 	}
 	$("#dicItemEdit").load(basepath+"sys/dictionariesitem/toEditDicItem?handle=add",function(){
@@ -284,34 +282,4 @@ function removeDicItem(){
  		  }
  	   });
 	});
-}
-
-/**
- * 重新加载字典树
- * @returns
- */
-function treeReload(){
-	$('#tree').treeview("remove");
-	initTree();
-}
-
-/**
- * 初始化功能树
- * @returns
- */
-function getTree(){
-	//根节点
-	var root = [{
-		  id:"root",
-		  text: "字典树根节点",
-		  icon: "glyphicon glyphicon-stop",
-		  selectedIcon: "glyphicon glyphicon-stop",
-		  state: {
-		    expanded: false
-		  },
-		  nodes:[],
-		  data:{
-			  dicType:"",
-		  }}];
-	return root;
 }

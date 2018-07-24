@@ -20,6 +20,9 @@ import com.sys.model.SysDictionaries;
 import com.sys.model.SysDictionariesExample;
 import com.sys.service.SysDictionariesService;
 import com.sys.utils.BspUtils;
+import com.sys.utils.JsonUtils;
+import com.sys.utils.Page;
+import com.sys.utils.PageListData;
 import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
@@ -46,32 +49,33 @@ public class SysDictionariesController {
 	}
 	
 	/**
-	 * 获取字典树结构节点
+	 * 字典项分页查询
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value="/sys/dictionaries/getDictionariesNodes",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody List<TreeNode> getDictionariesNodes(HttpServletRequest request, HttpServletResponse response) {
-		//获取参数
-		SysDictionariesExample example = new SysDictionariesExample();
-		List<SysDictionaries> list = sysDictionariesService.listDictionariesByExample(example);
-		//转换Nodes
-		List<TreeNode> nodes = new ArrayList<TreeNode>();
-		if(null!=list) {
-			for(SysDictionaries  dictionaries: list) {
-				TreeNode node = new TreeNode();
-				node.setId(dictionaries.getRecid());
-				node.setText(dictionaries.getDicName());
-				node.setSelectable(true);
-				Map<String,Object> state = new HashMap<String,Object>();
-				state.put("expanded", true);
-				node.setState(state);
-				node.setData(dictionaries);
-				nodes.add(node);
-			}
+	@RequestMapping(value="/sys/dictionaries/listDictionariesByPage",method=RequestMethod.GET,produces="application/json")
+	public @ResponseBody PageListData listDictionariesByPage(HttpServletRequest request, HttpServletResponse response) {
+		String start = request.getParameter("offset");//当前第几页
+		String rows = request.getParameter("limit");//每页显示条数
+		String filter = request.getParameter("filter");
+		Map<String,Object> filterMap = JsonUtils.json2map(filter);
+		String sortfield=request.getParameter("sortfield");
+		Page p= new Page();
+		SysDictionariesExample pote= new SysDictionariesExample();
+		if(null!=filterMap){
+			pote.createCriteria();
+			pote.integratedQuery(filterMap);
 		}
-		return nodes;
+		
+		if(!SysUtils.isNull(sortfield)){
+			pote.setOrderByClause(sortfield);
+		}
+		p.setBegin(Integer.parseInt(start));
+		p.setEnd(Integer.parseInt(start)+Integer.parseInt(rows));
+		pote.setPage(p);
+		PageListData pageData = sysDictionariesService.listDictionariesByPage(pote);
+		return pageData;
 	}
 	
 	/**

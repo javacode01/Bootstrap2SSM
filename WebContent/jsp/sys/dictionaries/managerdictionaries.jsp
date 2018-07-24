@@ -4,7 +4,6 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
@@ -16,6 +15,9 @@
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+.pull-left.pagination-detail{
+	display:none;
+}
 </style>
 </head>
 <body>
@@ -26,16 +28,30 @@
 				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
 					<strong>&nbsp;字典管理</strong>
 				</div>
-				<div calss="row" style="position:absolute;top:30px;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;text-align: right;padding-right:5px;">
-					<div class="btn-group">
-						<button type="button" class="btn btn-success btn-xs" onclick="addDic()">增加</button>
-						<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
-						<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
-						<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()">刷新字典缓存</button>
+				<div class="row" style="height:100%;padding-top:30px;overflow-y:auto;">
+					<div class="row" style="height:30px;position:absolute;">
+						<div class="col-lg-12">
+							<div class="input-group">
+								<input type="text" class="form-control" id="dicSearch">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button" onclick="searchDic()">
+										<span class="glyphicon glyphicon-search"></span>
+									</button>
+								</span>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="row" style="height:100%;padding-top:60px;overflow-y:auto;">
-					<div id="tree"></div>
+					<div class="row" style="margin:0;padding-top:30px;">
+						<div id="dicToolbar" class="btn-group">
+							<button type="button" class="btn btn-success btn-xs" onclick="addDic()">增加</button>
+							<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
+							<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
+							<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()">刷新字典缓存</button>
+						</div>
+						<div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+							<table id="dicTable" style="height:100%;"></table>
+						</div>
+					</div>
 				</div>
 			</div>
 			<!-- 右侧区域 -->
@@ -63,7 +79,6 @@
 	<!-- 字典项编辑 -->
 	<div class="modal fade" id="dicItemEdit" tabindex="-1" role="dialog" aria-hidden="true"></div>
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
-	<script src="${basepath}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
 	<script src="${basepath}jsp/sys/dictionaries/managerdictionaries.js"></script>
 	<script type="text/javascript">
 		$(function(){
