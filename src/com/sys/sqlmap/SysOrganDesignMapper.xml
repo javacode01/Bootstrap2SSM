@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sys.client.SysOrganDesignMapper" >
+  <resultMap id="BaseResultMap" type="com.sys.model.SysOrganDesign" >
+    <id column="RECID" property="recid" jdbcType="VARCHAR" />
+    <result column="ORGAN_LEVEL" property="organLevel" jdbcType="CHAR" />
+    <result column="ORGAN_LEVEL_NAME" property="organLevelName" jdbcType="VARCHAR" />
+    <result column="NEXT_LEVEL" property="nextLevel" jdbcType="VARCHAR" />
+    <result column="HAVE_USER" property="haveUser" jdbcType="CHAR" />
+    <result column="ICON_URL" property="iconUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.sys.model.SysOrganDesignExample" >
+    <include refid="OracleDialectPrefix" />
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from SYS_ORGAN_DESIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <include refid="OracleDialectSuffix" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from SYS_ORGAN_DESIGN
+    where RECID = #{recid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from SYS_ORGAN_DESIGN
+    where RECID = #{recid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.sys.model.SysOrganDesignExample" >
+    delete from SYS_ORGAN_DESIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.sys.model.SysOrganDesign" >
+    insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, 
+      NEXT_LEVEL, HAVE_USER, ICON_URL
+      )
+    values (#{recid,jdbcType=VARCHAR}, #{organLevel,jdbcType=CHAR}, #{organLevelName,jdbcType=VARCHAR}, 
+      #{nextLevel,jdbcType=VARCHAR}, #{haveUser,jdbcType=CHAR}, #{iconUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.sys.model.SysOrganDesign" >
+    insert into SYS_ORGAN_DESIGN
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recid != null" >
+        RECID,
+      </if>
+      <if test="organLevel != null" >
+        ORGAN_LEVEL,
+      </if>
+      <if test="organLevelName != null" >
+        ORGAN_LEVEL_NAME,
+      </if>
+      <if test="nextLevel != null" >
+        NEXT_LEVEL,
+      </if>
+      <if test="haveUser != null" >
+        HAVE_USER,
+      </if>
+      <if test="iconUrl != null" >
+        ICON_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recid != null" >
+        #{recid,jdbcType=VARCHAR},
+      </if>
+      <if test="organLevel != null" >
+        #{organLevel,jdbcType=CHAR},
+      </if>
+      <if test="organLevelName != null" >
+        #{organLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextLevel != null" >
+        #{nextLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="haveUser != null" >
+        #{haveUser,jdbcType=CHAR},
+      </if>
+      <if test="iconUrl != null" >
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.sys.model.SysOrganDesignExample" resultType="java.lang.Integer" >
+    select count(*) from SYS_ORGAN_DESIGN
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update SYS_ORGAN_DESIGN
+    <set >
+      <if test="record.recid != null" >
+        RECID = #{record.recid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.organLevel != null" >
+        ORGAN_LEVEL = #{record.organLevel,jdbcType=CHAR},
+      </if>
+      <if test="record.organLevelName != null" >
+        ORGAN_LEVEL_NAME = #{record.organLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nextLevel != null" >
+        NEXT_LEVEL = #{record.nextLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.haveUser != null" >
+        HAVE_USER = #{record.haveUser,jdbcType=CHAR},
+      </if>
+      <if test="record.iconUrl != null" >
+        ICON_URL = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update SYS_ORGAN_DESIGN
+    set RECID = #{record.recid,jdbcType=VARCHAR},
+      ORGAN_LEVEL = #{record.organLevel,jdbcType=CHAR},
+      ORGAN_LEVEL_NAME = #{record.organLevelName,jdbcType=VARCHAR},
+      NEXT_LEVEL = #{record.nextLevel,jdbcType=VARCHAR},
+      HAVE_USER = #{record.haveUser,jdbcType=CHAR},
+      ICON_URL = #{record.iconUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.sys.model.SysOrganDesign" >
+    update SYS_ORGAN_DESIGN
+    <set >
+      <if test="organLevel != null" >
+        ORGAN_LEVEL = #{organLevel,jdbcType=CHAR},
+      </if>
+      <if test="organLevelName != null" >
+        ORGAN_LEVEL_NAME = #{organLevelName,jdbcType=VARCHAR},
+      </if>
+      <if test="nextLevel != null" >
+        NEXT_LEVEL = #{nextLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="haveUser != null" >
+        HAVE_USER = #{haveUser,jdbcType=CHAR},
+      </if>
+      <if test="iconUrl != null" >
+        ICON_URL = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RECID = #{recid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.sys.model.SysOrganDesign" >
+    update SYS_ORGAN_DESIGN
+    set ORGAN_LEVEL = #{organLevel,jdbcType=CHAR},
+      ORGAN_LEVEL_NAME = #{organLevelName,jdbcType=VARCHAR},
+      NEXT_LEVEL = #{nextLevel,jdbcType=VARCHAR},
+      HAVE_USER = #{haveUser,jdbcType=CHAR},
+      ICON_URL = #{iconUrl,jdbcType=VARCHAR}
+    where RECID = #{recid,jdbcType=VARCHAR}
+  </update>
+  <sql id="OracleDialectPrefix" >
+    <if test="page != null" >
+      select * from ( select row_.*, rownum rownum_ from ( 
+    </if>
+  </sql>
+  <sql id="OracleDialectSuffix" >
+    <if test="page != null" >
+      <![CDATA[ ) row_   where rownum <= #{page.end} ) where rownum_ > #{page.begin} ]]>
+    </if>
+  </sql>
+</mapper>

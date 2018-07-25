@@ -1,6 +1,9 @@
 package com.sys.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.context.ContextLoader;
@@ -10,8 +13,11 @@ import com.alibaba.fastjson.JSON;
 import com.sys.model.SysDictionariesItem;
 import com.sys.model.SysFunctions;
 import com.sys.model.SysOrgan;
+import com.sys.model.SysOrganDesign;
+import com.sys.model.SysOrganDesignExample;
 import com.sys.model.SysUsers;
 import com.sys.security.SysSecurityMetadataSource;
+import com.sys.service.SysOrganDesignService;
 import com.sys.service.SysOrganService;
 import com.sys.utils.cache.DictionariesCache;
 import com.sys.utils.cache.FunctionsCache;
@@ -63,6 +69,25 @@ public class BspUtils {
 		DictionariesCache dictionariesCache = getBean(DictionariesCache.class);
 		List<SysDictionariesItem> list = dictionariesCache.getDicItemByDicType(dicType);
 		return JSON.toJSON(list);
+	}
+	
+	/**
+	 * 获取机构级别JSON数组
+	 * @return
+	 */
+	public static Object listOrganDesign() {
+		SysOrganDesignService sysOrganDesignService = getBean(SysOrganDesignService.class);
+		SysOrganDesignExample example = new SysOrganDesignExample();
+		example.createCriteria();
+		List<SysOrganDesign> list = sysOrganDesignService.listSysOrganDesign(example);
+		List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
+		for(SysOrganDesign obj:list) {
+			Map<String,String> temp = new HashMap<String,String>();
+			temp.put("itemCode", obj.getOrganLevel());
+			temp.put("itemName", obj.getOrganLevelName());
+			resultList.add(temp);
+		}
+		return JSON.toJSON(resultList);
 	}
 	
 	/**
