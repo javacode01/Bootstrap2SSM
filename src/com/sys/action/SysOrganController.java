@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,6 +27,7 @@ import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
 import com.sys.utils.TreeNode;
+import com.sys.utils.ZTreeNode;
 
 @Controller
 public class SysOrganController {
@@ -50,9 +52,9 @@ public class SysOrganController {
 	 * @return
 	 */
 	@RequestMapping(value="/sys/organ/getOrganNodes",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody List<TreeNode> getOrganNodes(HttpServletRequest request, HttpServletResponse response) {
+	public @ResponseBody List<ZTreeNode> getOrganNodes(HttpServletRequest request, HttpServletResponse response) {
 		//获取参数
-		String organCode = request.getParameter("organCode");
+		String organCode = request.getParameter("id");
 		if(null==organCode||"".equals(organCode)) {
 			return null;
 		}
@@ -61,19 +63,15 @@ public class SysOrganController {
 		example.setOrderByClause("seq asc");
 		List<SysOrgan> list = sysOrganService.listOrganByExample(example);
 		//转换Nodes
-		List<TreeNode> nodes = new ArrayList<TreeNode>();
+		List<ZTreeNode> nodes = new ArrayList<ZTreeNode>();
 		if(null!=list) {
 			for(SysOrgan organ : list) {
-				TreeNode node = new TreeNode();
+				ZTreeNode node = new ZTreeNode();
 				node.setId(organ.getOrganCode());
-				node.setText(organ.getOrganName());
-				node.setIcon(organ.getIconUrl());
-				node.setSelectable(true);
-				Map<String,Object> state = new HashMap<String,Object>();
-				state.put("expanded", false);
-				node.setNodes(new ArrayList<TreeNode>());
-				node.setState(state);
+				node.setPid(organ.getParentCode());
+				node.setName(organ.getOrganName());
 				node.setData(organ);
+				node.setIsParent("true");
 				nodes.add(node);
 			}
 		}
@@ -113,7 +111,7 @@ public class SysOrganController {
 		String handle = request.getParameter("handle");
 		String organCode = request.getParameter("organCode");
 		SysOrgan organ = null;
-		if(!"root".equals(organCode)) {
+		if(!"0".equals(organCode)) {
 			SysOrganExample example= new SysOrganExample();
 			example.createCriteria().andOrganCodeEqualTo(organCode);
 			List<SysOrgan> list = sysOrganService.listOrganByExample(example);
@@ -218,5 +216,31 @@ public class SysOrganController {
 			return rd;
 		}
 	}
+	
+	/**
+	 * 获取机构信息
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/organ/getOrganDetail/{organCode}",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody ResultData editOrgan(@PathVariable("organCode") String organCode,HttpServletRequest request, HttpServletResponse response) {
+		ResultData rd = new ResultData();
+		try {
+			SysOrganExample example = new SysOrganExample();
+			example.createCriteria().andOrganCodeEqualTo(organCode);
+			List<SysOrgan> list = sysOrganService.listOrganByExample(example);
+			rd.setCode(SysConstant.SYS_SUCCESS);
+			rd.setData(list.get(0));
+			return rd;
+		}catch(Exception e) {
+			e.printStackTrace();
+			logger.error(e);
+			rd.setCode(SysConstant.SYS_ERROR);
+			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
+			return rd;
+		}
+	}
+	
 
 }

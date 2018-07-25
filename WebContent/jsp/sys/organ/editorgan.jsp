@@ -29,10 +29,6 @@
 					<select class="form-control" id="organLevel" name="organLevel" required></select>
 				</div>
 				<div class="form-group">
-					<label for="organType">机构类型</label>
-					<select class="form-control" id="organType" name="organType"></select>
-				</div>
-				<div class="form-group">
 					<label for="iconUrl">机构图标</label>
 					<input type="text" class="form-control" id="iconUrl" name="iconUrl" value="${organ.iconUrl}">
 				</div>
@@ -55,7 +51,6 @@
 	$(function(){
 		//初始化select标签
 		SysUtil.initSelect('organLevel',ORGANLEVEL,"${organ.organLevel}");
-		SysUtil.initSelect('organType',ORGANTYPE,"${organ.organType}");
 		//初始化界面
 		if("add"==edit_handle){
 			var pcode = '${parentOrgan.organCode}';
@@ -80,28 +75,13 @@
 					PluginUtil.info("保存成功");
 					$('#table').bootstrapTable('refresh');
 					$('#organModal').modal('hide');
-					var selected = $("#tree").treeview('getSelected');
+					var selected = zTreeObj.getSelectedNodes();
 					if("add"==edit_handle){
-						$('#tree').treeview('collapseNode', [selected[0].nodeId, {silent: true}]);
-						var nodeIds = new Array();
-						$.each(selected[0].nodes,function(index,item){
-							nodeIds.push(item.nodeId);
-						});
-						$.each(nodeIds,function(index,item){
-							$("#tree").treeview("deleteNode", [item, { silent: true }]);
-						});
-						$('#tree').treeview('expandNode',[selected[0].nodeId, {levels: 1}]);
+						zTreeObj.reAsyncChildNodes(selected[0],"refresh");
 					}else if("edit"==edit_handle){
-						var parentNode = $('#tree').treeview('getParent', selected[0].nodeId);
-						$('#tree').treeview('collapseNode', [parentNode.nodeId, {silent: true}]);
-						var nodeIds = new Array();
-						$.each(parentNode.nodes,function(index,item){
-							nodeIds.push(item.nodeId);
-						});
-						$.each(nodeIds,function(index,item){
-							$("#tree").treeview("deleteNode", [item, { silent: true }]);
-						});
-						$('#tree').treeview('expandNode',[parentNode.nodeId, {levels: 1}]);
+						selected[0].name = $('#organName').val();
+						zTreeObj.updateNode(selected[0]);
+						showDetail("","",selected[0]);
 					}
 				}else{
 					PluginUtil.alert(result.data);

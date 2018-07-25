@@ -5,6 +5,7 @@
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
 <link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
+<link rel="stylesheet" href="${basepath}resource/zTree/css/zTreeStyle/zTreeStyle.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
@@ -27,7 +28,7 @@
 					<strong>&nbsp;组织机构树</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y:auto;">
-					<div id="tree"></div>
+					<ul id="tree" class="ztree"></ul>
 				</div>
 			</div>
 			<!-- 右侧操作区域 -->
@@ -48,15 +49,13 @@
 					    		<div class="col-sm-2" style="text-align: right;">机构编码：</div>
 					    		<div class="col-sm-2" style="text-align: left;" id="show_organCode"></div>
 					    		<div class="col-sm-2" style="text-align: right;">机构名称：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_organName"></div>
-					    		<div class="col-sm-2" style="text-align: right;">机构级别：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_organLevel"></div>
+					    		<div class="col-sm-6" style="text-align: left;" id="show_organName"></div>
 					    	</div>
 					    	<div class="row">
 					    		<div class="col-sm-2" style="text-align: right;">机构图标：</div>
 					    		<div class="col-sm-2" style="text-align: left;"><span id="show_iconUrl"></span></div>
-					    		<div class="col-sm-2" style="text-align: right;">机构类型：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_organType"></div>
+					    		<div class="col-sm-2" style="text-align: right;">机构级别：</div>
+					    		<div class="col-sm-2" style="text-align: left;" id="show_organLevel"></div>
 					    		<div class="col-sm-2" style="text-align: right;">排序：</div>
 					    		<div class="col-sm-2" style="text-align: left;" id="show_seq"></div>
 					    	</div>
@@ -79,11 +78,38 @@
 	</div>
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
 	<script src="${basepath}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
+	<script src="${basepath}resource/zTree/js/jquery.ztree.core.min.js"></script>
 	<script src="${basepath}jsp/sys/organ/managerorgan.js"></script>
 	<script type="text/javascript">
-		var ORGANLEVEL = <%=BspUtils.listDicItemJSONByDicType("ORGANLEVEL") %>;
-		var ORGANTYPE = <%=BspUtils.listDicItemJSONByDicType("ORGANTYPE") %>;
-		var ORGANCLASS = <%=BspUtils.listDicItemJSONByDicType("ORGANCLASS") %>;
+		var ORGANLEVEL = <%=BspUtils.listOrganDesign() %>;
+		var zTreeObj;
+	   	// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+	   	var setting = {
+			async: {
+				enable: true,
+				autoParam: ["id"],
+				url: basepath+"sys/organ/getOrganNodes?"+$("meta[name='_csrf_header']").attr("content")+"="+$("meta[name='_csrf']").attr("content"),
+				type: "post",
+				dataType:'json'
+			},
+			callback:{
+				onClick:showDetail//点击节点事件
+			},
+			data:{
+	            simpleData:{
+	                enable: true,
+	                idKey:'id',
+	                pIdKey:'pid',
+	                rootPId: 0
+	            }
+	        },
+			view:{
+				showLine: false
+			}
+			
+	   	};
+	   	// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+	   	var zNodes = [{id:0,name:"组织结构树",isParent:true,data:{organCode:"0",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
 		$(function(){
 			init();
 		});
