@@ -79,6 +79,7 @@ public class BspUtils {
 		SysOrganDesignService sysOrganDesignService = getBean(SysOrganDesignService.class);
 		SysOrganDesignExample example = new SysOrganDesignExample();
 		example.createCriteria();
+		example.setOrderByClause("organ_level asc");
 		List<SysOrganDesign> list = sysOrganDesignService.listSysOrganDesign(example);
 		List<Map<String,String>> resultList = new ArrayList<Map<String,String>>();
 		for(SysOrganDesign obj:list) {

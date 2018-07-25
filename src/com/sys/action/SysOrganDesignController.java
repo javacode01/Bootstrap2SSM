@@ -62,6 +62,8 @@ public class SysOrganDesignController {
 		
 		if(!SysUtils.isNull(sortfield)){
 			pote.setOrderByClause(sortfield);
+		}else {
+			pote.setOrderByClause("organ_level asc");
 		}
 		p.setBegin(Integer.parseInt(start));
 		p.setEnd(Integer.parseInt(start)+Integer.parseInt(rows));
