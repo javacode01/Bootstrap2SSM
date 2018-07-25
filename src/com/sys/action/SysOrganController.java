@@ -118,7 +118,7 @@ public class SysOrganController {
 			organ = list.get(0);
 		}else {
 			organ = new SysOrgan();
-			organ.setOrganCode("root");
+			organ.setOrganCode("0");
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("handle", handle);

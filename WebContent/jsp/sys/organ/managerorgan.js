@@ -113,7 +113,7 @@ function remove(){
 		PluginUtil.info("请在左侧树中选择要删除的机构");
 		return false;
 	}
-	if('root'==selected[0].id){
+	if('0'==selected[0].id){
 		PluginUtil.info("根节点不能删除");
 		return false;
 	}
@@ -149,7 +149,7 @@ function remove(){
 function showDetail(event, treeId, treeNode){
 	$('#table').bootstrapTable('destroy');
 	initTable(treeNode.id);
-	if(0!=treeNode.id){
+	if("0"!=treeNode.id){
 		$.ajax({
 			   url:basepath+'sys/organ/getOrganDetail/'+treeNode.id,
 			   type:'post',
