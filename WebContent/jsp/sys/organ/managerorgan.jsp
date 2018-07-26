@@ -131,16 +131,20 @@
 			
 	   	};
 		 function addHoverDom(treeId, treeNode) {
-			 //给节点添加"新增"按钮
-			 var sObj = $("#" + treeNode.tId + "_span");
-			 if (treeNode.editNameFlag || $("#addBtn_"+treeNode.id).length>0) return;
-			 var addStr = "<span class='button add' id='addBtn_" + treeNode.id
-			 + "' title='新增' onfocus='this.blur();'></span>";
-			 sObj.after(addStr);
-			 var btn = $("#addBtn_"+treeNode.id);
-			 if (btn) btn.bind("click", function(){
-				 add(treeId, treeNode);
-			 });
+			 if(nextLevel(treeNode.data.organLevel,ORGANLEVEL).length<1){
+					return false;
+			 }else{
+				//给节点添加"新增"按钮
+				 var sObj = $("#" + treeNode.tId + "_span");
+				 if (treeNode.editNameFlag || $("#addBtn_"+treeNode.id).length>0) return;
+				 var addStr = "<span class='button add' id='addBtn_" + treeNode.id
+				 + "' title='新增' onfocus='this.blur();'></span>";
+				 sObj.after(addStr);
+				 var btn = $("#addBtn_"+treeNode.id);
+				 if (btn) btn.bind("click", function(){
+					 add(treeId, treeNode);
+				 });
+			 }
 		 };
 		  
 		 // 用于当鼠标移出节点时，隐藏用户自定义控件

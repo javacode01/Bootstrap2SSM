@@ -122,7 +122,7 @@ function nextLevel(level,items){
  */
 function add(treeId, treeNode){
 	if(nextLevel(treeNode.data.organLevel,ORGANLEVEL).length<1){
-		PluginUtil.info("没有下级");
+		PluginUtil.info("不允许创建下级");
 		return false;
 	}
 	zTreeObj.selectNode(treeNode);
