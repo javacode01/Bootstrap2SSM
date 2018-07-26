@@ -18,6 +18,10 @@
 .pull-left.pagination-detail{
 	display:none;
 }
+.fixed-table-container {
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+}
 </style>
 </head>
 <body>
@@ -34,7 +38,7 @@
 							<div class="input-group">
 								<input type="text" class="form-control" id="dicSearch">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" onclick="searchDic()">
+									<button class="btn btn-default" type="button" onclick="searchDic()" style="border-radius: 0px;">
 										<span class="glyphicon glyphicon-search"></span>
 									</button>
 								</span>
@@ -43,10 +47,10 @@
 					</div>
 					<div class="row" style="margin:0;padding-top:30px;">
 						<div id="dicToolbar" class="btn-group">
-							<button type="button" class="btn btn-success btn-xs" onclick="addDic()">增加</button>
+							<button type="button" class="btn btn-success btn-xs" onclick="addDic()" style="border-radius: 0px;">增加</button>
 							<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
 							<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
-							<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()">刷新字典缓存</button>
+							<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()" style="border-radius: 0px;">刷新字典缓存</button>
 						</div>
 						<div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
 							<table id="dicTable" style="height:100%;"></table>
