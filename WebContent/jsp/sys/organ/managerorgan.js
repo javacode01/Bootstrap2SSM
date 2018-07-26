@@ -89,7 +89,6 @@ function edit(treeId, treeNode){
  * @returns
  */
 function nextLevel(level,items){
-	debugger;
 	if("root"==level){
 		return items;
 	}

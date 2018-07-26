@@ -13,49 +13,7 @@ function init() {
  * @returns
  */
 function initTree(){
-	$('#tree').treeview({
-		data : getTree(),
-		backColor:'#fff',//设置所有列表树节点的背景颜色。
-		borderColor:'#fff',//设置列表树容器的边框颜色，如果不想要边框可以设置showBorder属性为false。
-		checkedIcon:'glyphicon glyphicon-check',//设置处于checked状态的复选框图标。
-		collapseIcon:'glyphicon glyphicon-minus',//设置列表树可收缩节点的图标。
-		color:'#555',//设置列表树所有节点的前景色。
-		expandIcon:'glyphicon glyphicon-plus',//设置列表树可展开节点的图标。
-		highlightSelected:true,//当选择节点时是否高亮显示。
-		onhoverColor:'#F5F5F5',//设置列表树的节点在用户鼠标滑过时的背景颜色。
-		levels:0,//Default: 2 设置继承树默认展开的级别。
-		showBorder:false,//是否在节点上显示边框。
-		onNodeExpanded:function(event,data){
-			var param = data.id
-			if(data.nodes.length<=0){
-				$.ajax({
-					type:"post",
-					async:false,
-					url:basepath+"sys/organ/getOrganNodes",
-					dataType:'json',
-					data: {organCode:param},
-					success:function(result){
-						if(undefined!=result&&null!=result){
-							for(var i=0;i<result.length;i++){
-								var temp = result[i];
-								$("#tree").treeview("addNode",[data.nodeId,{node:temp,silent:true}]);
-							}
-						}
-					}
-				});
-			}
-		},
-		onNodeSelected:function(event,data){
-			$('#show_organCode').html(data.data.organCode);
-			$('#show_organName').html(data.data.organName);
-			$('#show_organLevel').html(SysUtil.formatDicItem(data.data.organLevel,ORGANLEVEL));
-			$('#show_iconUrl').removeClass();
-			$('#show_iconUrl').addClass(data.data.iconUrl);
-			$('#show_organType').html(SysUtil.formatDicItem(data.data.organType,ORGANTYPE));
-			$('#show_seq').html(data.data.seq);
-			$('#table').bootstrapTable('refresh');
-		}
-	});
+	zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes);
 }
 
 /**
@@ -87,27 +45,19 @@ function initTable(){
         	checkbox:true
         }, {
             field: 'userCode',
-            title: '用户编码',
-            width:"20%"
+            title: '用户编码'
         }, {
             field: 'userName',
-            title: '用户名',
-            width:"20%"
+            title: '用户名'
         }, {
             field: 'nickname',
-            title: '昵称',
-            width:"20%"
+            title: '昵称'
         }, {
             field: 'status',
             title: '状态',
-            width:"10%",
             formatter:function(value,row,index){
             	return SysUtil.formatDicItem(value,USERSSTATUS);
             }
-        }, {
-            field: 'organCode',
-            title: '所属组织机构',
-            width:"20%"
         }]
 	});
 }
@@ -118,7 +68,7 @@ function initTable(){
  * @returns
  */
 function getParam(params){
-	var selected = $("#tree").treeview('getSelected');
+	var selected = zTreeObj.getSelectedNodes();
 	if(selected.length<1){
 		return false;
 	}
@@ -136,28 +86,28 @@ function toShowIcon(value,row,index){
 }
 
 /**
- * 初始化功能树
+ * 判断当前机构是否允许创建用户
+ * @param level //当前级别
+ * @param items //级别关系列表
  * @returns
  */
-function getTree(){
-	//根节点
-	var root = [{
-		  id:"root",
-		  text: "组织结构",
-		  icon: "glyphicon glyphicon-stop",
-		  selectedIcon: "glyphicon glyphicon-stop",
-		  state: {
-		    expanded: false
-		  },
-		  nodes:[],
-		  data:{
-			  organCode:"root",
-			  organName:"根节点",
-			  organLevel:"1",
-			  iconUrl:"glyphicon glyphicon-stop",
-			  seq:""
-		  }}];
-	return root;
+function havaUser(level,items){
+	if("root"==level){
+		return false;
+	}
+	//获取当前级别信息
+	var currLevel = null;
+	for(var i=0;i<items.length;i++){
+		if(items[i].itemCode==level){
+			currLevel = items[i];
+			break;
+		}
+	}
+	if(currLevel.haveUser=="1"){
+		return true;
+	}else{
+		return false;
+	}
 }
 
 /**
@@ -165,13 +115,13 @@ function getTree(){
  * @returns
  */
 function addUser(){
-	var selected = $("#tree").treeview('getSelected');
+	var selected = zTreeObj.getSelectedNodes();
 	if(selected.length<1){
 		PluginUtil.info("请先选择左侧机构树要增加用户的机构");
 		return false;
 	}
-	if('root'==selected[0].id){
-		PluginUtil.info("根节点不能增加用户");
+	if(!havaUser(selected[0].data.organLevel,ORGANLEVEL)){
+		PluginUtil.info("当前机构不允许创建用户");
 		return false;
 	}
 	$("#userModal").load(basepath+"sys/users/toEditUsers?handle=add&organCode="+selected[0].data.organCode,function(){
@@ -241,4 +191,14 @@ function userRole(){
 	$("#userModal").load(basepath+"sys/users/toUserRole?userCode="+selected[0].userCode,function(){
 		$("#userModal").modal({backdrop: 'static', keyboard: false});
 	});
+}
+
+function showDetail(event, treeId, treeNode){
+	$('#show_organCode').html(treeNode.data.organCode);
+	$('#show_organName').html(treeNode.data.organName);
+	$('#show_organLevel').html(SysUtil.formatDicItem(treeNode.data.organLevel,ORGANLEVEL));
+	$('#show_iconUrl').removeClass();
+	$('#show_iconUrl').addClass(treeNode.data.iconUrl);
+	$('#show_seq').html(treeNode.data.seq);
+	$('#table').bootstrapTable('refresh');
 }
