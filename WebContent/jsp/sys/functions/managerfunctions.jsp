@@ -16,6 +16,9 @@
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+.panel-default>.panel-heading {
+    border:0px;
+}
 </style>
 </head>
 <body>
@@ -37,8 +40,8 @@
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
 					<div class="panel panel-default cust-panel">
-					    <div class="panel-heading cust-panel-heading" style="text-align: right;">
-					    	<div style="float:left;">当前功能信息</div>
+					    <div class="panel-heading cust-panel-heading" style="text-align: right;padding:6px 15px;">
+					    	<div style="float:left;margin-top:4px;">当前功能信息</div>
 					    	<button type="button" class="btn btn-primary btn-sm" onclick="edit()">编辑</button>
 					    	<button type="button" class="btn btn-success btn-sm" onclick="add()">新增下级</button>
 					    	<button type="button" class="btn btn-danger btn-sm" onclick="remove()">删除</button>

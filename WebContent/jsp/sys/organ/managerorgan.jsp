@@ -16,6 +16,9 @@
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 0px;
 }
+.panel-default>.panel-heading {
+    border:0px;
+}
 </style>
 </head>
 <body>
