@@ -1,7 +1,38 @@
 prompt PL/SQL Developer import file
-prompt Created on 2018Äê4ÔÂ8ÈÕ by Administrator
+prompt Created on 2018Äê7ÔÂ26ÈÕ by Administrator
 set feedback off
 set define off
+prompt Creating DEMO_ORDER...
+create table DEMO_ORDER
+(
+  RECID       VARCHAR2(32) not null,
+  ORDER_NO    VARCHAR2(50),
+  DESCRIPTION VARCHAR2(200),
+  CREATER     VARCHAR2(32),
+  CREATE_TIME TIMESTAMP(6),
+  UPDATER     VARCHAR2(32),
+  UPDATE_TIME TIMESTAMP(6)
+)
+;
+comment on table DEMO_ORDER
+  is '¶©µ¥£¨Ê¾Àý±í£©';
+comment on column DEMO_ORDER.RECID
+  is '¶©µ¥id';
+comment on column DEMO_ORDER.ORDER_NO
+  is '¶©µ¥±àºÅ';
+comment on column DEMO_ORDER.DESCRIPTION
+  is '¶©µ¥¼ò½é';
+comment on column DEMO_ORDER.CREATER
+  is '´´½¨ÈË';
+comment on column DEMO_ORDER.CREATE_TIME
+  is '´´½¨Ê±¼ä';
+comment on column DEMO_ORDER.UPDATER
+  is '¸üÐÂÈË';
+comment on column DEMO_ORDER.UPDATE_TIME
+  is '¸üÐÂÊ±¼ä';
+alter table DEMO_ORDER
+  add constraint PK_DEMO_ORDER primary key (RECID);
+
 prompt Creating SYS_ATTACHMENT...
 create table SYS_ATTACHMENT
 (
@@ -166,7 +197,7 @@ create table SYS_ORGAN
   ICON_URL    VARCHAR2(50),
   SEQ         INTEGER,
   ORGAN_LEVEL CHAR(1),
-  ORGAN_CLASS CHAR(2),
+  ORGAN_CLASS CHAR(1),
   ORGAN_TYPE  CHAR(1),
   CREATE_TIME TIMESTAMP(6),
   CREATER     VARCHAR2(32),
@@ -204,6 +235,34 @@ comment on column SYS_ORGAN.UPDATER
   is 'ÐÞ¸ÄÈË';
 alter table SYS_ORGAN
   add constraint PK_SYS_ORGAN primary key (ORGAN_ID);
+
+prompt Creating SYS_ORGAN_DESIGN...
+create table SYS_ORGAN_DESIGN
+(
+  RECID            VARCHAR2(32) not null,
+  ORGAN_LEVEL      CHAR(1),
+  ORGAN_LEVEL_NAME VARCHAR2(200),
+  NEXT_LEVEL       VARCHAR2(10),
+  HAVE_USER        CHAR(1),
+  ICON_URL         VARCHAR2(50)
+)
+;
+comment on table SYS_ORGAN_DESIGN
+  is 'ÉèÖÃ×éÖ¯½á¹¹µÄ¹æÔò';
+comment on column SYS_ORGAN_DESIGN.RECID
+  is 'Ö÷¼ü';
+comment on column SYS_ORGAN_DESIGN.ORGAN_LEVEL
+  is '¶ÔÓ¦SYS_ORGANµÄORGAN_LEVEL×Ö¶Î';
+comment on column SYS_ORGAN_DESIGN.ORGAN_LEVEL_NAME
+  is '×éÖ¯¼¶±ðÃû³Æ';
+comment on column SYS_ORGAN_DESIGN.NEXT_LEVEL
+  is 'ÔÊÐí´´½¨µÄÏÂ¼¶¼¶±ð';
+comment on column SYS_ORGAN_DESIGN.HAVE_USER
+  is '0£º·ñ£¬1£ºÊÇ';
+comment on column SYS_ORGAN_DESIGN.ICON_URL
+  is 'Ä¬ÈÏÍ¼±ê';
+alter table SYS_ORGAN_DESIGN
+  add constraint PK_SYS_ORGAN_DESIGN primary key (RECID);
 
 prompt Creating SYS_QUARTZ_JOB...
 create table SYS_QUARTZ_JOB
@@ -387,6 +446,8 @@ comment on column SYS_USER_ROLE.CREATER
 alter table SYS_USER_ROLE
   add constraint PK_SYS_USER_ROLE primary key (ID);
 
+prompt Loading DEMO_ORDER...
+prompt Table is empty
 prompt Loading SYS_ATTACHMENT...
 prompt Table is empty
 prompt Loading SYS_DICTIONARIES...
@@ -397,9 +458,7 @@ values ('47a9fe6ff2e54f259dba2f36ebe90b72', 'FLEVEL', '¹¦ÄÜ¼¶±ð', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
 values ('60f95adaf02c4abf8a1f4df597373041', 'FTYPE', '¹¦ÄÜÀàÐÍ', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
-values ('2e6f4e4cb6734dadbc52d8437886a7fe', 'ORGANLEVEL', '»ú¹¹¼¶±ð', null);
-insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
-values ('ad862009a0654ddf953bb6ee166fc18d', 'ORGANCLASS', '»ú¹¹ÀàÐÍ', null);
+values ('ad862009a0654ddf953bb6ee166fc18d', 'ORGANCLASS', '»ú¹¹ÐÔÖÊ', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
 values ('866b97126e614d1e9d71f1c214c240e6', 'ORGANTYPE', '»ú¹¹ÀàÐÍ', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
@@ -409,7 +468,7 @@ values ('36078061cd8e47cc95490897c55db540', 'USERSSTATUS', 'ÓÃ»§×´Ì¬', null);
 insert into SYS_DICTIONARIES (RECID, DIC_TYPE, DIC_NAME, NOTE)
 values ('0fac0c2a71884287b5ade2dcff2ad80e', 'QUARTZJOBSTATUS', '¶¨Ê±ÈÎÎñ×´Ì¬', null);
 commit;
-prompt 9 records loaded
+prompt 8 records loaded
 prompt Loading SYS_DICTIONARIES_ITEM...
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('dfec3514f1ae4715b547997e96edf845', 'ISORNOT', '0', '·ñ', null, null, 1);
@@ -425,16 +484,6 @@ insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, 
 values ('9b709ca220b04a2da828722e7af75f25', 'FTYPE', '2', '²Ù×÷', null, null, 2);
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('daf8f6d78ece49abb64574cc3f4b4a19', 'FLEVEL', '1', 'Ä£¿é', null, null, 1);
-insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
-values ('66a8bfcc9a4f4dcb8bc0c02d8f88a85e', 'ORGANLEVEL', '1', '×Ü¹«Ë¾', null, null, 1);
-insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
-values ('bc8196cbfa724bceae1518784772b298', 'ORGANLEVEL', '2', '·Ö¹«Ë¾', null, null, 2);
-insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
-values ('97156546dd2a49ae839a43c0d1bb3b81', 'ORGANLEVEL', '3', 'ÉÌÎñ²¿', null, null, 3);
-insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
-values ('617b37ae6d634926a7677d6455ee4143', 'ORGANLEVEL', '4', '²ÆÎñ²¿', null, null, 4);
-insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
-values ('f6029e888cc545bf9b14719e2f62135f', 'ORGANLEVEL', '5', 'ºóÇÚ²¿', null, null, 5);
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('d2192510336342179e7b5d8951326877', 'ORGANCLASS', '1', '¹«Ë¾', null, null, 1);
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
@@ -464,8 +513,12 @@ values ('c687b285c7db4ce4854e547944fbd66c', 'QUARTZJOBSTATUS', 'BLOCKED', 'Ïß³Ì×
 insert into SYS_DICTIONARIES_ITEM (RECID, DIC_TYPE, ITEM_CODE, ITEM_NAME, NOTE, STATUS, SEQ)
 values ('4d98864322874aac81625b5ebe01b767', 'QUARTZJOBSTATUS', 'ERROR', '³öÏÖ´íÎó', null, null, 6);
 commit;
-prompt 26 records loaded
+prompt 21 records loaded
 prompt Loading SYS_FUNCTIONS...
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('74e0d26990d0410cb9d5ebf890009c8b', 'Ä£¿éDEMO', 'fa fa-folder', '1', 'root', '0001', null, null, 1, null, to_timestamp('26-06-2018 13:59:26.107000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-07-2018 18:26:35.292000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('68ae14af2e1f437cbd374141beb74376', '²éÑ¯', null, '3', '00010001', '000100010001', 'module/demoorder/initManageDemoOrder', '1', 1, '1', to_timestamp('26-06-2018 14:00:27.147000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('29-06-2018 17:39:36.272000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('3F78BF1C4B424F4F9A8E0F2E62183B07', 'ÏµÍ³¹ÜÀí', 'fa fa-th-large', '1', 'root', '0099', null, null, 99, null, to_timestamp('22-11-2017 15:16:35.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, to_timestamp('22-11-2017 15:16:35.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null);
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
@@ -485,30 +538,47 @@ values ('32B92F3D5194494A981069218CD9BC3D', 'Êý¾Ý×Öµä¹ÜÀí', 'fa fa-book', '2', '
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('1EC561807E9746DE829F420EA48FFEE9', '²éÑ¯', null, '3', '00990004', '009900040001', 'sys/dictionaries/initmanagerdictionaries', '1', 1, '1', to_timestamp('22-12-2017 19:17:53.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, to_timestamp('22-12-2017 19:17:53.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null);
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('72086f4c94cd469ca9c65b5c750a7f68', '×éÖ¯½á¹¹¹ÜÀí', 'fa fa-sitemap', '2', '0099', '00990005', null, null, 5, null, to_timestamp('24-12-2017 02:58:57.262000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 02:58:57.262000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
-insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('fc962c16a18b472492cb173ca361d679', '²éÑ¯', null, '3', '00990005', '009900050001', 'sys/organ/initmanagerorgan', '1', 1, '1', to_timestamp('24-12-2017 03:00:34.336000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 03:00:34.336000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
-insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('ab8776f89a1344768af1811b34bbdd0b', '¶¨Ê±ÈÎÎñ¹ÜÀí', 'fa fa-clock-o', '2', '0099', '00990006', null, null, 6, null, to_timestamp('11-03-2018 13:47:49.176000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 13:55:20.669000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
 values ('a13a6812a6fd41af9ca2e6aa23d8f32a', '²éÑ¯', null, '3', '00990006', '009900060001', 'sys/quartzjob/initmanagerquartzjob', '1', 1, '1', to_timestamp('11-03-2018 13:58:32.760000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 13:58:32.760000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('d64817bfe00a4aae974fef29b2c1763c', '¹¦ÄÜDEMO', 'fa fa-folder', '2', '0001', '00010001', null, null, 1, null, to_timestamp('26-06-2018 13:59:47.055000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-07-2018 18:27:04.286000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('507f3311980143ceb1459962b6f3a97e', '×éÖ¯½á¹¹¹ÜÀí', 'fa fa-sitemap', '1', '0099', '00990005', null, null, 5, null, to_timestamp('25-07-2018 11:53:40.818000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('25-07-2018 11:53:40.818000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('51e0de47c2444cb39fb699a7a29fe562', '×éÖ¯½á¹¹Î¬»¤', 'fa fa-sitemap', '2', '00990005', '009900050001', null, null, 1, null, to_timestamp('25-07-2018 11:57:48.444000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('25-07-2018 11:57:48.444000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('153e9fe6d8b54b3e843bdf72d44beefe', '²éÑ¯', null, '3', '009900050001', '0099000500010001', 'sys/organ/initmanagerorgan', '1', 1, '1', to_timestamp('25-07-2018 11:58:33.773000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('25-07-2018 11:58:33.773000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('1d335c186631410da41dbdfa927f4d4d', '»ú¹¹¹ØÏµÉèÖÃ', 'fa fa-bars', '2', '00990005', '009900050002', null, null, 2, null, to_timestamp('25-07-2018 12:00:35.728000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('25-07-2018 12:00:35.728000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+insert into SYS_FUNCTIONS (FUNCTION_ID, FUNCTION_NAME, FUNCTION_ICON, FUNCTION_LEVEL, PARENT_CODE, FUNCTION_CODE, FUNCTION_URL, FUNCTION_TYPE, SEQ, DEFAULT_ACTION, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
+values ('f4d56bc5979f4460ba51e2d0e7628c24', '²éÑ¯', null, '3', '009900050002', '0099000500020001', 'sys/sysorgandesign/initManageSysOrganDesign', '1', 1, '1', to_timestamp('25-07-2018 12:02:36.370000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('25-07-2018 12:02:36.370000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
-prompt 13 records loaded
+prompt 19 records loaded
 prompt Loading SYS_ORGAN...
 insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('56f7d190549e4d2994314cd5ddf20e5f', '000100010002', '²ÆÎñ1²¿', '00010001', null, 2, '4', null, '2', to_timestamp('24-12-2017 21:58:36.517000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:58:36.517000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('ecbad8f195c242508da418103b25cd79', '370100001', '¼ÃÄÏÊÐÏû±£¿Æ', '370100', 'fa fa-tag', 1, '5', null, null, to_timestamp('26-07-2018 14:20:33.791000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('26-07-2018 14:20:33.791000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('28f5279e437f44eb8ebc7d80efdabcb4', '000100010003', 'ºóÇÚ1²¿', '00010001', null, 3, '5', null, '2', to_timestamp('24-12-2017 21:59:17.356000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:59:17.356000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('d26f424179fc49b6a7b7fc5e424bc62a', '370000', 'É½¶«Ê¡¹¤ÉÌ¾Ö', 'root', 'fa fa-university', 1, '1', null, null, to_timestamp('26-07-2018 13:29:37.459000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('26-07-2018 13:29:37.459000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('bbb730278da444ea96d65476fd991c76', '000100010004', 'ÉÌÎñ2²¿', '00010001', null, 4, '3', null, '2', to_timestamp('24-12-2017 22:04:07.312000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 22:04:17.278000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('69a6b1e6543047a6b03deff852517eef', '370100', '¼ÃÄÏÊÐ¹¤ÉÌ¾Ö', '370000', 'fa fa-home', 1, '2', null, null, to_timestamp('26-07-2018 13:34:59.156000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('26-07-2018 14:01:06.980000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('19fd5e58816f4ea69f1bd341ddc8bc50', '0001', 'ÓÐÇ®ÈËµÄ¹«Ë¾', 'root', null, 1, '1', null, '1', to_timestamp('24-12-2017 21:55:06.709000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 22:00:24.386000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
-insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('da514ada0cea41e39d6a0fdc5f30f860', '00010001', 'ÓÐÇ®ÈËµÄ¼ÃÄÏ·Ö¹«Ë¾', '0001', null, 1, '2', null, '1', to_timestamp('24-12-2017 21:56:53.278000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:59:57.633000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
-insert into SYS_ORGAN (ORGAN_ID, ORGAN_CODE, ORGAN_NAME, PARENT_CODE, ICON_URL, SEQ, ORGAN_LEVEL, ORGAN_CLASS, ORGAN_TYPE, CREATE_TIME, CREATER, UPDATE_TIME, UPDATER)
-values ('e10d1c6ebaea45e29f56b25ff40e8182', '000100010001', 'ÉÌÎñ1²¿', '00010001', null, 1, '3', null, '2', to_timestamp('24-12-2017 21:57:42.438000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('24-12-2017 21:57:51.690000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('b5b549b8f7b5464185e678322fbf6c4c', '370200', 'ÇàµºÊÐ¹¤ÉÌ¾Ö', '370000', 'fa fa-home', 2, '2', null, null, to_timestamp('26-07-2018 13:35:55.342000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('26-07-2018 13:35:55.342000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
-prompt 6 records loaded
+prompt 4 records loaded
+prompt Loading SYS_ORGAN_DESIGN...
+insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL)
+values ('3b393dff183f4c22aed1d881c598ed13', '3', '·Ö¾Ö', '4,5', '0', 'fa fa-suitcase');
+insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL)
+values ('cb3354ce3ed447ea97cb3a6090de04af', '4', '¹¤ÉÌËù', null, '1', 'fa fa-flag');
+insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL)
+values ('b365ab939c6446978f1c1c80fc1b6334', '5', '²¿ÃÅ', null, '1', 'fa fa-tag');
+insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL)
+values ('cdf10b3a3dfc45d4bda73a23b439c41d', '1', 'Ê¡¾Ö', '2,4,5', '0', 'fa fa-university');
+insert into SYS_ORGAN_DESIGN (RECID, ORGAN_LEVEL, ORGAN_LEVEL_NAME, NEXT_LEVEL, HAVE_USER, ICON_URL)
+values ('68337a6251d84e969879f6b31f0503f3', '2', 'ÊÐ¾Ö', '3,4,5', '0', 'fa fa-home');
+commit;
+prompt 5 records loaded
 prompt Loading SYS_QUARTZ_JOB...
 insert into SYS_QUARTZ_JOB (RECID, JOB_NAME, JOB_GROUP_NAME, JOB_CLASS, CRON_EXPRESSION, STATUS, REMARK, CREATER, CREATETIME, UPDATER, UPDATETIME)
 values ('58b9878cf6d348b28d6a89614571fbf1', '¶¨Ê±ÈÎÎñ²âÊÔ', '1', 'com.sys.utils.schedule.QuartzJob', '0/2 * * * * ?', null, '²âÊÔ', '1', to_timestamp('11-03-2018 20:51:02.757000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', to_timestamp('11-03-2018 21:01:26.290000', 'dd-mm-yyyy hh24:mi:ss.ff'));
@@ -523,75 +593,73 @@ commit;
 prompt 2 records loaded
 prompt Loading SYS_ROLE_FUNCTION...
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('2262e33c3b6e465bb6cab3e792043f9c', '0002', '00990001', to_timestamp('02-04-2018 12:36:18.549000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('a5beeb7ef8294f638e0f59d57ec59d67', '0001', '00990001', to_timestamp('26-07-2018 17:13:37.291000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('d94996537f39494c966bb39d89dcbb3d', '0002', '00990003', to_timestamp('02-04-2018 12:36:18.618000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('4ee31f67a20e4ee1917ce1440806a99e', '0001', '00990003', to_timestamp('26-07-2018 17:13:37.298000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('86cd7231778f4244a5a9701b05914c40', '0002', '00990002', to_timestamp('02-04-2018 12:36:18.624000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('eadf3f612ac545da89f6b3ab0f4c1e1a', '0001', '00990002', to_timestamp('26-07-2018 17:13:37.310000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('0c84f86ef0bf4d638ff344453984317d', '0002', '009900040001', to_timestamp('02-04-2018 12:36:18.633000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('32a6425de52f439bbd2e7410556b654e', '0001', '009900040001', to_timestamp('26-07-2018 17:13:37.320000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('0604841718f045e697680265d9cf148e', '0002', '00990005', to_timestamp('02-04-2018 12:36:18.641000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('6421cde22575457cbd160fbba9497830', '0001', '00990005', to_timestamp('26-07-2018 17:13:37.327000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('256067262b62497692134ff9511a5b2d', '0002', '009900060001', to_timestamp('02-04-2018 12:36:18.647000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('b59bb8d24f8b4375b81b415255342cda', '0001', '009900060001', to_timestamp('26-07-2018 17:13:37.332000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('b20b4c5148db4eb8911f7fbd37f7cc0b', '0002', '00990004', to_timestamp('02-04-2018 12:36:18.653000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('f49c06000a6c41ecb09b021572ddb17a', '0001', '00990004', to_timestamp('26-07-2018 17:13:37.341000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('a77f27d735e94a95ae979d3bd22514e1', '0002', '00990006', to_timestamp('02-04-2018 12:36:18.659000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('a66a404ab6764338bb6bea02d9570332', '0001', '0099000500010001', to_timestamp('26-07-2018 17:13:37.349000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('6f2a168b4cc341d59c53cde7007cb3de', '0002', '009900020001', to_timestamp('02-04-2018 12:36:18.665000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('39179f578fcf4501b1c8e8eb481b35ce', '0001', '000100010001', to_timestamp('26-07-2018 17:13:37.355000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('e3e7327c4e934248921aae46d4e9e62e', '0002', '009900050001', to_timestamp('02-04-2018 12:36:18.671000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('59ecec485fae46eb9950cbac4f64d877', '0001', '0099000500020001', to_timestamp('26-07-2018 17:13:37.360000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('fa50193c9e7547139feea0650bb1aa9b', '0002', '0099', to_timestamp('02-04-2018 12:36:18.677000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('f7da6774f121431682381e32de50f6e5', '0001', '00990006', to_timestamp('26-07-2018 17:13:37.366000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('bd338c261a0d4e899eb67fe8e0456f79', '0002', 'root', to_timestamp('02-04-2018 12:36:18.683000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('1c8e20b386254ff1a7200a7514b02e2a', '0001', '009900020001', to_timestamp('26-07-2018 17:13:37.372000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('f8c63bd34cae4ee79de9ea37faefc6a1', '0002', '009900030001', to_timestamp('02-04-2018 12:36:18.688000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('6053db23ce8b4522b10851f2548c6fb9', '0001', '009900050001', to_timestamp('26-07-2018 17:13:37.378000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('7048632a0d0e44679edba86faf98312e', '0002', '009900010001', to_timestamp('02-04-2018 12:36:18.694000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('3cf0ee4117f04f8e85c11710f36a8e11', '0001', '009900050002', to_timestamp('26-07-2018 17:13:37.384000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('a5b0f1a171e344759a77dffbd5ad6a45', '0001', '00990001', to_timestamp('02-04-2018 12:36:28.815000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('2e731a6f226a41dd8ef81cba1b0563b8', '0001', '0099', to_timestamp('26-07-2018 17:13:37.390000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('22f4bb7ba74043689a311851a035a85d', '0001', '00990003', to_timestamp('02-04-2018 12:36:28.821000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('3d71408f34b14c1283cc55a3f44c8973', '0001', '0001', to_timestamp('26-07-2018 17:13:37.395000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('3f3afae5aa4243be82e57d0f69dca8cb', '0001', '00990002', to_timestamp('02-04-2018 12:36:28.828000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('85b1ceb340074d14b4bc71f88fc8ce70', '0001', '00010001', to_timestamp('26-07-2018 17:13:37.401000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('47065afcd2dd46cf9291478b1a15fffb', '0001', '009900040001', to_timestamp('02-04-2018 12:36:28.833000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('66f273db7351479c86e607dba041d2c4', '0001', '009900030001', to_timestamp('26-07-2018 17:13:37.407000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('ea3d207058214916adf8d808100798fa', '0001', '00990005', to_timestamp('02-04-2018 12:36:28.837000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('8129ea9290284f3b8b140632282932ce', '0001', '009900010001', to_timestamp('26-07-2018 17:13:37.412000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('9f044ff40757409a9b58101898d2c627', '0001', '009900060001', to_timestamp('02-04-2018 12:36:28.840000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('3cca9adfa76c42f58c4602483b46e898', '0002', '00990002', to_timestamp('26-07-2018 17:13:55.366000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('8fadd9abea7040a8a0c907b3ab6dd295', '0001', '00990004', to_timestamp('02-04-2018 12:36:28.844000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('828c9c81dfd141e084ec075619f0498f', '0002', '0099', to_timestamp('26-07-2018 17:13:55.375000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('eff3c7c2a6f34a098bc86e4bc8d67f9d', '0001', '00990006', to_timestamp('02-04-2018 12:36:28.850000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('1ecff413e3d04490a63b95e1da1de671', '0002', '0001', to_timestamp('26-07-2018 17:13:55.383000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('5bf2f1afd67241598be01fac18a732a4', '0001', '009900020001', to_timestamp('02-04-2018 12:36:28.855000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('bc1c4a53faa448dbae2591b645314530', '0002', '00010001', to_timestamp('26-07-2018 17:13:55.388000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('d12d6055e89a4025a512945d0abd57bb', '0001', '009900050001', to_timestamp('02-04-2018 12:36:28.859000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('17988c8363364d69a002167f19737b78', '0002', '000100010001', to_timestamp('26-07-2018 17:13:55.395000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('1089b744fec241a085adaaa70b22b016', '0001', '0099', to_timestamp('02-04-2018 12:36:28.864000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('5ffc796c005d4c95849e2378d044a854', '0002', '009900020001', to_timestamp('26-07-2018 17:13:55.402000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('a4a87ae5fdac4709a8c74e5cdd3a1e99', '0001', 'root', to_timestamp('02-04-2018 12:36:28.868000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('fd6258110dcd4157827d6b808ffead97', '0002', '009900010001', to_timestamp('26-07-2018 17:13:55.408000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('38f92ad87d90408f82ff35713ae795e1', '0001', '009900030001', to_timestamp('02-04-2018 12:36:28.872000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
-insert into SYS_ROLE_FUNCTION (ID, ROLE_CODE, FUNCTION_CODE, CREATE_TIME, CREATER)
-values ('196a5b045a1c4a54ba6720cf5577b3e6', '0001', '009900010001', to_timestamp('02-04-2018 12:36:28.877000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('4c5671fcb5484aa081b191327b803b7d', '0002', '00990001', to_timestamp('26-07-2018 17:13:55.359000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
-prompt 28 records loaded
+prompt 27 records loaded
 prompt Loading SYS_USERS...
 insert into SYS_USERS (USER_ID, USER_NAME, PASSWORD, STATUS, SYSTEM, LOCK_TIME, EXPIRED_TIME, ORGAN_CODE, CREATE_TIME, UPDATE_TIME, CREATER, UPDATER, NICKNAME, USER_CODE)
 values ('1', 'admin', '96e79218965eb72c92a549dd5a330112', null, null, null, null, null, null, to_timestamp('31-12-2017 17:37:46.258000', 'dd-mm-yyyy hh24:mi:ss.ff'), null, '1', 'ÓÃ»§1', '1');
 insert into SYS_USERS (USER_ID, USER_NAME, PASSWORD, STATUS, SYSTEM, LOCK_TIME, EXPIRED_TIME, ORGAN_CODE, CREATE_TIME, UPDATE_TIME, CREATER, UPDATER, NICKNAME, USER_CODE)
-values ('bcbb6dc97ed14f33b29fa4240c02e3de', 'login1', 'e10adc3949ba59abbe56e057f20f883e', '1', '0', null, null, '000100010001', to_timestamp('26-12-2017 08:56:44.927000', 'dd-mm-yyyy hh24:mi:ss.ff'), to_timestamp('26-12-2017 08:56:44.927000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', '1', 'ÉÌÎñ²¿ÓÃ»§1', '0001');
+values ('99b35d386e024c71aa5e06f28add8eac', 'login1', 'e10adc3949ba59abbe56e057f20f883e', '1', '0', null, null, '370100001', to_timestamp('26-07-2018 15:27:46.805000', 'dd-mm-yyyy hh24:mi:ss.ff'), to_timestamp('26-07-2018 15:27:46.805000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1', '1', '²âÊÔ1', '0001');
 commit;
 prompt 2 records loaded
 prompt Loading SYS_USER_ROLE...
 insert into SYS_USER_ROLE (ID, USER_CODE, ROLE_CODE, CREATE_TIME, CREATER)
 values ('C37ED3DFDD0C4143897FDC24C0B4DD9D', '1', '0001', to_timestamp('25-12-2017 18:28:39.000000', 'dd-mm-yyyy hh24:mi:ss.ff'), null);
 insert into SYS_USER_ROLE (ID, USER_CODE, ROLE_CODE, CREATE_TIME, CREATER)
-values ('e148c177ce8a41ae9d6bc2100717da3e', '0001', '0001', to_timestamp('26-12-2017 09:26:17.954000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
+values ('d65636658932451a84670b19e5d03ca1', '0001', '0002', to_timestamp('26-07-2018 17:14:14.654000', 'dd-mm-yyyy hh24:mi:ss.ff'), '1');
 commit;
 prompt 2 records loaded
 set feedback on
