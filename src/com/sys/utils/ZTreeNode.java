@@ -11,7 +11,7 @@ public class ZTreeNode {
 	
 	private String id;
 	private String pid;
-	private boolean checked;//节点的 checkBox / radio 的 勾选状态
+	private String checked;//节点的 checkBox / radio 的 勾选状态
 	private List<ZTreeNode> children;//节点的子节点数据集合
 	private boolean chkDisabled;//设置节点的 checkbox / radio 是否禁用
 	private String icon;//节点自定义图标的 URL 路径
@@ -32,10 +32,10 @@ public class ZTreeNode {
 	public void setPid(String pid) {
 		this.pid = pid;
 	}
-	public boolean isChecked() {
+	public String getChecked() {
 		return checked;
 	}
-	public void setChecked(boolean checked) {
+	public void setChecked(String checked) {
 		this.checked = checked;
 	}
 	public List<ZTreeNode> getChildren() {

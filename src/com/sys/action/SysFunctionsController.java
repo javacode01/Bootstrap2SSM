@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
+import com.sys.model.SysRoleFunction;
 import com.sys.service.SysFunctionsService;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
@@ -28,6 +29,7 @@ import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
 import com.sys.utils.TreeNode;
+import com.sys.utils.ZTreeNode;
 
 /**
  * @ClassName: SysFunctionsController 
@@ -282,6 +284,24 @@ public class SysFunctionsController {
 			rd.setData(SysConstant.SYS_ERROR_DESCRIPTION);
 			return rd;
 		}
+	}
+	
+	/**
+	 * 获取功能树结构节点以及是否选中（zTree树）
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value="/sys/functions/getFunctionNodesZTree",method=RequestMethod.POST,produces="application/json")
+	public @ResponseBody List<ZTreeNode> getFunctionNodesZTree(HttpServletRequest request, HttpServletResponse response) {
+		//获取参数
+		String functionCode = request.getParameter("id");
+		String roleCode = request.getParameter("roleCode");
+		if(SysUtils.isNull(functionCode)||SysUtils.isNull(roleCode)) {
+			return null;
+		}
+		List<ZTreeNode> nodes = sysFunctionsService.listZTreeNode(functionCode,roleCode);
+		return nodes;
 	}
 	
 }

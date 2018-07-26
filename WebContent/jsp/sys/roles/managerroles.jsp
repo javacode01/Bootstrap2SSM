@@ -4,7 +4,7 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
+<link rel="stylesheet" href="${basepath}resource/zTree/css/metroStyle/metroStyle.css">
 <style>
 .list-group-item:first-child {
     border-top-left-radius: 0px;
@@ -41,7 +41,8 @@
 	<!-- 模态框（Modal） -->
 	<div class="modal fade" id="roleEdit" tabindex="-1" role="dialog" aria-hidden="true"></div>
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
-	<script src="${basepath}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
+	<script src="${basepath}resource/zTree/js/jquery.ztree.core.min.js"></script>
+	<script src="${basepath}resource/zTree/js/jquery.ztree.excheck.min.js"></script>
 	<script src="${basepath}jsp/sys/roles/managerroles.js"></script>
 	<script type="text/javascript">
 		$(function(){

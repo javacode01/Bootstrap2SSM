@@ -15,11 +15,13 @@ import com.sys.client.SysFunctionsMapper;
 import com.sys.client.SysRoleFunctionMapper;
 import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
+import com.sys.model.SysRoleFunction;
 import com.sys.model.SysRoleFunctionExample;
 import com.sys.utils.BspUtils;
 import com.sys.utils.ConfigUtils;
 import com.sys.utils.PageListData;
 import com.sys.utils.SysConstant;
+import com.sys.utils.ZTreeNode;
 
 @Service
 public class SysFunctionsService {
@@ -174,5 +176,51 @@ public class SysFunctionsService {
 	         return function1.getSeq().compareTo(function2.getSeq());
          }
      }
+	 
+	/**
+	 * 获取功能树结构节点以及是否选中
+	 * @param functionCode
+	 * @param roleCode
+	 * @return
+	 */
+	public List<ZTreeNode> listZTreeNode(String functionCode, String roleCode) {
+		// TODO Auto-generated method stub
+		//获取全部功能
+		SysFunctionsExample example = new SysFunctionsExample();
+		example.createCriteria().andParentCodeEqualTo(functionCode);
+		example.setOrderByClause("seq asc");
+		List<SysFunctions> list = sysFunctionsMapper.selectByExample(example);
+		//获取已分配功能
+		SysRoleFunctionExample example1 = new SysRoleFunctionExample();
+		example1.createCriteria().andRoleCodeEqualTo(roleCode);
+		List<SysRoleFunction> list1 = sysRoleFunctionMapper.selectByExample(example1);
+		//转换Nodes
+		List<ZTreeNode> nodes = new ArrayList<ZTreeNode>();
+		if(null!=list) {
+			for(SysFunctions function : list) {
+				ZTreeNode node = new ZTreeNode();
+				node.setId(function.getFunctionCode());
+				node.setPid(function.getParentCode());
+				node.setName(function.getFunctionName());
+				node.setIcon(function.getFunctionIcon());
+				if("3".equals(function.getFunctionLevel())) {
+					node.setIsParent("false");
+				}else {
+					node.setIsParent("true");
+				}
+				if(null!=list1) {
+					for(SysRoleFunction rf:list1) {
+						if(function.getFunctionCode().equals(rf.getFunctionCode())) {
+							node.setChecked("true");
+							break;
+						}
+					}
+				}
+				node.setData(function);
+				nodes.add(node);
+			}
+		}
+		return nodes;
+	}
 
 }

@@ -7,7 +7,7 @@
 			<h4 class="modal-title">权限分配</h4>
 		</div>
 		<div class="modal-body" id="rolefuction" style="overflow: auto;">
-			<div id="tree"></div>
+			<ul id="tree" class="ztree"></ul>
 		</div>
 		<div class="modal-footer">
 			<button type="button" class="btn btn-primary" id="addEditButton" onclick="addEditSubmit()">保存</button>
@@ -20,6 +20,49 @@
 <script type="text/javascript">
 	var roleCode = "${roleCode}";
 	$("#rolefuction").height($(window).height()-150);
+	var zTreeObj;
+   	// zTree 的参数配置，深入使用请参考 API 文档（setting 配置详解）
+   	var setting = {
+		async: {
+			enable: true,
+			autoParam: ["id"],
+			url: basepath+"sys/functions/getFunctionNodesZTree?"+$("meta[name='_csrf_header']").attr("content")+"="+$("meta[name='_csrf']").attr("content"),
+			type: "post",
+			dataType:'json',
+			otherParam: {"roleCode":roleCode}
+		},
+		callback: {
+			onAsyncSuccess: function(event, treeId, treeNode, msg){
+				//展开子节点
+				var children = treeNode.children;
+				$.each(treeNode.children,function(index,node){
+					zTreeObj.reAsyncChildNodes(node,"refresh");
+				});
+			}
+		},
+		check:{
+			enable:true
+		},
+		data:{
+            simpleData:{
+                enable: true,
+                idKey:'id',
+                pIdKey:'pid',
+                rootPId: 0
+            }
+        },
+        edit: {
+    		enable: false
+    	},
+		view:{
+			showLine: false,
+			nameIsHTML:true,
+			showIcon: false,
+			showTitle:false
+		}
+   	};
+   	// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
+   	var zNodes = [{id:"root",name:"&nbsp;<span class='fa fa-sitemap' style='font: normal normal normal 14px/1 FontAwesome;'></span>&nbsp;功能",isParent:true,data:{seq:"1"}}];
 	if(roleCode==""){
 		PluginUtil.info("参数错误");
 		$('#roleEdit').modal('hide');
@@ -27,14 +70,12 @@
 	$(function(){
 		//初始化界面
 		initTree();
-		//展开功能树
-		$('#tree').treeview('expandAll', {});
-		//初始化选中节点
-		initChecked();
+		//展开第一个节点
+		zTreeObj.reAsyncChildNodes(zTreeObj.getNodes()[0],"refresh");
 	});
 	//提交
 	function addEditSubmit(){
-		var checkeds = $('#tree').treeview('getChecked',[]);
+		var checkeds = zTreeObj.getCheckedNodes(true);
 		var functionCodes = new Array();
 		$.each(checkeds,function(index,node){
 			functionCodes.push(node.data.functionCode);
@@ -64,136 +105,6 @@
 	 * @returns
 	 */
 	function initTree(){
-		$('#tree').treeview({
-			data : getTree(),
-			color:'#555',//设置列表树所有节点的前景色。
-			levels:0,//Default: 2 设置继承树默认展开的级别。
-			showBorder:false,//是否在节点上显示边框。
-			showCheckbox:true,
-			onNodeExpanded:function(event,data){
-				var param = data.id
-				if(data.nodes.length<=0){
-					$.ajax({
-						type:"post",
-						async:false,
-						url:basepath+"sys/functions/getFunctionNodes",
-						dataType:'json',
-						data: {functionCode:param},
-						success:function(result){
-							if(undefined!=result&&null!=result){
-								for(var i=0;i<result.length;i++){
-									var temp = result[i];
-									$("#tree").treeview("addNode",[data.nodeId,{node:temp,silent:true}]);
-								}
-							}
-						}
-					});
-				}
-				$('#tree').treeview('expandAll', {});
-			},
-			onNodeChecked:function(event,data){
-				//子节点全选
-				if('undefined'!=typeof(data.nodes)&&null!=data.nodes&&data.nodes.length>0){
-					$.each(data.nodes,function(index,node){
-						$('#tree').treeview('checkNode',[node.nodeId]);
-					});
-				}
-				//父节点递归选中
-				if("undefined"!=typeof(data)&&null!=data){
-					treenodecheck(data);
-				}
-			},
-			onNodeUnchecked:function(event,data){
-				//子节点取消选中
-				if('undefined'!=typeof(data.nodes)&&null!=data.nodes&&data.nodes.length>0){
-					$.each(data.nodes,function(index,node){
-						$('#tree').treeview('uncheckNode',[node.nodeId]);
-					});
-				}
-				//父节点递归取消选中
-				if("undefined"!=typeof(data)&&null!=data){
-					treenodeuncheck(data);
-				}
-			}
-		});
-	}
-	function treenodecheck(data){
-		var parentdata = $('#tree').treeview('getParent',[data.nodeId]);
-		if("undefined"!=typeof(parentdata)&&null!=parentdata&&"undefined"!=typeof(parentdata.state)){
-			$('#tree').treeview('checkNode',[parentdata.nodeId,{ silent: true }]);
-			treenodecheck(parentdata);
-		}
-	}
-	
-	function treenodeuncheck(data){
-		//获取同级节点
-		var datas = $('#tree').treeview('getSiblings',[data.nodeId]);
-		var f = true;
-		if("undefined"!=typeof(datas)&&null!=datas){
-			$.each(datas,function(index,node){
-				if(node.state.checked){
-					f = false;
-				}
-			});
-		}
-		if(f&&"undefined"!=typeof(data)&&null!=data){
-			//父节点设为未选中
-			var parentdata = $('#tree').treeview('getParent',[data.nodeId]);
-			if("undefined"!=typeof(parentdata)&&null!=parentdata&&"undefined"!=typeof(parentdata.state)){
-				$('#tree').treeview('uncheckNode',[parentdata.nodeId,{ silent: true }]);
-				treenodeuncheck(parentdata);
-			}
-		}
-	}
-	/**
-	 * 初始化选中节点
-	 * @returns
-	 */
-	function initChecked(){
-		$.ajax({
-			url:basepath+'sys/roles/listRoleFunction',
-			type:'post',
-			data:{roleCode:roleCode},
-			success:function(result){
-				if(result.code=='success'){
-					var list = result.data;
-					//获取所有节点
-					var nodes = $('#tree').treeview('getUnchecked',[]);
-					$.each(nodes,function(index,node){
-						$.each(list,function(index1,temp){
-							if(node.data.functionCode==temp.functionCode){
-								$('#tree').treeview('checkNode',[node.nodeId,{silent: true}]);
-								return false;
-							}
-						});
-					});
-				}
-			}
-		});
-	}
-	/**
-	 * 初始化功能树
-	 * @returns
-	 */
-	function getTree(){
-		//根节点
-		var root = [{
-			  id:"root",
-			  text: "功能",
-			  icon: "glyphicon glyphicon-stop",
-			  selectedIcon: "glyphicon glyphicon-stop",
-			  state: {
-			    expanded: false
-			  },
-			  nodes:[],
-			  data:{
-				  functionCode:"root",
-				  functionName:"功能",
-				  functionLevel:"1",
-				  functionIcon:"glyphicon glyphicon-stop",
-				  functionUrl:"",
-				  seq:""
-			  }}];
-		return root;
+		zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes);
 	}
 </script>
