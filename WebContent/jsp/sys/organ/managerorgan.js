@@ -83,10 +83,49 @@ function edit(treeId, treeNode){
 }
 
 /**
+ * 返回允许创建的下级列表
+ * @param level //当前级别
+ * @param items //级别关系列表
+ * @returns
+ */
+function nextLevel(level,items){
+	debugger;
+	if("root"==level){
+		return items;
+	}
+	//获取当前级别信息
+	var currLevel = null;
+	for(var i=0;i<items.length;i++){
+		if(items[i].itemCode==level){
+			currLevel = items[i];
+			break;
+		}
+	}
+	//获取下一级别列表
+	var nextLevel = new Array();
+	if(undefined!=currLevel.nextLevel&&""!=currLevel.nextLevel){
+		var nextCode = currLevel.nextLevel.split(",");
+		for(var i=0;i<nextCode.length;i++){
+			for(var j=0;j<items.length;j++){
+				if(nextCode[i]==items[j].itemCode){
+					nextLevel.push(items[j]);
+					break;
+				}
+			}
+		}
+	}
+	return nextLevel;
+}
+
+/**
  * 新增下级功能
  * @returns
  */
 function add(treeId, treeNode){
+	if(nextLevel(treeNode.data.organLevel,ORGANLEVEL).length<1){
+		PluginUtil.info("没有下级");
+		return false;
+	}
 	zTreeObj.selectNode(treeNode);
 	$("#organModal").load(basepath+"sys/organ/toEditOrgan",{
 		organCode:treeNode.data.organCode,

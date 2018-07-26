@@ -4,7 +4,6 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
 <link rel="stylesheet" href="${basepath}resource/zTree/css/metroStyle/metroStyle.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
@@ -74,7 +73,6 @@
 	<div class="modal fade" id="organModal" tabindex="-1" role="dialog" aria-hidden="true">
 	</div>
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
-	<script src="${basepath}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
 	<script src="${basepath}resource/zTree/js/jquery.ztree.core.min.js"></script>
 	<script src="${basepath}resource/zTree/js/jquery.ztree.exedit.min.js"></script>
 	<script src="${basepath}jsp/sys/organ/managerorgan.js"></script>
@@ -150,7 +148,7 @@
 			 $("#addBtn_"+treeNode.id).unbind().remove();
 		 };
 	   	// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-	   	var zNodes = [{id:"root",name:"&nbsp;<span class='fa fa-sitemap' style='font: normal normal normal 14px/1 FontAwesome;'></span>&nbsp;组织结构树",isParent:true,data:{organCode:"root",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
+	   	var zNodes = [{id:"root",name:"&nbsp;<span class='fa fa-sitemap' style='font: normal normal normal 14px/1 FontAwesome;'></span>&nbsp;组织结构树",isParent:true,data:{organCode:"root",organName:"根节点",organLevel:"root",iconUrl:"",seq:"1"}}];
 		$(function(){
 			init();
 		});

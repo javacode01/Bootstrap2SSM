@@ -86,6 +86,9 @@ public class BspUtils {
 			Map<String,String> temp = new HashMap<String,String>();
 			temp.put("itemCode", obj.getOrganLevel());
 			temp.put("itemName", obj.getOrganLevelName());
+			temp.put("nextLevel", obj.getNextLevel());
+			temp.put("haveUser", obj.getHaveUser());
+			temp.put("iconUrl", obj.getIconUrl());
 			resultList.add(temp);
 		}
 		return JSON.toJSON(resultList);

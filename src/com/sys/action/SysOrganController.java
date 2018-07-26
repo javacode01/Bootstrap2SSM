@@ -19,7 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sys.model.SysOrgan;
+import com.sys.model.SysOrganDesign;
+import com.sys.model.SysOrganDesignExample;
 import com.sys.model.SysOrganExample;
+import com.sys.service.SysOrganDesignService;
 import com.sys.service.SysOrganService;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
@@ -35,6 +38,8 @@ public class SysOrganController {
 	private static final Logger logger = Logger.getLogger(SysOrganController.class);
 	@Autowired
 	private SysOrganService sysOrganService;
+	@Autowired
+	private SysOrganDesignService sysOrganDesignService;
 	
 	/**
 	 * 跳转组织结构管理界面
@@ -62,6 +67,9 @@ public class SysOrganController {
 		example.createCriteria().andParentCodeEqualTo(organCode);
 		example.setOrderByClause("seq asc");
 		List<SysOrgan> list = sysOrganService.listOrganByExample(example);
+		SysOrganDesignExample example1 = new SysOrganDesignExample();
+		example1.createCriteria();
+		List<SysOrganDesign> list1 = sysOrganDesignService.listSysOrganDesign(example1);
 		//转换Nodes
 		List<ZTreeNode> nodes = new ArrayList<ZTreeNode>();
 		if(null!=list) {
@@ -72,7 +80,16 @@ public class SysOrganController {
 				node.setName(organ.getOrganName());
 				node.setIcon(organ.getIconUrl());
 				node.setData(organ);
-				node.setIsParent("true");
+				for(SysOrganDesign obj:list1) {
+					if(obj.getOrganLevel().equals(organ.getOrganLevel())) {
+						if(null==obj.getNextLevel()||"".equals(obj.getNextLevel())) {
+							node.setIsParent("false");
+						}else {
+							node.setIsParent("true");
+						}
+						break;
+					}
+				}
 				nodes.add(node);
 			}
 		}
@@ -120,6 +137,7 @@ public class SysOrganController {
 		}else {
 			organ = new SysOrgan();
 			organ.setOrganCode("root");
+			organ.setOrganLevel("root");
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("handle", handle);

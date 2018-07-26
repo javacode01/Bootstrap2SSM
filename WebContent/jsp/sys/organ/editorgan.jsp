@@ -29,7 +29,7 @@
 					<select class="form-control" id="organLevel" name="organLevel" required></select>
 				</div>
 				<div class="form-group">
-					<label for="iconUrl">机构图标</label>
+					<label for="iconUrl">机构图标<a href="http://www.fontawesome.com.cn/faicons/" target="view_window">【图标参考】</a></label>
 					<input type="text" class="form-control" id="iconUrl" name="iconUrl" value="${organ.iconUrl}">
 				</div>
 				<div class="form-group">
@@ -49,14 +49,25 @@
 <script type="text/javascript">
 	var edit_handle = '${handle}';
 	$(function(){
-		//初始化select标签
-		SysUtil.initSelect('organLevel',ORGANLEVEL,"${organ.organLevel}");
 		//初始化界面
 		if("add"==edit_handle){
+			//初始化select标签
+			SysUtil.initSelect('organLevel',nextLevel("${parentOrgan.organLevel}",ORGANLEVEL),"");
 			var pcode = '${parentOrgan.organCode}';
 			$("#parentCode").val(pcode);
 		}else if("edit"==edit_handle){
+			//初始化select标签
+			SysUtil.initSelect('organLevel',ORGANLEVEL,"${organ.organLevel}");
 			$("#organCode").attr("readonly","readonly");
+			$("#organLevel").attr("disabled","disabled");
+		}
+	});
+	$("#organLevel").change(function(){
+		var items = ORGANLEVEL;
+		for(var i=0;i<items.length;i++){
+			if(items[i].itemCode==$("#organLevel").val()){
+				$('#iconUrl').val(items[i].iconUrl)
+			}
 		}
 	});
 	function addEditSubmit(){
