@@ -44,7 +44,7 @@
 					    	<div>当前机构信息</div>
 					    </div>
 					    <div class="panel-body">
-					    	<div class="row">
+					    	<div class="row" style="margin-bottom:10px;">
 					    		<div class="col-sm-2" style="text-align: right;">机构编码：</div>
 					    		<div class="col-sm-2" style="text-align: left;" id="show_organCode"></div>
 					    		<div class="col-sm-2" style="text-align: right;">机构名称：</div>
