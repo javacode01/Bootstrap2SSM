@@ -81,7 +81,7 @@
 						zTreeObj.updateNode(selected[0]);
 						zTreeObj.reAsyncChildNodes(selected[0],"refresh");
 					}else if("edit"==edit_handle){
-						selected[0].name = $('#organName').val();
+						selected[0].name = "&nbsp;<span class='"+$('#iconUrl').val()+"' style='font: normal normal normal 14px/1 FontAwesome;'></span>&nbsp;"+$('#organName').val();
 						zTreeObj.updateNode(selected[0]);
 						showDetail("","",selected[0]);
 					}

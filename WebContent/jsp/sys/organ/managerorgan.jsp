@@ -150,7 +150,7 @@
 			 $("#addBtn_"+treeNode.id).unbind().remove();
 		 };
 	   	// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-	   	var zNodes = [{id:"root",name:"组织结构树",isParent:true,data:{organCode:"root",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
+	   	var zNodes = [{id:"root",name:"&nbsp;<span class='fa fa-sitemap' style='font: normal normal normal 14px/1 FontAwesome;'></span>&nbsp;组织结构树",isParent:true,data:{organCode:"root",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
 		$(function(){
 			init();
 		});
