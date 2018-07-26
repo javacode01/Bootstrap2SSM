@@ -15,7 +15,7 @@ function init() {
 function initDicTable(){
 	$('#dicTable').bootstrapTable({
 		url:basepath+"sys/dictionaries/listDictionariesByPage",
-        striped: true,                      //是否显示行间隔色
+        striped: false,                      //是否显示行间隔色
         cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
         queryParams: function(params){
         	return getDicParam(params);
@@ -29,9 +29,11 @@ function initDicTable(){
         clickToSelect: true,                //是否启用点击选中行
         uniqueId: "recid",                     //每一行的唯一标识，一般为主键列
         toolbar: "#dicToolbar",                //工具按钮用哪个容器
+        showHeader:false,
         showColumns:false,
         showRefresh:false,
         showToggle:false,
+        toolbarAlign:'right',
         onClickRow:function(row){
         	$('#table').bootstrapTable('destroy');
 			initTable(row.dicType);
