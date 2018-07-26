@@ -5,7 +5,7 @@
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
 <link rel="stylesheet" href="${basepath}resource/bootstrap_treeview/bootstrap-treeview.css">
-<link rel="stylesheet" href="${basepath}resource/zTree/css/zTreeStyle/zTreeStyle.css">
+<link rel="stylesheet" href="${basepath}resource/zTree/css/metroStyle/metroStyle.css">
 <!-- Theme style -->
 <link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
@@ -38,11 +38,8 @@
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
 					<div class="panel panel-default cust-panel">
-					    <div class="panel-heading cust-panel-heading" style="text-align: right;">
-					    	<div style="float:left;">当前机构信息</div>
-					    	<button type="button" class="btn btn-primary btn-sm" onclick="edit()">编辑</button>
-					    	<button type="button" class="btn btn-success btn-sm" onclick="add()">新增下级</button>
-					    	<button type="button" class="btn btn-danger btn-sm" onclick="remove()">删除</button>
+					    <div class="panel-heading cust-panel-heading" style="text-align: left;">
+					    	<div>当前机构信息</div>
 					    </div>
 					    <div class="panel-body">
 					    	<div class="row">
@@ -79,6 +76,7 @@
 	<%@ include file="/jsp/sys/include/footer.jsp"%>
 	<script src="${basepath}resource/bootstrap_treeview/bootstrap-treeview.js"></script>
 	<script src="${basepath}resource/zTree/js/jquery.ztree.core.min.js"></script>
+	<script src="${basepath}resource/zTree/js/jquery.ztree.exedit.min.js"></script>
 	<script src="${basepath}jsp/sys/organ/managerorgan.js"></script>
 	<script type="text/javascript">
 		var ORGANLEVEL = <%=BspUtils.listOrganDesign() %>;
@@ -93,7 +91,9 @@
 				dataType:'json'
 			},
 			callback:{
-				onClick:showDetail//点击节点事件
+				onClick:showDetail,//点击节点事件
+				beforeEditName:edit,//编辑节点
+				beforeRemove:remove//删除节点
 			},
 			data:{
 	            simpleData:{
@@ -103,13 +103,54 @@
 	                rootPId: 0
 	            }
 	        },
+	        edit: {
+	    		enable: true,
+	    		showRemoveBtn: function(treeId, treeNode){
+	    			if('root'==treeNode.id){
+	    				return false;
+	    			}else{
+	    				return true;
+	    			}
+	    		},
+	    		removeTitle: "删除",
+	    		showRenameBtn: function(treeId, treeNode){
+	    			if('root'==treeNode.id){
+	    				return false;
+	    			}else{
+	    				return true;
+	    			}
+	    		},
+	    		renameTitle: "编辑"
+	    	},
 			view:{
-				showLine: false
+				showLine: false,
+				nameIsHTML:true,
+				showIcon: false,
+				showTitle:false,
+				addHoverDom: addHoverDom,		// 用于当鼠标移动到节点上时，显示用户自定义控件。务必与 setting.view.removeHoverDom 同时使用
+				removeHoverDom: removeHoverDom	// 用于当鼠标移出节点时，隐藏用户自定义控件。务必与 addHoverDom 同时使用
 			}
 			
 	   	};
+		 function addHoverDom(treeId, treeNode) {
+			 //给节点添加"新增"按钮
+			 var sObj = $("#" + treeNode.tId + "_span");
+			 if (treeNode.editNameFlag || $("#addBtn_"+treeNode.id).length>0) return;
+			 var addStr = "<span class='button add' id='addBtn_" + treeNode.id
+			 + "' title='新增' onfocus='this.blur();'></span>";
+			 sObj.after(addStr);
+			 var btn = $("#addBtn_"+treeNode.id);
+			 if (btn) btn.bind("click", function(){
+				 add(treeId, treeNode);
+			 });
+		 };
+		  
+		 // 用于当鼠标移出节点时，隐藏用户自定义控件
+		 function removeHoverDom(treeId, treeNode) {
+			 $("#addBtn_"+treeNode.id).unbind().remove();
+		 };
 	   	// zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-	   	var zNodes = [{id:"0",name:"组织结构树",isParent:true,data:{organCode:"0",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
+	   	var zNodes = [{id:"root",name:"组织结构树",isParent:true,data:{organCode:"root",organName:"根节点",organLevel:"",iconUrl:"",seq:"1"}}];
 		$(function(){
 			init();
 		});

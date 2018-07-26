@@ -70,6 +70,7 @@ public class SysOrganController {
 				node.setId(organ.getOrganCode());
 				node.setPid(organ.getParentCode());
 				node.setName(organ.getOrganName());
+				node.setIcon(organ.getIconUrl());
 				node.setData(organ);
 				node.setIsParent("true");
 				nodes.add(node);
@@ -111,14 +112,14 @@ public class SysOrganController {
 		String handle = request.getParameter("handle");
 		String organCode = request.getParameter("organCode");
 		SysOrgan organ = null;
-		if(!"0".equals(organCode)) {
+		if(!"root".equals(organCode)) {
 			SysOrganExample example= new SysOrganExample();
 			example.createCriteria().andOrganCodeEqualTo(organCode);
 			List<SysOrgan> list = sysOrganService.listOrganByExample(example);
 			organ = list.get(0);
 		}else {
 			organ = new SysOrgan();
-			organ.setOrganCode("0");
+			organ.setOrganCode("root");
 		}
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("handle", handle);

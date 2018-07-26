@@ -77,6 +77,8 @@
 					$('#organModal').modal('hide');
 					var selected = zTreeObj.getSelectedNodes();
 					if("add"==edit_handle){
+						selected[0].isParent=true
+						zTreeObj.updateNode(selected[0]);
 						zTreeObj.reAsyncChildNodes(selected[0],"refresh");
 					}else if("edit"==edit_handle){
 						selected[0].name = $('#organName').val();

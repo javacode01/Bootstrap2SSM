@@ -67,36 +67,29 @@ function toShowIcon(value,row,index){
  * 编辑功能
  * @returns
  */
-function edit(){
-	var selected = zTreeObj.getSelectedNodes();
-	if(selected.length<1){
-		PluginUtil.info("请先选择一个节点操作");
-		return false;
-	}
-	if('0'==selected[0].data.organCode){
+function edit(treeId, treeNode){
+	if('root'==treeNode.data.organCode){
 		PluginUtil.info("根节点不能编辑");
 		return false;
 	}
+	zTreeObj.selectNode(treeNode);
 	$("#organModal").load(basepath+"sys/organ/toEditOrgan",{
-		organCode:selected[0].data.organCode,
+		organCode:treeNode.data.organCode,
 		handle:'edit'
 	},function(){
 		$("#organModal").modal({backdrop: 'static', keyboard: false});
 	});
+	return false;
 }
 
 /**
  * 新增下级功能
  * @returns
  */
-function add(){
-	var selected = zTreeObj.getSelectedNodes();
-	if(selected.length<1){
-		PluginUtil.info("请先选择一个节点操作");
-		return false;
-	}
+function add(treeId, treeNode){
+	zTreeObj.selectNode(treeNode);
 	$("#organModal").load(basepath+"sys/organ/toEditOrgan",{
-		organCode:selected[0].data.organCode,
+		organCode:treeNode.data.organCode,
 		handle:'add'
 	},function(){
 		$("#organModal").modal({backdrop: 'static', keyboard: false});
@@ -107,23 +100,19 @@ function add(){
  * 删除功能及其子功能
  * @returns
  */
-function remove(){
-	var selected = zTreeObj.getSelectedNodes();
-	if(selected.length<1){
-		PluginUtil.info("请在左侧树中选择要删除的机构");
+function remove(treeId, treeNode){
+	if('root'==treeNode.data.organCode){
+		PluginUtil.info("根节点不能编辑");
 		return false;
 	}
-	if('0'==selected[0].id){
-		PluginUtil.info("根节点不能删除");
-		return false;
-	}
+	zTreeObj.selectNode(treeNode);
 	PluginUtil.confirm("是否确认删除当前选中的机构及其下级机构？",function(){
 		PluginUtil.mask("body");
 		//提交
  	   $.ajax({
  		   url:basepath+'sys/organ/deleteOrgan',
  		   type:'post',
- 		   data:{organId:selected[0].data.organId},
+ 		   data:{organId:treeNode.data.organId},
  		   success:function(result){
  			   PluginUtil.unmask("body");
  			   if(result.code=='success'){
@@ -140,6 +129,7 @@ function remove(){
  		  }
  	   });
 	});
+	return false;
 }
 
 /**
@@ -149,7 +139,7 @@ function remove(){
 function showDetail(event, treeId, treeNode){
 	$('#table').bootstrapTable('destroy');
 	initTable(treeNode.id);
-	if("0"!=treeNode.id){
+	if("root"!=treeNode.id){
 		$.ajax({
 			   url:basepath+'sys/organ/getOrganDetail/'+treeNode.id,
 			   type:'post',

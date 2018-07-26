@@ -63,7 +63,7 @@ public class ZTreeNode {
 		this.isParent = isParent;
 	}
 	public String getName() {
-		return name;
+		return "<span class=\""+icon+"\"></span>"+name;
 	}
 	public void setName(String name) {
 		this.name = name;
