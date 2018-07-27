@@ -10,6 +10,11 @@
     border-radius: 0;
     padding: 10px 15px;
     margin:0px;
+    color:#444;
+}
+
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+    color: #367FA9;
 }
 
 /**

@@ -11,7 +11,7 @@ var tabs = (function(){
 		}else{
 			var data_name = $(event.target).attr("data-name");
 			var data_url = $(event.target).attr("data-url");
-			var tab_li = '<li data-id="'+data_id+'"><a id="tab_'+data_id+'" data-id="'+data_id+'" href="#'+data_id+'_div" data-toggle="tab">'+data_name+'&nbsp;<span onclick="tabs.removeTab()" class="glyphicon glyphicon-remove-sign" style="font-size:10px;"></span></a></li>';
+			var tab_li = '<li data-id="'+data_id+'"><a id="tab_'+data_id+'" data-id="'+data_id+'" href="#'+data_id+'_div" data-toggle="tab">'+data_name+'&nbsp;<span onclick="tabs.removeTab()" class="fa fa-times" style="font-size:10px;"></span></a></li>';
 			$("#tabsMenu").append(tab_li);
 			var tab_div = '<div class="tab-pane fade" id="'+data_id+'_div" style="width:100%;height:100%;">'
 		        	+'<iframe src="'+data_url+'" id="'+data_id+'_iframe" frameborder="0" scrolling="auto"'
