@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sys.model.SysFunctions;
 import com.sys.model.SysFunctionsExample;
-import com.sys.model.SysRoleFunction;
 import com.sys.service.SysFunctionsService;
 import com.sys.utils.BspUtils;
 import com.sys.utils.JsonUtils;
@@ -81,7 +80,7 @@ public class SysFunctionsController {
 				node.setIcon(function.getFunctionIcon());
 				node.setSelectable(true);
 				Map<String,Object> state = new HashMap<String,Object>();
-				if("3".equals(function.getFunctionLevel())) {
+				if(SysConstant.SYS_FUNCTION_LEVEL_HANDLE.equals(function.getFunctionLevel())) {
 					state.put("expanded", true);
 				}else {
 					state.put("expanded", false);

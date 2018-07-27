@@ -149,7 +149,7 @@ public class SysFunctionsService {
      }
 	 
 	/**
-	 * 获取功能树结构节点以及是否选中
+	 * 获取功能树结构节点以及是否选中状态
 	 * @param functionCode
 	 * @param roleCode
 	 * @return
@@ -174,7 +174,7 @@ public class SysFunctionsService {
 				node.setPid(function.getParentCode());
 				node.setName(function.getFunctionName());
 				node.setIcon(function.getFunctionIcon());
-				if("3".equals(function.getFunctionLevel())) {
+				if(SysConstant.SYS_FUNCTION_LEVEL_HANDLE.equals(function.getFunctionLevel())) {
 					node.setIsParent("false");
 				}else {
 					node.setIsParent("true");

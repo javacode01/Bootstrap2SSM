@@ -1,7 +1,5 @@
 package com.sys.action;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +24,6 @@ import com.sys.utils.PageListData;
 import com.sys.utils.ResultData;
 import com.sys.utils.SysConstant;
 import com.sys.utils.SysUtils;
-import com.sys.utils.TreeNode;
 /**
  * 数据字典管理
  * @author Administrator
