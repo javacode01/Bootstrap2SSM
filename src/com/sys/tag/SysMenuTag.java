@@ -31,32 +31,12 @@ public class SysMenuTag extends RequestContextAwareTag{
 			//step1.获取用户菜单
 			SysFunctionsService sysFunctionsService = BspUtils.getBean(SysFunctionsService.class);
 			Map<String, List<SysFunctions>> functionMap = sysFunctionsService.getUserMenus();
-			//获取一级菜单
-			List<SysFunctions> level1List = functionMap.get("level1List");
-			//用户已分配操作
-			List<SysFunctions> handleList = functionMap.get("handleList");
+			//全部功能
+			List<SysFunctions> allList = functionMap.get("allList");
 			//step2.拼装菜单列表
 			StringBuffer menu = new StringBuffer();
 			menu.append("<ul id=\""+id+"\" class=\"sidebar-menu\" data-widget=\"tree\"><li class=\"header\">功能菜单导航</li>");
-			for(SysFunctions level1 : level1List) {//添加一级菜单
-				if(SysConstant.SYS_FUNCTION_LEVEL_MODULE.equals(level1.getFunctionLevel())) {//如果是模块
-					menu.append("<li class=\"treeview\"><a href=\"javascript:void(0);\"><i class=\""+level1.getFunctionIcon()+"\"></i> <span>"+level1.getFunctionName()+"</span> <span class=\"pull-right-container\">");
-					menu.append("<i class=\"fa fa-angle-left pull-right\"></i></span></a>");
-					menu.append("<ul class=\"treeview-menu\" id=\""+level1.getFunctionCode()+"\">");
-					menu.append(getSubModule(functionMap,level1.getFunctionCode()));
-					menu.append(getFunction(functionMap,level1.getFunctionCode()));
-					menu.append("</ul></li>");
-				}else if(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION.equals(level1.getFunctionLevel())) {//如果是功能
-					menu.append("<li><a href=\"javascript:void(0);\" id=\""+level1.getFunctionCode()+"\" data-id=\""+level1.getFunctionCode()+"\" data-name=\""+level1.getFunctionName()+"\" ");
-					for(SysFunctions handle : handleList) {
-						if(level1.getFunctionCode().equals(handle.getParentCode())&&SysConstant.SYS_IS.equals(handle.getDefaultAction())) {
-							menu.append("data-url=\""+path+handle.getFunctionUrl()+"\" onclick=\"tabs.addTab(event)\" ");
-							break;
-						}
-					}
-					menu.append("><i class=\""+level1.getFunctionIcon()+"\"></i>"+level1.getFunctionName()+"</a></li>");
-				}
-			}
+			menu.append(getNextFunction(allList,"root"));
 			menu.append("</ul>");
 			pageContext.getOut().write(menu.toString());
 		}catch(Exception e) {
@@ -66,52 +46,35 @@ public class SysMenuTag extends RequestContextAwareTag{
 	}
 	
 	/**
-	 * 获取子模块
-	 * @param parentCode
-	 * @return
-	 */
-	public String getSubModule(Map<String, List<SysFunctions>> functionMap,String parentCode) {
-		StringBuffer subModule = new StringBuffer();
-		//用户已分配模块
-		List<SysFunctions> moduleList = functionMap.get("moduleList");
-		for(SysFunctions module : moduleList) {
-			if(parentCode.equals(module.getParentCode())) {
-				subModule.append("<li class=\"treeview\"><a href=\"javascript:void(0);\"><i class=\""+module.getFunctionIcon()+"\"></i> <span>"+module.getFunctionName()+"</span> <span class=\"pull-right-container\">");
-				subModule.append("<i class=\"fa fa-angle-left pull-right\"></i></span></a>");
-				subModule.append("<ul class=\"treeview-menu\" id=\""+module.getFunctionCode()+"\">");
-				subModule.append(getSubModule(functionMap,module.getFunctionCode()));
-				subModule.append(getFunction(functionMap,module.getFunctionCode()));
-				subModule.append("</ul></li>");
-			}
-		}
-		return subModule.toString();
-	}
-	
-	/**
-	 * 获取功能
+	 * 获取下级功能
 	 * @param functionMap
 	 * @param parentCode
 	 * @return
 	 */
-	public String getFunction(Map<String, List<SysFunctions>> functionMap,String parentCode) {
-		StringBuffer functionHtml = new StringBuffer();
-		//用户已分配功能
-		List<SysFunctions> functionList = functionMap.get("functionList");
-		//用户已分配操作
-		List<SysFunctions> handleList = functionMap.get("handleList");
-		for(SysFunctions function : functionList) {
+	public String getNextFunction(List<SysFunctions> allList,String parentCode) {
+		StringBuffer subFunction = new StringBuffer();
+		for(SysFunctions function : allList) {
 			if(parentCode.equals(function.getParentCode())) {
-				functionHtml.append("<li><a href=\"javascript:void(0);\" id=\""+function.getFunctionCode()+"\" data-id=\""+function.getFunctionCode()+"\" data-name=\""+function.getFunctionName()+"\" ");
-				for(SysFunctions handle : handleList) {
-					if(function.getFunctionCode().equals(handle.getParentCode())&&SysConstant.SYS_IS.equals(handle.getDefaultAction())) {
-						functionHtml.append("data-url=\""+path+handle.getFunctionUrl()+"\" onclick=\"tabs.addTab(event)\" ");
-						break;
+				if(SysConstant.SYS_FUNCTION_LEVEL_MODULE.equals(function.getFunctionLevel())) {
+					subFunction.append("<li class=\"treeview\"><a href=\"javascript:void(0);\"><i class=\""+function.getFunctionIcon()+"\"></i> <span>"+function.getFunctionName()+"</span> <span class=\"pull-right-container\">");
+					subFunction.append("<i class=\"fa fa-angle-left pull-right\"></i></span></a>");
+					subFunction.append("<ul class=\"treeview-menu\" id=\""+function.getFunctionCode()+"\">");
+					subFunction.append(getNextFunction(allList,function.getFunctionCode()));
+					subFunction.append("</ul></li>");
+				}else if(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION.equals(function.getFunctionLevel())){
+					subFunction.append("<li><a href=\"javascript:void(0);\" id=\""+function.getFunctionCode()+"\" data-id=\""+function.getFunctionCode()+"\" data-name=\""+function.getFunctionName()+"\" ");
+					for(SysFunctions handle : allList) {
+						if(function.getFunctionCode().equals(handle.getParentCode())&&SysConstant.SYS_IS.equals(handle.getDefaultAction())) {
+							subFunction.append("data-url=\""+path+handle.getFunctionUrl()+"\" onclick=\"tabs.addTab(event)\" ");
+							break;
+						}
 					}
+					subFunction.append("><i class=\""+function.getFunctionIcon()+"\"></i>"+function.getFunctionName()+"</a></li>");
 				}
-				functionHtml.append("><i class=\""+function.getFunctionIcon()+"\"></i>"+function.getFunctionName()+"</a></li>");
+				
 			}
 		}
-		return functionHtml.toString();
+		return subFunction.toString();
 	}
 
 	public String getId() {

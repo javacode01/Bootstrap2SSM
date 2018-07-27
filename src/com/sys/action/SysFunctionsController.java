@@ -46,15 +46,6 @@ public class SysFunctionsController {
 	private SysFunctionsService sysFunctionsService;
 	
 	/**
-	 * 用户登录后获取功能列表
-	 * @return
-	 */
-	@RequestMapping(value="/sys/functions/getUserMenus",method=RequestMethod.POST,produces="application/json")
-	public @ResponseBody Map<String,List<SysFunctions>> getUserMenus(){
-		return sysFunctionsService.getUserMenus();
-	}
-	
-	/**
 	 * 跳转功能管理界面
 	 * @return
 	 */

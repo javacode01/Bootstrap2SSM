@@ -48,39 +48,10 @@ public class SysFunctionsService {
 		}else {
 			userFunctionList = sysFunctionsMapper.getFunctionsByUserCode(userCode);
 		}
-		//获取一级菜单
-		List<SysFunctions> level1List = new ArrayList<SysFunctions>();
-		//用户已分配操作
-		List<SysFunctions> handleList = new ArrayList<SysFunctions>();
-		//用户已分配功能
-		List<SysFunctions> functionList = new ArrayList<SysFunctions>();
-		//用户已分配模块
-		List<SysFunctions> moduleList = new ArrayList<SysFunctions>();
-		//区分模块、功能、操作
-		if(null!=userFunctionList&&userFunctionList.size()>0) {
-			for(SysFunctions function:userFunctionList) {
-				if("root".equals(function.getParentCode())) {
-					level1List.add(function);
-				}else if(SysConstant.SYS_FUNCTION_LEVEL_MODULE.equals(function.getFunctionLevel())) {
-					moduleList.add(function);
-				}else if(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION.equals(function.getFunctionLevel())) {
-					functionList.add(function);
-				}else if(SysConstant.SYS_FUNCTION_LEVEL_HANDLE.equals(function.getFunctionLevel())&&SysConstant.SYS_IS.equals(function.getDefaultAction())) {
-					handleList.add(function);
-				}
-			}
-		}
-		//功能排序
-		Collections.sort(functionList, new SortBySeq());
-		//模块排序
-		Collections.sort(moduleList, new SortBySeq());
-		//一级菜单排序
-		Collections.sort(level1List, new SortBySeq());
+		//全部功能排序
+		Collections.sort(userFunctionList,new SortBySeq());
 		Map<String,List<SysFunctions>> userFunctionMap = new HashMap<String,List<SysFunctions>>();
-		userFunctionMap.put("handleList", handleList);
-		userFunctionMap.put("functionList", functionList);
-		userFunctionMap.put("moduleList", moduleList);
-		userFunctionMap.put("level1List", level1List);
+		userFunctionMap.put("allList", userFunctionList);
 		return userFunctionMap;
 	}
 	
