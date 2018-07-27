@@ -31,7 +31,7 @@
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background-color:#049EC4;">
 	<div style="height:100%;padding-top:7%;">
 	<div class="login-box" style="margin:auto;">
 		<div class="login-logo">
