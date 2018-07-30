@@ -90,10 +90,14 @@
 				if(!$("#username").val()){
 					$("#username").css("border","1px solid #D9544F");
 					return false;
+				}else{
+					$("#username").css("border","1px solid #3C8DBC");
 				}
 				if(!$("#password").val()){
 					$("#password").css("border","1px solid #D9544F");
 					return false;
+				}else{
+					$("#password").css("border","1px solid #3C8DBC");
 				}
 				local();
 				$("#password").val(toMD5Str($("#password").val()));
@@ -119,10 +123,13 @@
 			}
 		});
 		function local(){
-			if($("#checkbox").get(0).checked){
-				if (typeof(Storage) !== "undefined") {
+			if (typeof(Storage) !== "undefined") {
+				if($("#checkbox").get(0).checked){
 					localStorage.setItem("username", $("#username").val());
 					localStorage.setItem("password", $("#password").val());
+				}else{
+					localStorage.removeItem("username");
+					localStorage.removeItem("password");
 				}
 			}
 		}
