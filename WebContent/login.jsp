@@ -66,11 +66,6 @@
 					<!-- /.col -->
 				</div>
 			</form>
-			<div class="row">
-				<div class="col-xs-3"><a href="#">忘记密码</a></div>
-				<div class="col-xs-6"></div>
-				<div class="col-xs-3"><a href="#" class="text-center">注册</a></div>
-			</div>
 		</div>
 		<!-- /.login-box-body -->
 	</div>
@@ -92,9 +87,31 @@
 				increaseArea : '20%' // optional
 			});
 			$('#login').click(function(){
+				if(!$("#username").val()){
+					$("#username").css("border","1px solid #D9544F");
+					return false;
+				}
+				if(!$("#password").val()){
+					$("#password").css("border","1px solid #D9544F");
+					return false;
+				}
 				local();
 				$("#password").val(toMD5Str($("#password").val()));
 				$("#loginform").submit();
+			});
+			$("#username").on('input propertychange',function(){
+				if(!$("#username").val()){
+					$("#username").css("border","1px solid #D9544F");
+				}else{
+					$("#username").css("border","1px solid #3C8DBC");
+				}
+			});
+			$("#password").on('input propertychange',function(){
+				if(!$("#password").val()){
+					$("#password").css("border","1px solid #D9544F");
+				}else{
+					$("#password").css("border","1px solid #3C8DBC");
+				}
 			});
 			if (typeof(Storage) !== "undefined") {
 			    $("#username").val(localStorage.getItem("username"));

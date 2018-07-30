@@ -52,6 +52,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 //		.defaultSuccessUrl("/loginsuccess")//配置登录成功后跳转地址
 		.successHandler(sysLoginSuccessHandler())//登录成功后，自定义处理
 		.and()
+//		.rememberMe().tokenValiditySeconds(4*7*24*60*60).key("Bootstrap2SSM")//启用Remember-me功能，设置有效时间（单位秒）和私钥
+//		.and()
 		.logout().logoutUrl("/signout").logoutSuccessUrl("/").invalidateHttpSession(true)//退出
 		.and()
 		.exceptionHandling().accessDeniedHandler(sysAccessDeniedHandler())
