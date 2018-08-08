@@ -14,7 +14,7 @@
     color:#444;
 }
 
-.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+#tabsMenu>li>a:hover, #tabsMenu>li>a:active, #tabsMenu>li>a:focus {
     color: #367FA9;
     border-left:1px solid #3C8DBC;
 }
