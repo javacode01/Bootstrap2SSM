@@ -286,7 +286,7 @@
 		            <a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="changePassword()">修改密码</a>
 		        </li>
 		        <li  role="presentation">
-		            <a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="editUser()">修改用户信息</a>
+		            <a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="editUser()">修改信息</a>
 		        </li>
 		        <li  role="presentation">
 		            <a role="menuitem" tabindex="-1" href="javascript:void(0);" onclick="logout()">退出</a>
@@ -294,10 +294,11 @@
             </ul>
           </li>
           <!-- 系统设置开始 -->
-          <!-- Control Sidebar Toggle Button -->
+          <!-- Control Sidebar Toggle Button
           <li>
             <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
           </li>
+           -->
           <!-- 系统设置结束 -->
         </ul>
       </div>
