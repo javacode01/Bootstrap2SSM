@@ -3,6 +3,10 @@
     border-bottom: 0px;
 }
 
+.nav-tabs>li {
+	margin:0px;
+}
+
 .nav-tabs>li>a {
     margin-right: 2px;
     line-height: 1.42857143;
@@ -19,6 +23,15 @@
 
 #tabsMenu>li>a {
     border-left:1px solid #3C8DBC;
+}
+
+#tabsMenu:after {
+	display: inline-table;
+    content: " ";
+    vertical-align:top;
+	width:1px;
+	height:35px;
+	background-color: #3C8DBC;
 }
 
 /**
