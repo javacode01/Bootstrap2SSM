@@ -7,15 +7,17 @@
     margin-right: 2px;
     line-height: 1.42857143;
     border: 0px;
-    border-left:1px solid #3C8DBC;
     border-radius: 0;
     padding: 7.5px 15px;
     margin:0px;
     color:#444;
 }
 
-#tabsMenu>li>a:hover, #tabsMenu>li>a:active, #tabsMenu>li>a:focus {
+.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
     color: #367FA9;
+}
+
+#tabsMenu>li>a {
     border-left:1px solid #3C8DBC;
 }
 
