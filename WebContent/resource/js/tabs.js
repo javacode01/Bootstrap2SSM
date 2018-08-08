@@ -78,8 +78,8 @@ var tabs = (function(){
 	obj.getIframeHeight = function(){
 		var content_wrapper_height = $('#content_wrapper').height();
 		console.log("content_wrapper高度="+content_wrapper_height);
-		console.log("当前iframe高度="+(content_wrapper_height-44));
-		return (content_wrapper_height-44);
+		console.log("当前iframe高度="+(content_wrapper_height-37));
+		return (content_wrapper_height-37);
 	}
 	return obj;
 }());

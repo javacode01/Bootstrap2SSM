@@ -330,20 +330,20 @@
   </aside>
   <!-- Content Wrapper. Contains page content -->
   <div id="content_wrapper" class="content-wrapper" style="position:relative;background-color:#FFFFFF;">
-  	<div class="sys-border-bottom" style="position:relative;margin-top:-1px;padding:0px;overflow:auto;">
-  		<div style="position:absolute;left:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.prev()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-backward"></span></button></div>
-  		<div style="position:absolute;right:0px;z-index:600;width:40px;height:42px;"><button onclick="tabs.next()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-forward"></span></button></div>
-  		<ul id="tabsMenu" class="nav nav-tabs pre-scrollable" style="position:relative;z-index:600; height:42px;background-color:#EEEEEE;margin:0px 40px;">
+  	<div class="sys-border-bottom" style="position:relative;padding:0px;overflow:auto;">
+  		<div style="position:absolute;left:0px;z-index:600;width:40px;height:35px;"><button onclick="tabs.prev()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-backward"></span></button></div>
+  		<div style="position:absolute;right:0px;z-index:600;width:40px;height:35px;"><button onclick="tabs.next()" type="button" class="btn" style="width:100%;height:100%;border-radius: 0px;"><span class="glyphicon glyphicon-forward"></span></button></div>
+  		<ul id="tabsMenu" class="nav nav-tabs pre-scrollable" style="position:relative;z-index:600; height:35px;background-color:#EEEEEE;margin:0px 40px;">
 		    <li data-id="widgets" class="active"><a id="tab_widgets" data-id="widgets" href="#widgets_div" data-toggle="tab">首页</a></li>
 		</ul>
   	</div>
   	<!-- 页面动画加载 -->
-  	<div class="spinner" style="position:absolute;top:93px;bottom:0px;z-index:0;width:100%;">
+  	<div class="spinner" style="position:absolute;top:87px;bottom:0px;z-index:0;width:100%;">
   		<div class="bounce1"></div>
 		<div class="bounce2"></div>
 		<div class="bounce3"></div>
 	</div>
-  	<div id="tabsContent" class="tab-content" style="position:absolute;top:93px;bottom:0px;z-index:900;width:100%;">
+  	<div id="tabsContent" class="tab-content" style="position:absolute;top:87px;bottom:0px;z-index:900;width:100%;">
 	    <div class="tab-pane fade in active" id="widgets_div" style="width:100%;height:100%;">
 	        <iframe src="${basepath}/toWidgets" id="widgets_iframe" frameborder="0" scrolling="auto"
       		style="width:100%;height:100%;margin:0px;padding:0px;"></iframe>
