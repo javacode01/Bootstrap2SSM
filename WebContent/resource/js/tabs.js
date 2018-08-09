@@ -11,7 +11,8 @@ var tabs = (function(){
 		}else{
 			var data_name = $(event.target).attr("data-name");
 			var data_url = $(event.target).attr("data-url");
-			var tab_li = '<li data-id="'+data_id+'"><a id="tab_'+data_id+'" data-id="'+data_id+'" href="#'+data_id+'_div" data-toggle="tab">'+data_name+'&nbsp;<span onclick="tabs.removeTab()" class="fa fa-times" style="font-size:10px;"></span></a></li>';
+			var data_icon = $(event.target).attr("data-icon");
+			var tab_li = '<li data-id="'+data_id+'"><a id="tab_'+data_id+'" data-id="'+data_id+'" href="#'+data_id+'_div" data-toggle="tab"><span class="'+data_icon+'"></span>&nbsp;'+data_name+'&nbsp;<span onclick="tabs.removeTab()" class="glyphicon glyphicon-remove" style="font-size:10px;"></span></a></li>';
 			$("#tabsMenu").append(tab_li);
 			var tab_div = '<div class="tab-pane fade" id="'+data_id+'_div" style="width:100%;height:100%;">'
 		        	+'<iframe src="'+data_url+'" id="'+data_id+'_iframe" frameborder="0" scrolling="auto"'
@@ -30,14 +31,14 @@ var tabs = (function(){
 		//获取当前选中tab页
 		var cur_data_id = $('#tabsMenu .active').attr("data-id");
 		var data_id = $(event.target).parent().attr("data-id");
+		if(cur_data_id==data_id){
+			//选中上一个标签
+			obj.prev();
+		}
 		//删除tab列表标签
 		$('#tab_'+data_id).remove();
 		//删除tab内容区域
 		$('#'+data_id+'_div').remove();
-		if(cur_data_id==data_id){
-			$('#tab_widgets').tab("show");//展示首页
-		}
-		obj.position($('#tabsMenu .active'));
 	};
 	/**
 	 * 上一个标签
@@ -71,9 +72,10 @@ var tabs = (function(){
 //		console.log("当前滚动条位置："+cur_scroll);
 //		console.log("当前tab相对坐标："+tab.position().top+":"+tab.position().left);
 //		console.log("当前tab绝对坐标："+tab.offset().top+":"+tab.offset().left);
-		$('#tabsMenu').animate({
-            scrollTop: (cur_scroll+tab.position().top)
-        }, 500);
+//		$('#tabsMenu').animate({
+//            scrollTop: (cur_scroll+tab.position().top)
+//        }, 100);
+		$('#tabsMenu').scrollTop(cur_scroll+tab.position().top);
 	};
 	obj.getIframeHeight = function(){
 		var content_wrapper_height = $('#content_wrapper').height();

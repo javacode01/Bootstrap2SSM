@@ -62,7 +62,7 @@ public class SysMenuTag extends RequestContextAwareTag{
 					subFunction.append(getNextFunction(allList,function.getFunctionCode()));
 					subFunction.append("</ul></li>");
 				}else if(SysConstant.SYS_FUNCTION_LEVEL_FUNCTION.equals(function.getFunctionLevel())){
-					subFunction.append("<li><a href=\"javascript:void(0);\" id=\""+function.getFunctionCode()+"\" data-id=\""+function.getFunctionCode()+"\" data-name=\""+function.getFunctionName()+"\" ");
+					subFunction.append("<li><a href=\"javascript:void(0);\" id=\""+function.getFunctionCode()+"\" data-id=\""+function.getFunctionCode()+"\" data-name=\""+function.getFunctionName()+"\" data-icon=\""+function.getFunctionIcon()+"\" ");
 					for(SysFunctions handle : allList) {
 						if(function.getFunctionCode().equals(handle.getParentCode())&&SysConstant.SYS_IS.equals(handle.getDefaultAction())) {
 							subFunction.append("data-url=\""+path+handle.getFunctionUrl()+"\" onclick=\"tabs.addTab(event)\" ");
