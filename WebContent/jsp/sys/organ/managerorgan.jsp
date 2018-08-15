@@ -40,9 +40,6 @@
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
 					<div class="panel panel-default cust-panel">
-					    <div class="panel-heading cust-panel-heading" style="text-align: left;">
-					    	<div>当前机构信息</div>
-					    </div>
 					    <div class="panel-body">
 					    	<div class="row" style="margin-bottom:10px;">
 					    		<div class="col-sm-2" style="text-align: right;">机构编码：</div>

@@ -36,13 +36,10 @@
 			<!-- 右侧操作区域 -->
 			<div class="col-sm-9" style="height:100%;">
 				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;width:100%;height:30px;line-height: 30px;">
-					<strong>&nbsp;用户操作区域</strong>
+					<strong>&nbsp;当前机构信息</strong>
 				</div>
 				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
 					<div class="panel panel-default cust-panel">
-					    <div class="panel-heading cust-panel-heading">
-					    	<div>当前机构信息</div>
-					    </div>
 					    <div class="panel-body">
 					    	<div class="row" style="margin-bottom:10px;">
 					    		<div class="col-sm-2" style="text-align: right;">机构编码：</div>
@@ -62,7 +59,7 @@
 					</div>
 					<div class="panel panel-default cust-panel">
 						<div class="panel-heading cust-panel-heading">
-							用户列表
+							机构用户列表
 						</div>
 						<div class="panel-body">
 							<div id="toolbar">
