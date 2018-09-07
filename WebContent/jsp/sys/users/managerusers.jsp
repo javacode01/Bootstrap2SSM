@@ -5,19 +5,9 @@
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
 <link rel="stylesheet" href="${basepath}resource/zTree/css/metroStyle/metroStyle.css">
-<!-- Theme style -->
-<link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
-.list-group-item:first-child {
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-}
-.list-group-item:last-child {
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-}
-.panel-default>.panel-heading {
-    border:0px;
+html,body {
+	height:100%;
 }
 </style>
 </head>
@@ -25,53 +15,42 @@
 	<div class="container-fluid" style="height:100%;">
 		<div class="row" style="height:100%;">
 			<!-- 左侧的树状结构区域 -->
-			<div class="col-sm-3 sys-border-right" style="height:100%;">
-				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
-					<strong>&nbsp;组织机构树</strong>
-				</div>
-				<div class="row" style="height:100%;padding-top:30px;overflow-y:auto;">
+			<div class="col-sm-3" style="height:100%;padding:10px 15px 10px 25px;">
+				<div class="row base-panel" style="height:100%;overflow-y:auto;">
 					<ul id="tree" class="ztree"></ul>
 				</div>
 			</div>
 			<!-- 右侧操作区域 -->
-			<div class="col-sm-9" style="height:100%;">
-				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;width:100%;height:30px;line-height: 30px;">
-					<strong>&nbsp;当前机构信息</strong>
-				</div>
-				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
-					<div class="panel panel-default cust-panel">
-					    <div class="panel-body">
-					    	<div class="row" style="margin-bottom:10px;">
-					    		<div class="col-sm-2" style="text-align: right;">机构编码：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_organCode"></div>
-					    		<div class="col-sm-2" style="text-align: right;">机构名称：</div>
-					    		<div class="col-sm-6" style="text-align: left;" id="show_organName"></div>
-					    	</div>
-					    	<div class="row">
-					    		<div class="col-sm-2" style="text-align: right;">机构图标：</div>
-					    		<div class="col-sm-2" style="text-align: left;"><span id="show_iconUrl"></span></div>
-					    		<div class="col-sm-2" style="text-align: right;">机构级别：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_organLevel"></div>
-					    		<div class="col-sm-2" style="text-align: right;">排序：</div>
-					    		<div class="col-sm-2" style="text-align: left;" id="show_seq"></div>
-					    	</div>
-					    </div>
-					</div>
-					<div class="panel panel-default cust-panel">
-						<div class="panel-heading cust-panel-heading">
-							机构用户列表
+			<div class="col-sm-9" style="height:100%;overflow-y:auto;">
+				<div class="row search-panel">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-2">机构编码：</div>
+				    		<div class="col-sm-2" id="show_organCode">&nbsp;</div>
+				    		<div class="col-sm-2">机构名称：</div>
+				    		<div class="col-sm-6" id="show_organName">&nbsp;</div>
 						</div>
-						<div class="panel-body">
-							<div id="toolbar">
-								<button type="button" class="btn btn-primary btn-sm" onclick="editUser()">编辑</button>
-						    	<button type="button" class="btn btn-success btn-sm" onclick="addUser()">新增</button>
-						    	<button type="button" class="btn btn-danger btn-sm" onclick="removeUser()">删除</button>
-						    	<button type="button" class="btn btn-info btn-sm" onclick="userRole()">分配角色</button>
-							</div>
-							<table id="table"></table>
+						<div class="row" style="margin-top:10px;">
+				    		<div class="col-sm-2">机构级别：</div>
+				    		<div class="col-sm-2" id="show_organLevel">&nbsp;</div>
+				    		<div class="col-sm-2">机构图标：</div>
+				    		<div class="col-sm-2"><span id="show_iconUrl">&nbsp;</span></div>
+				    		<div class="col-sm-2">排序：</div>
+				    		<div class="col-sm-2" id="show_seq">&nbsp;</div>
 						</div>
 					</div>
-				</div>
+		    	</div>
+		    	<div class="row table-panel">
+		    		<div class="col-sm-12">
+			    		<div id="toolbar">
+							<button type="button" class="btn btn-primary btn-sm" onclick="editUser()">编辑</button>
+					    	<button type="button" class="btn btn-success btn-sm" onclick="addUser()">新增</button>
+					    	<button type="button" class="btn btn-danger btn-sm" onclick="removeUser()">删除</button>
+					    	<button type="button" class="btn btn-info btn-sm" onclick="userRole()">分配角色</button>
+						</div>
+						<table id="table"></table>
+					</div>
+		    	</div>
 			</div>
 		</div>
 	</div>

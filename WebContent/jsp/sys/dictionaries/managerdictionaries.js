@@ -25,7 +25,7 @@ function initDicTable(){
         sortable: false,                     //是否启用排序
         sortOrder: "asc",                   //排序方式
         pageNumber:1,//首页页码
-        pageSize:9,//页面数据条数
+        pageSize:8,//页面数据条数
         clickToSelect: true,                //是否启用点击选中行
         uniqueId: "recid",                     //每一行的唯一标识，一般为主键列
         toolbar: "#dicToolbar",                //工具按钮用哪个容器

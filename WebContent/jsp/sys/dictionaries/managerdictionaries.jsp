@@ -4,9 +4,10 @@
 <html>
 <head>
 <%@ include file="/jsp/sys/include/header.jsp"%>
-<!-- Theme style -->
-<link rel="stylesheet" href="${basepath}resource/dist/css/AdminLTE.min.css">
 <style>
+html,body {
+	height:100%;
+}
 .list-group-item:first-child {
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
@@ -28,12 +29,14 @@
 	<div class="container-fluid" style="height:100%;">
 		<div class="row" style="height:100%;">
 			<!-- 左侧区域 -->
-			<div class="col-sm-3 sys-border-right" style="height:100%;">
-				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;height:30px;line-height: 30px;">
-					<strong>&nbsp;字典管理</strong>
-				</div>
-				<div class="row" style="height:100%;padding-top:30px;overflow-y:auto;">
-					<div class="row" style="height:30px;position:absolute;">
+			<div class="col-sm-3" style="height:100%;padding:10px 15px 10px 25px;">
+				<div class="row base-panel" style="height:100%;overflow-y:auto;">
+					<div class="row" style="padding-top:10px;margin:0px;border-bottom:1px solid #eeeeee;">
+						<div class="col-lg-12">
+							<h5>字典类型管理</h5>
+						</div>
+					</div>
+					<div class="row" style="margin:5px 0px 0px 0px;">
 						<div class="col-lg-12">
 							<div class="input-group">
 								<input type="text" class="form-control" id="dicSearch">
@@ -45,35 +48,39 @@
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin:0;padding-top:30px;">
-						<div id="dicToolbar" class="btn-group">
-							<button type="button" class="btn btn-success btn-xs" onclick="addDic()" style="border-radius: 0px;">增加</button>
-							<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
-							<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
-							<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()" style="border-radius: 0px;">刷新字典缓存</button>
-						</div>
+					<div class="row" style="margin:0px;">
 						<div class="col-lg-12" style="padding-left:0px;padding-right:0px;">
+							<div id="dicToolbar" class="btn-group">
+								<button type="button" class="btn btn-success btn-xs" onclick="addDic()" style="border-radius: 0px;">增加</button>
+								<button type="button" class="btn btn-primary btn-xs" onclick="editDic()">修改</button>
+								<button type="button" class="btn btn-danger btn-xs" onclick="removeDic()">删除</button>
+								<button type="button" class="btn btn-info btn-xs" onclick="refreshDictionaries()" style="border-radius: 0px;">刷新字典缓存</button>
+							</div>
 							<table id="dicTable" style="height:100%;"></table>
 						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 右侧区域 -->
-			<div class="col-sm-9" style="height:100%;">
-				<div class="sys-skin" style="position:absolute;left:0px;right:0px;z-index:600;width:100%;height:30px;line-height: 30px;">
-					<strong>&nbsp;字典项管理</strong>
-				</div>
-				<div class="row" style="height:100%;padding-top:30px;overflow-y: auto;">
-				<div class="panel panel-default cust-panel">
-					<div class="panel-body">
-						<div id="toolbar">
-					    	<button type="button" class="btn btn-success btn-sm" onclick="addDicItem()">增加</button>
-							<button type="button" class="btn btn-primary btn-sm" onclick="editDicItem()">修改</button>
-							<button type="button" class="btn btn-danger btn-sm" onclick="removeDicItem()">删除</button>
-					    </div>
-					    <table id="table"></table>
-					</div>
-				</div>
+			<div class="col-sm-9" style="height:100%;overflow-y:auto;">
+				<div class="row table-panel">
+					<div class="col-sm-12">
+						<div class="row" style="border-bottom:1px solid #eeeeee;">
+							<div class="col-sm-12">
+								<h5>字典项管理</h5>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12">
+								<div id="toolbar">
+							    	<button type="button" class="btn btn-success btn-sm" onclick="addDicItem()">增加</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="editDicItem()">修改</button>
+									<button type="button" class="btn btn-danger btn-sm" onclick="removeDicItem()">删除</button>
+							    </div>
+							    <table id="table"></table>
+							</div>
+						</div>
+				    </div>
 				</div>
 			</div>
 		</div>

@@ -52,7 +52,6 @@ function initTree(){
 			$('#show_functionIcon').removeClass();
 			$('#show_functionIcon').addClass(data.data.functionIcon);
 			$('#show_functionUrl').html(data.data.functionUrl);
-			$('#show_seq').html(data.data.seq);
 			$('#table').bootstrapTable('refresh');
 		}
 	});

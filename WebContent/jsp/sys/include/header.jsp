@@ -21,4 +21,4 @@
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
 <!-- 系统样式 -->
-<link rel="stylesheet" href="${basepath}resource/css/sys-style.css">
+<link rel="stylesheet" href="${basepath}resource/css/bootstrap2ssm.css">
