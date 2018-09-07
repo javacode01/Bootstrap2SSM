@@ -52,6 +52,21 @@
 		    	-webkit-transform: scale(1.0);
 		  	}
 		}
+		
+		.sidebar-menu>li>a {
+		    padding: 12px 5px 12px 15px;
+		    display: block;
+		}
+		
+		.treeview-menu>li>a {
+		    padding: 6px 5px 6px 30px;
+		    display: block;
+		    font-size: 14px;
+		}
+		
+		.skin-blue .sidebar-menu>li:hover>a, .skin-blue .sidebar-menu>li.active>a, .skin-blue .sidebar-menu>li.menu-open>a {
+		    border-left: 3px solid #367FA9;
+		}
 	</style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
