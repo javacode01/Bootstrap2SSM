@@ -9,8 +9,8 @@
 	<div class="container-fluid">
 		<div class="row search-panel">
 			<#list columns as column>
-				<div class="col-sm-1 sys-search-label">${column.columnComment}</div>
-				<div class="col-sm-3 sys-search-input"><input class="form-control" id="search_${column.propertyName}"></div>
+				<div class="col-sm-1 search-label">${column.columnComment}</div>
+				<div class="col-sm-3 search-input"><input class="form-control" id="search_${column.propertyName}"></div>
 			</#list>
 			<div class="col-sm-1 search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
 		</div>
