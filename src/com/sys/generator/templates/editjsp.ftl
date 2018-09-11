@@ -9,10 +9,16 @@
 		<div class="modal-body">
 			<form role="form" id="addEditForm">
 				<#list columns as column>
+				<#if column.propertyName!="creater"&&column.propertyName!="createTime"&&column.propertyName!="updater"&&column.propertyName!="updateTime">
+				<#if column.propertyName!="recid">
 				<div class="form-group">
+				<#else>
+				<div class="form-group" style="display:none;">
+				</#if>
 					<label for="${column.propertyName}">${column.columnComment}</label>
 					<input type="text" class="form-control" id="${column.propertyName}" name="${column.propertyName}" value="${r"${"}${className?lower_case}.${column.propertyName}${r"}"}" required>
 				</div>
+				</#if>
 				</#list>
 			</form>
 		</div>
