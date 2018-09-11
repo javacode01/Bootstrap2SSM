@@ -10,9 +10,11 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.sys.security.SysAccessDecisionManager;
 import com.sys.security.SysAccessDeniedHandler;
+import com.sys.security.SysAuthCodeFilter;
 import com.sys.security.SysAuthenticationProvider;
 import com.sys.security.SysLoginFailureHandler;
 import com.sys.security.SysLoginSuccessHandler;
@@ -63,6 +65,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.headers().frameOptions().disable();//允许Iframe
 		//添加自定义过滤器
 		http.addFilterBefore(sysSecurityFilter(), FilterSecurityInterceptor.class);
+		http.addFilterBefore(sysAuthCodeFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	/**
@@ -151,10 +154,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	 * 自定义权限不足处理
 	 * @return
 	 */
+	@Bean
 	public SysAccessDeniedHandler sysAccessDeniedHandler() {
 		SysAccessDeniedHandler sysAccessDeniedHandler = new SysAccessDeniedHandler();
 		sysAccessDeniedHandler.setErrorPage("/error/denied");
 		return sysAccessDeniedHandler;
+	}
+	
+	/**
+	 * 自定义验证码校验过滤器
+	 * @return
+	 * @throws Exception 
+	 */
+	@Bean
+	public SysAuthCodeFilter sysAuthCodeFilter() {
+		SysAuthCodeFilter sysAuthCodeFilter = new SysAuthCodeFilter();
+		return sysAuthCodeFilter;
 	}
 	
 }

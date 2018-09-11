@@ -61,15 +61,15 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 		SysUsers sysuser = sysUsersService.getSysUserByUserName(userName);
 		
 		if(null==sysuser){
-            throw new UsernameNotFoundException("用户不存在");  
+            throw new AuthenticationServiceException("用户不存在");  
         }else if (!sysuser.isEnabled()){  
-            throw new DisabledException("用户已被禁用");  
+            throw new AuthenticationServiceException("用户已被禁用");  
         }else if (!sysuser.isAccountNonExpired()) {  
-            throw new AccountExpiredException("账号已过期");  
+            throw new AuthenticationServiceException("账号已过期");  
         }else if (!sysuser.isAccountNonLocked()) {  
-            throw new LockedException("账号已被锁定");  
+            throw new AuthenticationServiceException("账号已被锁定");  
         }else if (!sysuser.isCredentialsNonExpired()) {  
-            throw new LockedException("凭证已过期");  
+            throw new AuthenticationServiceException("凭证已过期");  
         }
 		
 		token.setDetails(sysuser);
