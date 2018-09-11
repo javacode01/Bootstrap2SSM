@@ -14,6 +14,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import com.sys.security.SysAccessDecisionManager;
 import com.sys.security.SysAccessDeniedHandler;
 import com.sys.security.SysAuthenticationProvider;
+import com.sys.security.SysLoginFailureHandler;
 import com.sys.security.SysLoginSuccessHandler;
 import com.sys.security.SysSecurityFilter;
 import com.sys.security.SysSecurityMetadataSource;
@@ -51,6 +52,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 		.formLogin().loginPage("/login").loginProcessingUrl("/login")//配置登录页和登录地址
 //		.defaultSuccessUrl("/loginsuccess")//配置登录成功后跳转地址
 		.successHandler(sysLoginSuccessHandler())//登录成功后，自定义处理
+		.failureHandler(sysLoginFailureHandler())//登录失败后，自定义处理
 		.and()
 //		.rememberMe().tokenValiditySeconds(4*7*24*60*60).key("Bootstrap2SSM")//启用Remember-me功能，设置有效时间（单位秒）和私钥
 //		.and()
@@ -126,6 +128,17 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	public SysLoginSuccessHandler sysLoginSuccessHandler() {
 		SysLoginSuccessHandler sysLoginSuccessHandler = new SysLoginSuccessHandler();
 		return sysLoginSuccessHandler;
+	}
+	
+	/**
+	 * 自定义登录失败处理
+	 * @return
+	 */
+	@Bean
+	public SysLoginFailureHandler sysLoginFailureHandler() {
+		SysLoginFailureHandler sysLoginFailureHandler = new SysLoginFailureHandler();
+		sysLoginFailureHandler.setDefaultFailureUrl("/login?error=true");
+		return sysLoginFailureHandler;
 	}
 	
 	@Bean

@@ -46,7 +46,7 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 		String passwd = user.getPassword(); //数据库中密码
 		//验证密码
 		if (!passwd.equals(rawPassword)) {  
-			throw new AuthenticationServiceException("用户密码不正确");  
+			throw new AuthenticationServiceException("密码不正确");  
 		}
 		SysUsers sysUser =(SysUsers) user;
 		sysUser.setLoginTime(new Date());//设置登录时间
@@ -61,7 +61,7 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 		SysUsers sysuser = sysUsersService.getSysUserByUserName(userName);
 		
 		if(null==sysuser){
-            throw new UsernameNotFoundException("用户名/密码无效");  
+            throw new UsernameNotFoundException("用户不存在");  
         }else if (!sysuser.isEnabled()){  
             throw new DisabledException("用户已被禁用");  
         }else if (!sysuser.isAccountNonExpired()) {  
