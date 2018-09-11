@@ -14,7 +14,7 @@ body {
 }
 
 /**
- * 查询条件区域样式设置
+ * 信息展示区域样式设置
  **/
 .search-panel {
 	background-color:#FFFFFF;
@@ -25,20 +25,13 @@ body {
 }
 
 /**
- * 查询条件区域-label样式
- */
-.search-label {
-	line-height: 34px;
-	padding-right:0px;
-	text-align:right;
-	margin:5px 0px;
-}
-
-/**
- * 查询条件区域-input样式
- */
-.search-input {
-	margin:5px 0px;
+ * 查询条件区域样式设置
+ **/
+.form-panel {
+	background-color:#FFFFFF;
+	border-radius: 5px;
+	margin:10px 0px;
+	padding:15px 15px 5px 10px;
 }
 
 /**

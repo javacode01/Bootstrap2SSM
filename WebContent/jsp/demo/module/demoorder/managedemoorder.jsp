@@ -7,23 +7,41 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row search-panel">
-							<div class="col-sm-1 search-label">订单id</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_recid"></div>
-				<div class="col-sm-1 search-label">订单编号</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_orderNo"></div>
-				<div class="col-sm-1 search-label">订单简介</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_description"></div>
-				<div class="col-sm-1 search-label">创建人</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_creater"></div>
-				<div class="col-sm-1 search-label">创建时间</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_createTime"></div>
-				<div class="col-sm-1 search-label">更新人</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_updater"></div>
-				<div class="col-sm-1 search-label">更新时间</div>
-				<div class="col-sm-3 search-input"><input class="form-control" id="search_updateTime"></div>
-			<div class="col-sm-1 search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
-		</div>
+		<form class="form-horizontal form-panel" role="form">
+			<div class="form-group">
+			    <label for="search_recid" class="col-sm-1 control-label">订单订单</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_recid" placeholder="请输入订单id">
+			    </div>
+			    <label for="search_orderNo" class="col-sm-1 control-label">订单编号</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_orderNo" placeholder="请输入订单编号">
+			    </div>
+			    <label for="search_orderNo" class="col-sm-1 control-label">订单编号</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_orderNo" placeholder="请输入订单编号">
+			    </div>
+			</div>
+			<div class="form-group">
+			    <label for="search_recid" class="col-sm-1 control-label">订单id</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_recid" placeholder="请输入订单id">
+			    </div>
+			    <label for="search_orderNo" class="col-sm-1 control-label">订单编号</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_orderNo" placeholder="请输入订单编号">
+			    </div>
+			    <label for="search_orderNo" class="col-sm-1 control-label">订单编号</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_orderNo" placeholder="请输入订单编号">
+			    </div>
+			</div>
+			<div class="form-group">
+			 	<div class="col-sm-offset-5 col-sm-7">
+			    	<button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button>
+			    </div>
+			</div>
+		</form>
 		<div class="row table-panel">
 			<div class="col-sm-12">
 				<div id="toolbar">

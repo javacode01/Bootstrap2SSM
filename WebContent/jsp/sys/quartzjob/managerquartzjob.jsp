@@ -7,13 +7,21 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row search-panel">
-			<div class="col-sm-1 search-label">任务名称</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_jobName"></div>
-			<div class="col-sm-1 search-label">任务组名</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_jobGroupName"></div>
-			<div class="col-sm-4 search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
-		</div>
+		<form class="form-horizontal form-panel" role="form">
+			<div class="form-group">
+			    <label for="search_jobName" class="col-sm-1 control-label">任务名称</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_jobName" placeholder="请输入任务名称">
+			    </div>
+			    <label for="search_jobGroupName" class="col-sm-1 control-label">任务组名</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_jobGroupName" placeholder="请输入任务组名">
+			    </div>
+			    <div class="col-sm-4">
+			    	<button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button>
+			    </div>
+			</div>
+		</form>
 		<div class="row table-panel">
 			<div class="col-sm-12">
 				<div id="toolbar">

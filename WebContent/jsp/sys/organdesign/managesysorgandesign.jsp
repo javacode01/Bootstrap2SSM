@@ -8,13 +8,21 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row search-panel">
-			<div class="col-sm-1 search-label">组织级别</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_organLevel"></div>
-			<div class="col-sm-1 search-label">级别名称</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_organLevelName"></div>
-			<div class="col-sm-4 search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
-		</div>
+		<form class="form-horizontal form-panel" role="form">
+			<div class="form-group">
+			    <label for="search_organLevel" class="col-sm-1 control-label">组织级别</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_organLevel" placeholder="请输入组织级别">
+			    </div>
+			    <label for="search_organLevelName" class="col-sm-1 control-label">级别名称</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_organLevelName" placeholder="请输入级别名称">
+			    </div>
+			    <div class="col-sm-4">
+			    	<button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button>
+			    </div>
+			</div>
+		</form>
 		<div class="row table-panel">
 			<div class="col-sm-12">
 				<div id="toolbar">

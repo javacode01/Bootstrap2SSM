@@ -8,13 +8,21 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="row search-panel">
-			<div class="col-sm-1 search-label">角色名</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_roleName"></div>
-			<div class="col-sm-1 search-label">角色编号</div>
-			<div class="col-sm-3 search-input"><input class="form-control" id="search_roleCode"></div>
-			<div class="col-sm-4 search-input"><button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button></div>
-		</div>
+		<form class="form-horizontal form-panel" role="form">
+			<div class="form-group">
+			    <label for="search_roleName" class="col-sm-1 control-label">角色名</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_roleName" placeholder="请输入角色名">
+			    </div>
+			    <label for="search_roleCode" class="col-sm-1 control-label">角色编号</label>
+			    <div class="col-sm-3">
+			    	<input type="text" class="form-control" id="search_roleCode" placeholder="请输入角色编号">
+			    </div>
+			    <div class="col-sm-4">
+			    	<button type="button" class="btn btn-primary btn-sm" onclick="search()">查询</button>
+			    </div>
+			</div>
+		</form>
 		<div class="row table-panel">
 			<div class="col-sm-12">
 				<div id="toolbar">
