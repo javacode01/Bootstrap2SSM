@@ -5,6 +5,9 @@ var tabs = (function(){
 	 */
 	obj.addTab = function(event){
 		var data_id = $(event.target).attr("data-id");
+		if(data_id==undefined){
+			return false;
+		}
 		//校验tab是否存在
 		if($('#tab_'+data_id).length>0){
 			$('#tab_'+data_id).tab("show");
