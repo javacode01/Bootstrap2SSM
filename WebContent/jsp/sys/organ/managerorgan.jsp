@@ -22,7 +22,7 @@ html,body {
 			</div>
 			<!-- 右侧操作区域 -->
 			<div class="col-sm-9" style="height:100%;overflow-y:auto;">
-				<div class="row search-panel">
+				<div class="row detail-panel">
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-2">机构编码：</div>

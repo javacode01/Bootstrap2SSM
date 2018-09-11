@@ -16,7 +16,7 @@ body {
 /**
  * 信息展示区域样式设置
  **/
-.search-panel {
+.detail-panel {
 	background-color:#FFFFFF;
 	border-radius: 5px;
 	margin:10px 0px;
