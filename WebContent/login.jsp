@@ -31,36 +31,46 @@
   <script src="${basepath}resource/js/respond.min.js"></script>
   <![endif]-->
 </head>
-<body class="hold-transition login-page" style="background-color:#049EC4;">
+<body class="hold-transition login-page" style="background-color:#2683BE;">
 	<div style="height:100%;padding-top:7%;">
 	<div class="login-box" style="margin:auto;">
 		<div class="login-logo">
-			<a><%=BspUtils.getSysName() %></a>
+			<a style="color:#FFFFFF;"><%=BspUtils.getSysName() %></a>
 		</div>
 		<!-- /.login-logo -->
-		<div class="login-box-body">
+		<div class="login-box-body" style="background-color:#DCEBF4;">
 			<c:if test="${param.error != null}">
 				<p class="login-box-msg" style="color:red;">用户名密码错误</p>
 			</c:if>
 			<form id="loginform" action="${basepath}login" method="POST">
 				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				<div class="form-group has-feedback">
-					<input id="username" type="text" class="form-control" name="username" placeholder="登录名">
-					<span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+					<input id="username" type="text" class="form-control" name="username" placeholder="用户名">
+					<span class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input id="password" type="password" class="form-control" name="password" placeholder="密码">
 					<span class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="row">
-					<div class="col-xs-8">
+					<div class="col-sm-8">
+						<input id="authCode" type="text" class="form-control" name="authCode" placeholder="验证码">
+					</div>
+					<!-- /.col -->
+					<div class="col-sm-4">
+						<img src="${basepath}getAuthCode" id="codeImage" type="image" title="图片看不清？点击重新得到验证码" />
+					</div>
+					<!-- /.col -->
+				</div>
+				<div class="row" style="margin-top:20px;">
+					<div class="col-sm-8">
 						<div class="checkbox icheck">
 							<label> <input type="checkbox" id="checkbox" checked> 记住我
 							</label>
 						</div>
 					</div>
 					<!-- /.col -->
-					<div class="col-xs-4">
+					<div class="col-sm-4">
 						<button id="login" type="button" class="btn btn-primary btn-block btn-flat">登 录</button>
 					</div>
 					<!-- /.col -->
@@ -86,6 +96,9 @@
 				radioClass : 'iradio_square-blue',
 				increaseArea : '20%' // optional
 			});
+			$('#codeImage').click(function(){
+				$('#codeImage').attr('src','${basepath}getAuthCode?abc='+Math.random());
+			});
 			$('#login').click(function(){
 				if(!$("#username").val()){
 					$("#username").css("border","1px solid #D9544F");
@@ -98,6 +111,12 @@
 					return false;
 				}else{
 					$("#password").css("border","1px solid #3C8DBC");
+				}
+				if(!$("#authCode").val()){
+					$("#authCode").css("border","1px solid #D9544F");
+					return false;
+				}else{
+					$("#authCode").css("border","1px solid #3C8DBC");
 				}
 				local();
 				$("#password").val(toMD5Str($("#password").val()));
@@ -115,6 +134,13 @@
 					$("#password").css("border","1px solid #D9544F");
 				}else{
 					$("#password").css("border","1px solid #3C8DBC");
+				}
+			});
+			$("#authCode").on('input propertychange',function(){
+				if(!$("#authCode").val()){
+					$("#authCode").css("border","1px solid #D9544F");
+				}else{
+					$("#authCode").css("border","1px solid #3C8DBC");
 				}
 			});
 			if (typeof(Storage) !== "undefined") {

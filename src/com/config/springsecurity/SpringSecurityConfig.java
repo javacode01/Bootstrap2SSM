@@ -45,7 +45,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		// TODO Auto-generated method stub
 		http.authorizeRequests()
-		.antMatchers("/index.jsp","/login").permitAll()//登录页面无条件允许访问
+		.antMatchers("/index.jsp","/login","/getAuthCode").permitAll()//登录页面无条件允许访问
 		.anyRequest().hasAuthority("ROLE_USER")//其他访问都需要有ROLE_USER角色权限
 		.and()
 		.formLogin().loginPage("/login").loginProcessingUrl("/login")//配置登录页和登录地址
