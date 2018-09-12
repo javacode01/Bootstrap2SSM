@@ -38,14 +38,14 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 	 */
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails user,	UsernamePasswordAuthenticationToken token)throws AuthenticationException {
-		String rawPassword = (String) token.getCredentials(); //登录密码 
-		String passwd = user.getPassword(); //数据库中密码
-		//验证密码
-		if (!passwd.equals(rawPassword)) {  
-			throw new AuthenticationServiceException("密码不正确");  
-		}
-		SysUsers sysUser =(SysUsers) user;
-		sysUser.setLoginTime(new Date());//设置登录时间
+//		String rawPassword = (String) token.getCredentials(); //登录密码 
+//		String passwd = user.getPassword(); //数据库中密码
+//		//验证密码
+//		if (!passwd.equals(rawPassword)) {  
+//			throw new AuthenticationServiceException("密码不正确");  
+//		}
+//		SysUsers sysUser =(SysUsers) user;
+//		sysUser.setLoginTime(new Date());//设置登录时间
 	}
 
 	/**
@@ -54,13 +54,13 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 	@Override
 	protected UserDetails retrieveUser(String userName,UsernamePasswordAuthenticationToken token)	throws AuthenticationException {
 		
-		SysUsers sysuser = sysUsersService.getSysUserByUserName(userName);
-		
 		SysWebAuthenticationDetails details = (SysWebAuthenticationDetails) token.getDetails();
 		if(!details.getRequestAuthCode().equals(details.getSessionAuthCode())) {
 			throw new AuthenticationServiceException("验证码错误");
 		}
 		
+		//从数据库获取用户信息
+		SysUsers sysuser = sysUsersService.getSysUserByUserName(userName);
 		if(null==sysuser){
             throw new AuthenticationServiceException("用户不存在");  
         }else if (!sysuser.isEnabled()){  
@@ -72,6 +72,13 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
         }else if (!sysuser.isCredentialsNonExpired()) {  
             throw new AuthenticationServiceException("凭证已过期");  
         }
+		String rawPassword = (String) token.getCredentials(); //用户输入的登录密码
+		String passwd = sysuser.getPassword(); //数据库中密码
+		//验证密码
+		if (!passwd.equals(rawPassword)) {  
+			throw new AuthenticationServiceException("密码不正确");  
+		}
+		sysuser.setLoginTime(new Date());//设置登录时间
 		
 		token.setDetails(sysuser);
 		

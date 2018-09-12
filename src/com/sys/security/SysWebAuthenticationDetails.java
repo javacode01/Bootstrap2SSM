@@ -22,6 +22,7 @@ public class SysWebAuthenticationDetails extends WebAuthenticationDetails{
 		HttpSession session = request.getSession(false);
 		if(null!=session&&null!=session.getAttribute("authCode")) {
 			sessionAuthCode = (String) session.getAttribute("authCode");
+			session.removeAttribute("authCode");
 		}else {
 			sessionAuthCode = "";
 		}

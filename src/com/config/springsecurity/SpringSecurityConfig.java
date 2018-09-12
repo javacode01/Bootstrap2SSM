@@ -54,7 +54,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 //		.defaultSuccessUrl("/loginsuccess")//配置登录成功后跳转地址
 		.successHandler(sysLoginSuccessHandler())//登录成功后，自定义处理
 		.failureHandler(sysLoginFailureHandler())//登录失败后，自定义处理
-		.authenticationDetailsSource(sysAuthenticationDetailsSource())//登录时设置自定义参数，如图形验证码
+		.authenticationDetailsSource(sysAuthenticationDetailsSource())//登录时设置自定义参数(如图形验证码)
 		.and()
 //		.rememberMe().tokenValiditySeconds(4*7*24*60*60).key("Bootstrap2SSM")//启用Remember-me功能，设置有效时间（单位秒）和私钥
 //		.and()
