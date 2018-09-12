@@ -51,7 +51,7 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-8">
-						<input id="authCode" type="text" class="form-control" name="authCode" placeholder="验证码">
+						<input id="authCode" type="text" class="form-control" name="authCode" autocomplete="off" placeholder="验证码">
 					</div>
 					<!-- /.col -->
 					<div class="col-sm-4">
