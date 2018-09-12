@@ -6,16 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AccountExpiredException;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.AbstractUserDetailsAuthenticationProvider;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import com.sys.model.SysUserRole;
 import com.sys.model.SysUserRoleExample;
@@ -59,6 +55,11 @@ public class SysAuthenticationProvider extends AbstractUserDetailsAuthentication
 	protected UserDetails retrieveUser(String userName,UsernamePasswordAuthenticationToken token)	throws AuthenticationException {
 		
 		SysUsers sysuser = sysUsersService.getSysUserByUserName(userName);
+		
+		SysWebAuthenticationDetails details = (SysWebAuthenticationDetails) token.getDetails();
+		if(!details.getRequestAuthCode().equals(details.getSessionAuthCode())) {
+			throw new AuthenticationServiceException("验证码错误");
+		}
 		
 		if(null==sysuser){
             throw new AuthenticationServiceException("用户不存在");  
