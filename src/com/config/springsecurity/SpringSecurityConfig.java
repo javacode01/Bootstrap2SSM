@@ -161,7 +161,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	/**
-	 * 登录时设置自定义参数，如图形验证码
+	 * 登录时设置自定义参数(如图形验证码)
 	 * @return
 	 */
 	@Bean
