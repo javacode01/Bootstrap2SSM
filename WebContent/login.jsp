@@ -39,10 +39,13 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body" style="background-color:#DCEBF4;">
+			<c:if test="${param.error != null}">
+				<div class="alert alert-danger">${SPRING_SECURITY_LAST_EXCEPTION.message}</div>
+			</c:if>
 			<form id="loginform" action="${basepath}login" method="POST">
 				<input name="${_csrf.parameterName}" type="hidden" value="${_csrf.token}"/>
 				<div class="form-group has-feedback">
-					<input id="username" type="text" class="form-control" name="username" placeholder="用户名">
+					<input id="username" type="text" class="form-control" name="username" autocomplete="off" placeholder="用户名">
 					<span class="glyphicon glyphicon-user form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
@@ -60,22 +63,20 @@
 					<!-- /.col -->
 				</div>
 				<div class="row" style="margin-top:20px;">
+					<!--
 					<div class="col-sm-8">
 						<div class="checkbox icheck">
 							<label> <input type="checkbox" id="checkbox" checked> 记住我
 							</label>
 						</div>
 					</div>
-					<!-- /.col -->
-					<div class="col-sm-4">
-						<button id="login" type="button" class="btn btn-primary btn-block btn-flat">登 录</button>
+					 /.col -->
+					<div class="col-sm-12">
+						<button id="login" type="button" class="btn btn-warning btn-block">登 录</button>
 					</div>
 					<!-- /.col -->
 				</div>
 			</form>
-			<c:if test="${param.error != null}">
-				<p class="login-box-msg" style="color:red;">${SPRING_SECURITY_LAST_EXCEPTION.message}</p>
-			</c:if>
 		</div>
 		<!-- /.login-box-body -->
 	</div>
@@ -91,11 +92,13 @@
 	<script type="text/javascript" src="${basepath}resource/js/md5.js"></script>
 	<script>
 		$(function() {
+			/**
 			$('input').iCheck({
 				checkboxClass : 'icheckbox_square-blue',
 				radioClass : 'iradio_square-blue',
 				increaseArea : '20%' // optional
 			});
+			*/
 			$('#codeImage').click(function(){
 				$('#codeImage').attr('src','${basepath}getAuthCode?abc='+Math.random());
 			});
@@ -145,18 +148,11 @@
 			});
 			if (typeof(Storage) !== "undefined") {
 			    $("#username").val(localStorage.getItem("username"));
-			    $("#password").val(localStorage.getItem("password"));
 			}
 		});
 		function local(){
 			if (typeof(Storage) !== "undefined") {
-				if($("#checkbox").get(0).checked){
-					localStorage.setItem("username", $("#username").val());
-					localStorage.setItem("password", $("#password").val());
-				}else{
-					localStorage.removeItem("username");
-					localStorage.removeItem("password");
-				}
+				localStorage.setItem("username", $("#username").val());
 			}
 		}
 	</script>
