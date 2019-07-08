@@ -2,9 +2,11 @@ package com.config.springMVC;
 
 import java.io.File;
 
+import javax.servlet.Filter;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.config.spring.RootConfig;
@@ -66,6 +68,19 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
 	protected String[] getServletMappings() {
 		// TODO Auto-generated method stub
 		return new String[] {"/"};
+	}
+	
+
+	/**
+	 * 配置过滤器
+	 */
+	@Override
+	protected Filter[] getServletFilters() {
+		//配置字符过滤器
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();  
+        characterEncodingFilter.setEncoding("UTF-8");  
+        characterEncodingFilter.setForceEncoding(true);  
+        return new Filter[] {characterEncodingFilter};
 	}
 	
 	/**
