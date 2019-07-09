@@ -155,6 +155,13 @@
 				localStorage.setItem("username", $("#username").val());
 			}
 		}
+		
+		//回车登录
+		document.onkeydown = function(e){
+		    if(e.keyCode == 13){
+		    	$("#login").click();
+		    }
+		}
 	</script>
 </body>
 </html>
