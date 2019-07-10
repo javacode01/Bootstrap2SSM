@@ -88,7 +88,7 @@
 			},
 			error:function(error){
 				PluginUtil.unmask("editModal");
-				PlubinUtil.alert(error);
+				PluginUtil.alert(error);
 			}
 		});
 	}
