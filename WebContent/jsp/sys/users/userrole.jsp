@@ -32,7 +32,7 @@
 			url:basepath+"sys/roles/listRoles",
 	        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 	        queryParams: function(params){
-	        	return getParam(params);
+	        	return getParam1(params);
 	        },									//传递参数（*）
 	        clickToSelect: true,                //是否启用点击选中行
 	        uniqueId: "roleId",                     //每一行的唯一标识，一般为主键列
@@ -57,7 +57,7 @@
 		});
 	}
 	//获取查询条件
-	function getParam(params){
+	function getParam1(params){
 		var filter = new HashMap();
 		$.extend(params,{filter:filter.getJSON()});
 		return params;
